@@ -19,6 +19,7 @@ def choose_requirements():
     if request.method == "POST":
 
         YearLevel = request.form.get("YearLevel")
+        name = request.form.getlist("name")
 
         email = request.form.get("email")
 
@@ -38,6 +39,8 @@ def choose_requirements():
 
         for k, _ in Lists.Requirements.items():
             session[k] = any([val in documents for val in Lists.Requirements[k]])
+
+        session["name"] = name
 
         session.modified = True
 
@@ -63,10 +66,11 @@ def allowed_file_size(filesize):
 @app.route("/upload_image", methods = ["GET", "POST"])
 def upload_image():
 
+    print(session["name"])
+
     if request.method == "POST":
         if request.files:
 
-            name = request.form.get("name")
             files = request.files.getlist("file")
             for file in files:
                 if not allowed_file_size(request.cookies.get("filesize")):
@@ -81,7 +85,7 @@ def upload_image():
                     print("Invalid file extension")
                     return redirect(request.url)
 
-            new_directory = app.config["FILE_UPLOADS"] + "/" + name
+            new_directory = app.config["FILE_UPLOADS"] + "/" + " ".join(session["name"])
             os.mkdir(new_directory)
                 
             for file in files:

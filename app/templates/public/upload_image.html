@@ -9,7 +9,7 @@
 
                 {% for k, v in session.items() %}
                 <div class="input-group mb-3">
-                    {% if session[k] == True %}
+                    {% if session[k] == True and k != "name" %}
                     <label class="input-group-text" >{{ k }}</label>
                     <input type="file" class="form-control" id="file" name = "file" oninput="filesize(this)" required>
                     {% endif %}
