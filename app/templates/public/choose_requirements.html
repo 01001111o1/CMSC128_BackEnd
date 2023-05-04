@@ -43,23 +43,22 @@
               </div>
             </div>
 
-            <div class="col">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="req1" name = "check">
-                <label class="form-check-label">Requirement 1</label>
+            <div class = "col">
+            {% for i in range (list1 |length) %}
+              <div class="form-check"> 
+                <input class="form-check-input" type="checkbox" value="{{ list1[i] }}" name = "check">
+                <label class="form-check-label">{{ list1[i] }}</label>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="req2" name = "check">
-                <label class="form-check-label">Requirement 2</label>
+            {% endfor %}
+            </div>
+
+            <div class = "col">
+            {% for i in range (list2 |length) %}
+              <div class="form-check"> 
+                <input class="form-check-input" type="checkbox" value="{{ list2[i] }}" name = "check">
+                <label class="form-check-label">{{ list2[i] }}</label>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="req3" name = "check">
-                <label class="form-check-label">Requirement 3</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="req4" name = "check">
-                <label class="form-check-label">Requirement 4</label>
-              </div>
+            {% endfor %}
             </div>
 
 

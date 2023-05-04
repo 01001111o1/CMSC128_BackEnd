@@ -1,5 +1,5 @@
 from app import app
-
+from app import Lists 
 from flask import render_template, request, redirect, jsonify, make_response, url_for, session
 
 import os
@@ -7,19 +7,18 @@ from werkzeug.utils import secure_filename
 
 from email_validator import validate_email, EmailNotValidError
 
+
 @app.route("/")
 def index():
-    print(app.config["ENV"])
     return render_template("public/index.html")
 
 #Requirement = [list of documents that require it]
-BIRTH_CERTIFICATE = ["req1", "req2", "req4"]
-SCHOOL_ID = ["req1", "req3"]
-RECENT_PICTURE = ["req2"]
 
 @app.route("/choose_requirements", methods = ["GET", "POST"])
 def choose_requirements():
     if request.method == "POST":
+
+        YearLevel = request.form.get("YearLevel")
 
         email = request.form.get("email")
 
@@ -34,16 +33,17 @@ def choose_requirements():
 
         documents = request.form.getlist("check") #Requested Documents
         if len(documents) == 0:
+            #alert message to select at least one
             return redirect(request.url)
 
-        session["Birth Certificate"] = any([val in documents for val in BIRTH_CERTIFICATE])
-        session["School ID"] = any([val in documents for val in SCHOOL_ID])
-        session["Recent Picture"] = any([val in documents for val in RECENT_PICTURE])
+        for k, _ in Lists.Requirements.items():
+            session[k] = any([val in documents for val in Lists.Requirements[k]])
+
         session.modified = True
 
         return redirect(url_for("upload_image"))
 
-    return render_template("public/choose_requirements.html")
+    return render_template("public/choose_requirements.html", list1 = Lists.Documents1 ,list2 = Lists.Documents2)
 
 def index():
     return render_template("public/index.html")
