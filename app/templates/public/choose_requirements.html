@@ -1,0 +1,84 @@
+{% extends "public/templates/public_template.html" %}
+{% block title %} Upload Image {% endblock %}
+{% block main %}
+
+<form action = "/choose_requirements" method = "POST" enctype = "multipart/form-data">
+
+<div class = "container">
+    <div class="row">
+
+            <div class="col">
+            <div class="input-group mb-3">
+              <span class="input-group-text">First Name</span>
+              <input type="text" class="form-control" name = "name" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Middle Name</span>
+              <input type="text" class="form-control" name = "name" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Last Name</span>
+              <input type="text" class="form-control" name = "name" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Email</span>
+              <input type="text" class="form-control" name = "email" required>
+            </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">Year Level</label>
+                <select class="form-select" id="YearLevel" name = "YearLevel" required> <!--WHY DOES REQUIRED NOT WORK!!-->
+                  <option selected>Current Year Level</option>
+                  <option value="1">First Year</option>
+                  <option value="2">Second Year</option>
+                  <option value="3">Third Year</option>
+                  <option value="4">Fourth Year</option>
+                  <option value="5">Fifth Year</option>
+                  <option value="6">Sixth Year</option>
+                  <option value="7">Graduate Student</option>
+                </select>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name = "check">
+                <label class="form-check-label" for="req1">For Scholarship</label>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="req1" name = "check">
+                <label class="form-check-label">Requirement 1</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="req2" name = "check">
+                <label class="form-check-label">Requirement 2</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="req3" name = "check">
+                <label class="form-check-label">Requirement 3</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="req4" name = "check">
+                <label class="form-check-label">Requirement 4</label>
+              </div>
+            </div>
+
+
+            <button type = "submit" class = "btn btn-primary">Choose Requirements</button>
+    </div>
+</div>
+</form>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

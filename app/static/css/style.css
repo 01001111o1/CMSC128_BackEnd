@@ -1,0 +1,12 @@
+body{
+    background-color: #f1f1f1;
+}
+
+nav{
+    margin-bottom: 50px;
+}
+
+input[type=file]{
+    width:90px;
+    color:transparent;
+}
