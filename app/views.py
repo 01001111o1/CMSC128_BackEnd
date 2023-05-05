@@ -18,7 +18,6 @@ def index():
 def choose_requirements():
     if request.method == "POST":
 
-        YearLevel = request.form.get("YearLevel")
         name = request.form.getlist("name")
 
         email = request.form.get("email")
@@ -44,9 +43,13 @@ def choose_requirements():
 
         session.modified = True
 
+        total_price = request.form.get("total_price")
+        print(total_price)
+
         return redirect(url_for("upload_image"))
 
-    return render_template("public/choose_requirements.html", list1 = Lists.Documents1 ,list2 = Lists.Documents2)
+    return render_template("public/choose_requirements.html", list1 = Lists.Documents1 ,list2 = Lists.Documents2, scholarship_documents = 
+        Lists.scholarship_discounted_documents, base_prices = Lists.Base_Prices)
 
 def index():
     return render_template("public/index.html")
@@ -66,8 +69,6 @@ def allowed_file_size(filesize):
 @app.route("/upload_image", methods = ["GET", "POST"])
 def upload_image():
 
-    print(session["name"])
-
     if request.method == "POST":
         if request.files:
 
@@ -85,7 +86,7 @@ def upload_image():
                     print("Invalid file extension")
                     return redirect(request.url)
 
-            new_directory = app.config["FILE_UPLOADS"] + "/" + " ".join(session["name"])
+            new_directory = app.config["FILE_UPLOADS"] + "/" + " ".join([name.upper() for name in session["name"]])
             os.mkdir(new_directory)
                 
             for file in files:

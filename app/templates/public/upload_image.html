@@ -9,8 +9,13 @@
 
                 {% for k, v in session.items() %}
                 <div class="input-group mb-3">
-                    {% if session[k] == True and k != "name" %}
-                    <label class="input-group-text" >{{ k }}</label>
+                    {% if session[k] == True and k == "Preferred Format for True Copy of Grades" and k != "name" %}
+                    <select class="form-select"  name = "preferred_format" required>
+                      <option value="hard_copy">Hard Copy</option>
+                      <option value="digital_copy">Digital Copy</option>
+                    </select>
+                    {% elif session[k] == True and k != "name" %}
+                    <label class="input-group-text">{{ k }}</label>
                     <input type="file" class="form-control" id="file" name = "file" oninput="filesize(this)" required>
                     {% endif %}
                 </div>

@@ -10,3 +10,13 @@ input[type=file]{
     width:90px;
     color:transparent;
 }
+
+textarea { 
+    border-style: none; 
+    border-color: Transparent; 
+    overflow: auto;        
+    resize: none;
+    background-color: #f1f1f1;
+    font-size: 50px;
+    Pointer-events: none;
+}

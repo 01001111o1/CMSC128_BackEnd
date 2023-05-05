@@ -25,29 +25,33 @@
               <input type="text" class="form-control" name = "email" required>
             </div>
               <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">Year Level</label>
-                <select class="form-select" id="YearLevel" name = "YearLevel" required> <!--WHY DOES REQUIRED NOT WORK!!-->
-                  <option selected>Current Year Level</option>
+                <label class="input-group-text">Year Level</label>
+                <select class="form-select" id="YearLevel" name = "YearLevel" onchange="updatePrice_Yearlevel()" required> <!--WHY DOES REQUIRED NOT WORK!!-->
                   <option value="1">First Year</option>
                   <option value="2">Second Year</option>
                   <option value="3">Third Year</option>
                   <option value="4">Fourth Year</option>
-                  <option value="5">Fifth Year</option>
-                  <option value="6">Sixth Year</option>
-                  <option value="7">Graduate Student</option>
+                  <option value="Graduate_Student">Graduate Student</option>
+                  <option value="Alumni">Alumni</option>
                 </select>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name = "check">
-                <label class="form-check-label" for="req1">For Scholarship</label>
+                <input class="form-check-input"  id = "scholarship_toggle" type="checkbox"  onClick = "updatePrice_scholarship()">
+                <label class="form-check-label">For Scholarship</label>
               </div>
             </div>
 
             <div class = "col">
             {% for i in range (list1 |length) %}
               <div class="form-check"> 
-                <input class="form-check-input" type="checkbox" value="{{ list1[i] }}" name = "check">
                 <label class="form-check-label">{{ list1[i] }}</label>
+                {% if list1[i] in scholarship_documents %}
+                <input class="form-check-input scholarship" type="checkbox" value="{{ list1[i] }}" name = "check" data-price = "{{ base_prices[list1[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label scholarship_label"><h4>{{ base_prices[list1[i]] }}</h4></label>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="{{ list1[i] }}" name = "check" data-price = "{{ base_prices[list1[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label" value="{{ list1[i] }}"><h4>{{ base_prices[list1[i]] }}</h4></label>                
+                {% endif %}
               </div>
             {% endfor %}
             </div>
@@ -55,14 +59,21 @@
             <div class = "col">
             {% for i in range (list2 |length) %}
               <div class="form-check"> 
-                <input class="form-check-input" type="checkbox" value="{{ list2[i] }}" name = "check">
                 <label class="form-check-label">{{ list2[i] }}</label>
+                {% if list2[i] in scholarship_documents %}
+                <input class="form-check-input scholarship" type="checkbox" value="{{ list2[i] }}" name = "check" data-price = "{{ base_prices[list2[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label scholarship_label"><h4>{{ base_prices[list2[i]] }}</h4></label>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="{{ list2[i] }}" name = "check" data-price = "{{ base_prices[list2[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label"><h4>{{ base_prices[list2[i]] }}</h4></label>                
+                {% endif %}
               </div>
             {% endfor %}
             </div>
 
-
             <button type = "submit" class = "btn btn-primary">Choose Requirements</button>
+            <textarea id = "total_price" name = "total_price" readonly> 0 </textarea>
+
     </div>
 </div>
 </form>
