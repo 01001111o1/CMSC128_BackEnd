@@ -36,15 +36,18 @@ def choose_requirements():
             #alert message to select at least one
             return redirect(request.url)
 
+        temp = dict()
+
         for k, _ in Lists.Requirements.items():
-            session[k] = any([val in documents for val in Lists.Requirements[k]])
+            temp[k] = any([val in documents for val in Lists.Requirements[k]])
+
+        session["requirements"] = temp
 
         session["name"] = name
 
         session.modified = True
 
         total_price = request.form.get("total_price")
-        print(total_price)
 
         return redirect(url_for("upload_image"))
 
@@ -54,9 +57,7 @@ def choose_requirements():
 def index():
     return render_template("public/index.html")
 
-app.config["FILE_UPLOADS"] = "C:/Users/Sean/Desktop/CMSC128Project/Testing"
-app.config["ALLOWED_FILE_EXTENSIONS"] = ["PDF"]
-app.config["MAX_FILE_FILESIZE"] = 0.5 * 1024 * 1024 * 1024
+
 
 def allowed_file(filename):
     if not "." in filename:

@@ -26,12 +26,14 @@ const course_description = document.querySelectorAll('input[value= "Course Descr
 const course_description_label = document.querySelectorAll('label[value="Course Description"]')
 const honorable_dismissal = document.querySelectorAll('input[value= "Honorable Dismissal"]')
 const honorable_dismissal_label = document.querySelectorAll('label[value="Honorable Dismissal"]')
+const year_level = document.getElementById("YearLevel")
 const final_price = document.getElementById("total_price")
+const is_scholarship = document.getElementById("scholarship_toggle")
+const is_scholarship_label = document.getElementById("scholarship_toggle_label")
 
 let updatePrice_scholarship = () => {
 	const discounted_documents = document.getElementsByClassName("scholarship")
 	const discounted_documents_label = document.getElementsByClassName("scholarship_label")
-	var is_scholarship = document.getElementById("scholarship_toggle")
 	if( is_scholarship.checked ){
 		honorable_dismissal[0].checked = false
 		honorable_dismissal[0].disabled = true
@@ -75,4 +77,17 @@ let updatePrice = () => {
         if(checkboxes[i].checked) price += parseInt(checkboxes[i].dataset.price);
     }
     final_price.innerText = price
+}
+
+if (honorable_dismissal[0]){
+	honorable_dismissal[0].addEventListener('click', event => {
+	  if (event.target.checked) {
+			is_scholarship.checked = false
+		    is_scholarship.disabled = true
+		    is_scholarship_label.innerText = "Cannot Apply For This With Honorary Dimissal"
+	  } else {
+		    is_scholarship.disabled = false
+		    is_scholarship_label.innerText = "For Scholarship"
+		}
+	})
 }

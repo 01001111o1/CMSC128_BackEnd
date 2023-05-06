@@ -26,7 +26,8 @@
             </div>
               <div class="input-group mb-3">
                 <label class="input-group-text">Year Level</label>
-                <select class="form-select" id="YearLevel" name = "YearLevel" onchange="updatePrice_Yearlevel()" required> <!--WHY DOES REQUIRED NOT WORK!!-->
+                <select class="form-select" id="YearLevel" name = "YearLevel" onchange="updatePrice_Yearlevel()" required>
+                  <option disabled selected value="">Current Year Level</option>
                   <option value="1">First Year</option>
                   <option value="2">Second Year</option>
                   <option value="3">Third Year</option>
@@ -36,8 +37,8 @@
                 </select>
               </div>
               <div class="form-check">
-                <input class="form-check-input"  id = "scholarship_toggle" type="checkbox"  onClick = "updatePrice_scholarship()">
-                <label class="form-check-label">For Scholarship</label>
+                <input class="form-check-input"  id = "scholarship_toggle" type="checkbox"  onchange = "updatePrice_scholarship()">
+                <label class="form-check-label" id = "scholarship_toggle_label">For Scholarship</label>
               </div>
             </div>
 
