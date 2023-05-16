@@ -2,13 +2,54 @@
 {% block title %}Admin Dashboard{% endblock %}
 {% block main %}
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1> Admin Dashboard </h1>
-        </div>
-    </div>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Middle Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Year Level</th>
+      <th scope="col">Requested Documents</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Date of Request</th>
+      <th scope="col">Request Approved</th>
+      <th scope="col">Documents Approved</th>
+      <th scope="col">Available for Claiming</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for request in requests %}
+    {% set requested_list = request.requested_documents.split('@') %}
+    <tr>
+        <th scope = "row"> {{ request.queue_number }} </th>
+        <td> {{ request.last_name }} </td>
+        <td> {{ request.first_name }} </td>
+        <td> {{ request.middle_name }} </td>
+        <td> {{ request.email }} </td>
+        <td> {{ request.year_level }} </td>
+        <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Test
+              </button>
+              <ul class="dropdown-menu">
+                {% for document in requested_list %}
+                <li><a class="dropdown-item view_only" href="#">{{ document }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+        </td>
+        <td> {{ request.total_price }} </td>
+        <td> {{ request.date_of_request }} </td>
+        <td><button type="button" class="btn btn-danger">{{ request.request_approved }}</button></td>
+        <td><button type="button" class="btn btn-danger">{{ request.documents_approved }}</button></td>
+        <td><button type="button" class="btn btn-danger">{{ request.request_available }}</button></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock %}
 

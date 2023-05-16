@@ -1,15 +1,15 @@
 from flask import render_template, Blueprint
+from . import db
+from .models import Request
 
 admin_views = Blueprint('admin_views', __name__)
 
 
 @admin_views.route("/admin/dashboard")
 def admin_dashbard():
-    return render_template("admin/dashboard.html")
+    requests = Request.query.all()
 
-@admin_views.route("/admin/profile")
-def admin_dashboard():
-    return "Admin Profile"
+    return render_template("admin/dashboard.html", requests = requests)
 
 
 

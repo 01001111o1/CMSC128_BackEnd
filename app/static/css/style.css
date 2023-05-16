@@ -2,8 +2,6 @@ body{
     background-color: #f1f1f1;
 }
 
-
-
 input[type=file]{
     width:90px;
     color:transparent;
@@ -17,4 +15,11 @@ textarea {
     background-color: #f1f1f1;
     font-size: 50px;
     Pointer-events: none;
+}
+
+.view_only{
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+    color: black;
 }
