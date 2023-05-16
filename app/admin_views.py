@@ -1,11 +1,13 @@
-from app import app
-from flask import render_template
+from flask import render_template, Blueprint
 
-@app.route("/admin/dashboard")
+admin_views = Blueprint('admin_views', __name__)
+
+
+@admin_views.route("/admin/dashboard")
 def admin_dashbard():
     return render_template("admin/dashboard.html")
 
-@app.route("/admin/profile")
+@admin_views.route("/admin/profile")
 def admin_dashboard():
     return "Admin Profile"
 

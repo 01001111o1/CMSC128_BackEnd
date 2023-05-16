@@ -11,7 +11,7 @@ const honorable_dismissal_prices = {
 	"3" : "290", 
 	"4" : "360",
 	"Alumni" : "360",
-	"Graduate_Student" : "430"
+	"Graduate Student" : "430"
 }
 
 const course_description_prices = {
@@ -58,7 +58,7 @@ let updatePrice_Yearlevel = () => {
 		honorable_dismissal[0].dataset.price = honorable_dismissal_prices[event.target.value]
 		honorable_dismissal_label[0].innerText = honorable_dismissal_prices[event.target.value]
 	}
-	if( event.target.value == "Graduate_Student" ){
+	if( event.target.value == "Graduate Student" ){
 		course_description[0].disabled = true
 		course_description[0].checked = false
 		course_description_label[0].innerText = "Cannot Apply As A Graduate Student"

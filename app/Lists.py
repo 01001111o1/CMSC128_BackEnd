@@ -47,4 +47,3 @@ scholarship_discounted_documents = ["Certificate of Enrollment", "Certificate of
 
 
 
-

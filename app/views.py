@@ -1,26 +1,36 @@
-from app import app
-from app import Lists 
-from flask import render_template, request, redirect, jsonify, make_response, url_for, session
+from app import Lists, app
+from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint
+
+# import drive_demo as drive
+# from drive_demo import search_folder
+# from googleapiclient.http import MediaFileUpload, MediaIoBaseUpload
 
 import os
+import io 
 from werkzeug.utils import secure_filename
 
 from email_validator import validate_email, EmailNotValidError
 
+from . import db
+from .models import Request
 
-@app.route("/")
+views = Blueprint('views', __name__)
+
+@views.route("/")
 def index():
     return render_template("public/index.html")
 
-#Requirement = [list of documents that require it]
-
-@app.route("/choose_requirements", methods = ["GET", "POST"])
+@views.route("/choose_requirements", methods = ["GET", "POST"])
 def choose_requirements():
     if request.method == "POST":
 
-        name = request.form.getlist("name")
 
+        name = request.form.getlist("name")
         email = request.form.get("email")
+        total_price = request.form.get("total_price")
+        year_level = request.form.get("YearLevel")
+        documents = request.form.getlist("check")
+
 
         try:
 
@@ -28,12 +38,11 @@ def choose_requirements():
           email = emailinfo.normalized
 
         except EmailNotValidError as e:
-          print(str(e)) #Turn it into a JS alert or something
+          flash("Enter a valid email", "error")
           return redirect(request.url)
 
-        documents = request.form.getlist("check") #Requested Documents
         if len(documents) == 0:
-            #alert message to select at least one
+            flash("Select at least one requirement", "error")
             return redirect(request.url)
 
         temp = dict()
@@ -44,20 +53,17 @@ def choose_requirements():
         session["requirements"] = temp
 
         session["name"] = name
-
+        session["email"] = email
+        session["total_price"] = total_price
+        session["year_level"] = year_level
+        session["documents"] = "@".join(documents)
         session.modified = True
 
-        total_price = request.form.get("total_price")
 
-        return redirect(url_for("upload_image"))
+        return redirect(url_for("views.upload_image"))
 
     return render_template("public/choose_requirements.html", list1 = Lists.Documents1 ,list2 = Lists.Documents2, scholarship_documents = 
         Lists.scholarship_discounted_documents, base_prices = Lists.Base_Prices)
-
-def index():
-    return render_template("public/index.html")
-
-
 
 def allowed_file(filename):
     if not "." in filename:
@@ -67,7 +73,7 @@ def allowed_file(filename):
 def allowed_file_size(filesize):
     return int(filesize) <= app.config["MAX_FILE_FILESIZE"]
 
-@app.route("/upload_image", methods = ["GET", "POST"])
+@views.route("/upload_image", methods = ["GET", "POST"])
 def upload_image():
 
     if request.method == "POST":
@@ -76,25 +82,69 @@ def upload_image():
             files = request.files.getlist("file")
             for file in files:
                 if not allowed_file_size(request.cookies.get("filesize")):
-                    print("File exceeded maximum size")
+                    flash("File size too large", "error")
                     return redirect(request.url)
                 
                 if file.filename == "":
-                    print("File must have a filename")
+                    flash("File must have a name", "error")
                     return redirect(request.url)
 
                 if not allowed_file(file.filename):
-                    print("Invalid file extension")
+                    flash("Invalid file extension", "error")
                     return redirect(request.url)
 
-            new_directory = app.config["FILE_UPLOADS"] + "/" + " ".join([name.upper() for name in session["name"]])
+                folder_name = " ".join([name.upper() for name in session["name"]])
+
+                # file_metadata = {
+                #     'name' : folder_name,
+                #     'mimeType' : 'application/vnd.google-apps.folder'  
+                # }
+
+                # drive.service.files().create(body = file_metadata).execute()
+                # folder_id = search_folder(folder_name)
+
+                # for file in files:
+                #     file_metadata = {
+                #         'name' : secure_filename(file.filename),
+                #         'parents' : [folder_id]
+                #     }
+
+                #     buffer = io.BytesIO()
+                #     buffer.name = file.filename
+                #     file.save(buffer)
+                #     media = MediaIoBaseUpload(buffer, mimetype='application/pdf', resumable=True)
+
+                #     drive.service.files().create(
+                #         body = file_metadata,
+                #         media_body = media,
+                #         fields = 'id'
+                #     ).execute()
+                #IF CANT FIX MULTIPLE FOLDERS, NEED TO MAKE FILE TYPE ZIP
+
+            new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
             os.mkdir(new_directory)
                 
             for file in files:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(new_directory, filename))
 
-            return redirect(request.url)
+            new_request = Request(
+                    last_name = session["name"][2],
+                    first_name = session["name"][0],
+                    middle_name = session["name"][1],
+                    email = session["email"],
+                    year_level = session["year_level"],
+                    requested_documents = session["documents"],
+                    total_price = session["total_price"]
+                )
+
+            db.session.add(new_request)
+            db.session.commit()
+
+            session.clear()
+
+            flash("Successfully posted a request", "success")
+            return redirect(url_for("views.index"))
 
     return render_template("public/upload_image.html")
 
