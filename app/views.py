@@ -24,13 +24,11 @@ def index():
 def choose_requirements():
     if request.method == "POST":
 
-
         name = request.form.getlist("name")
         email = request.form.get("email")
         total_price = request.form.get("total_price")
         year_level = request.form.get("YearLevel")
         documents = request.form.getlist("check")
-
 
         try:
 
@@ -62,7 +60,7 @@ def choose_requirements():
 
         return redirect(url_for("views.upload_image"))
 
-    return render_template("public/choose_requirements.html", list1 = Lists.Documents1 ,list2 = Lists.Documents2, scholarship_documents = 
+    return render_template("public/choose_requirements.html", list1 = Lists.Documents1, list2 = Lists.Documents2, scholarship_documents = 
         Lists.scholarship_discounted_documents, base_prices = Lists.Base_Prices)
 
 def allowed_file(filename):

@@ -16,6 +16,7 @@
       <th scope="col">Date of Request</th>
       <th scope="col">Request Approved</th>
       <th scope="col">Documents Approved</th>
+      <th scope="col">Paid</th>
       <th scope="col">Available for Claiming</th>
     </tr>
   </thead>
@@ -45,7 +46,9 @@
         <td> {{ request.date_of_request }} </td>
         <td><button type="button" class="btn btn-danger">{{ request.request_approved }}</button></td>
         <td><button type="button" class="btn btn-danger">{{ request.documents_approved }}</button></td>
+        <td><button type="button" class="btn btn-danger">{{ request.paid }}</button></td>
         <td><button type="button" class="btn btn-danger">{{ request.request_available }}</button></td>
+        <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}" role="button">Finish Transaction</a></td>
     </tr>
     {% endfor %}
   </tbody>
