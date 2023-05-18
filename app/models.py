@@ -14,6 +14,5 @@ class Request(db.Model):
 	date_of_request = db.Column(db.DateTime(timezone = True), default = datetime.datetime.now(pytz.timezone('Singapore')).replace(microsecond = 0))
 	request_approved = db.Column(db.Boolean(), default = False)
 	documents_approved = db.Column(db.Boolean(), default = False)
-	paid = db.Column(db.Boolean(), default = False)
 	request_available = db.Column(db.Boolean(), default = False)
 

@@ -24,21 +24,21 @@ def update(queue_number, classification):
                 query.email, 
                 f"Request approved for order number { query.queue_number }", 
                 "Test \n Content \n hehe") #MODIFY THE CONTENT, CREATE A TEMPLATE MESSAGE IN LISTS.PY
+            query.request_approved = True
         elif classification == "documents_approved":
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"Documents approved for order number { query.queue_number }", 
                 "Test \n Content \n hehe")
-        elif classification == "payment_received":
-            send_message("scvizconde@up.edu.ph", 
-                query.email, 
-                f"Payment received for order number { query.queue_number }", 
-                "Test \n Content \n hehe")
+            query.documents_approved = True
         else:
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"order number { query.queue_number } available for claiming", 
                 "Test \n Content \n hehe")
+            query.request_available = True
+
+        db.session.commit()
         flash("Successfully sent update email", "success")
         return redirect(url_for("admin_views.admin_dashboard"))
     except:

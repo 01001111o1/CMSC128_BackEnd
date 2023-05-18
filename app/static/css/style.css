@@ -23,3 +23,9 @@ textarea {
     text-decoration: none;
     color: black;
 }
+
+.read_only{
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}

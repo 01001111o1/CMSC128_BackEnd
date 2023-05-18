@@ -16,7 +16,6 @@
       <th scope="col">Date of Request</th>
       <th scope="col">Request Approved</th>
       <th scope="col">Documents Approved</th>
-      <th scope="col">Paid</th>
       <th scope="col">Available for Claiming</th>
     </tr>
   </thead>
@@ -44,11 +43,22 @@
         </td>
         <td> {{ request.total_price }} </td>
         <td> {{ request.date_of_request }} </td>
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved" role="button">{{ request.request_approved }}</a></td>
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved" role="button">{{ request.documents_approved }}</a></td>
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/payment_received" role="button">{{ request.paid }}</a></td>
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available" role="button">{{ request.request_available }}</a></td>
-        <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}" role="button">Finish Transaction</a></td>
+        {% if request.request_approved == True %}
+        <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved">{{ request.request_approved }}</a></td>
+        {% else %}
+        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved">{{ request.request_approved }}</a></td>
+        {% endif %}
+        {% if request.documents_approved == True %}
+        <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/documents_approved">{{ request.documents_approved }}</a></td>
+        {% else %}
+        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved">{{ request.documents_approved }}</a></td>
+        {% endif %}
+        {% if request.request_available == True %}
+        <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available">{{ request.request_available }}</a></td>
+        {% else %}
+        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available">{{ request.request_available }}</a></td>
+        {% endif %}
+        <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}">Finish Transaction</a></td>
     </tr>
     {% endfor %}
   </tbody>
