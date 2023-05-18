@@ -23,13 +23,13 @@ def update(queue_number, classification):
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"Request approved for order number { query.queue_number }", 
-                "Test \n Content \n hehe") #MODIFY THE CONTENT, CREATE A TEMPLATE MESSAGE IN LISTS.PY
+                "Test <br> Content <br> hehe") #MODIFY THE CONTENT, CREATE A TEMPLATE MESSAGE IN LISTS.PY
             query.request_approved = True
         elif classification == "documents_approved":
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"Documents approved for order number { query.queue_number }", 
-                "Test \n Content \n hehe")
+                "<h1>Test Content hehe</h1>")
             query.documents_approved = True
         else:
             send_message("scvizconde@up.edu.ph", 

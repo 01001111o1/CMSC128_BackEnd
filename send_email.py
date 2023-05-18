@@ -18,7 +18,7 @@ def send_message(sender, receiver, subject, content, cc = None):
     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     try:
         service = build('gmail', 'v1', credentials = creds)
-        message = MIMEText(content, 'plain')
+        message = MIMEText(content, 'html')
 
         message['To'] = receiver
         message['From'] = sender
