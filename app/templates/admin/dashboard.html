@@ -44,10 +44,10 @@
         </td>
         <td> {{ request.total_price }} </td>
         <td> {{ request.date_of_request }} </td>
-        <td><button type="button" class="btn btn-danger">{{ request.request_approved }}</button></td>
-        <td><button type="button" class="btn btn-danger">{{ request.documents_approved }}</button></td>
-        <td><button type="button" class="btn btn-danger">{{ request.paid }}</button></td>
-        <td><button type="button" class="btn btn-danger">{{ request.request_available }}</button></td>
+        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved" role="button">{{ request.request_approved }}</a></td>
+        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved" role="button">{{ request.documents_approved }}</a></td>
+        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/payment_received" role="button">{{ request.paid }}</a></td>
+        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available" role="button">{{ request.request_available }}</a></td>
         <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}" role="button">Finish Transaction</a></td>
     </tr>
     {% endfor %}
