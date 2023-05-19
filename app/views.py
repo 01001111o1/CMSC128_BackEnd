@@ -1,5 +1,5 @@
 from app import Lists, app
-from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint
+from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint, escape
 
 # import drive_demo as drive
 # from drive_demo import search_folder
@@ -25,9 +25,10 @@ def choose_requirements():
     if request.method == "POST":
 
         name = request.form.getlist("name")
-        email = request.form.get("email")
-        total_price = request.form.get("total_price")
-        year_level = request.form.get("YearLevel")
+        name = [escape(n) for n in name]
+        email = escape(request.form.get("email"))
+        total_price = escape(request.form.get("total_price"))
+        year_level = escape(request.form.get("YearLevel"))
         documents = request.form.getlist("check")
 
         try:
