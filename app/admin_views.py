@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint
 from . import db
-from app import app, Lists
+from app import app
 from .models import Request
+from .email_template import request_approved_template, documents_approved_template, documents_available_template
 import shutil
 
 from send_email import send_message
@@ -23,19 +24,19 @@ def update(queue_number, classification):
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"Request approved for order number { query.queue_number }", 
-                "Test <br> Content <br> hehe") #MODIFY THE CONTENT, CREATE A TEMPLATE MESSAGE IN LISTS.PY
+                request_approved_template(query.first_name, query.queue_number)) 
             query.request_approved = True
         elif classification == "documents_approved":
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"Documents approved for order number { query.queue_number }", 
-                "<h1>Test Content hehe</h1>")
+                documents_approved_template(query.first_name, query.queue_number))
             query.documents_approved = True
         else:
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"order number { query.queue_number } available for claiming", 
-                "Test \n Content \n hehe")
+                documents_available_template(query.first_name, query.queue_number))
             query.request_available = True
 
         db.session.commit()

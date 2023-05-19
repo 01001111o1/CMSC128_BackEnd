@@ -15,6 +15,8 @@ from email.mime.application import MIMEApplication
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
+#NOTE: SENDER EMAIL IS THE ONE YOU USED TO CREATE THE PROJECT IN GOOGLE CLOUSPACE!!!!!
+
 def send_message(sender, receiver, subject, content, images : list = None, pdfs : list = None, cc = None):
 
     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
@@ -48,11 +50,10 @@ def send_message(sender, receiver, subject, content, images : list = None, pdfs 
             'raw': base64.urlsafe_b64encode(bytes(message.as_string(), "utf-8")).decode("utf-8")
         }
 
-        send_message = service.users().messages().send(userId="me", body=create_message).execute()
+        send_message = service.users().messages().send(userId="me", body = create_message).execute()
     except HttpError as error:
         print(F'An error occurred: {error}')
         send_message = None
     return send_message
 
-send_message("scvizconde@up.edu.ph", "jmconcepcion6@up.edu.ph", "ABCDEFG", "a <br> <h1>test</h1>", ["test_image.jpg"], ["INSTRUCTIONS.pdf"])
 
