@@ -9,12 +9,13 @@ from werkzeug.utils import secure_filename
 from email_validator import validate_email, EmailNotValidError
 
 from . import db
-from .models import Request
+from .models import Request, Admin
 
 views = Blueprint('views', __name__)
 
 @views.route("/")
 def index():
+
     return render_template("public/index.html")
 
 
