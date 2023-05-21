@@ -1,9 +1,6 @@
-from app import Lists, app
+from app import app
+from .Lists import Documents1, Documents2, Requirements, Base_Prices, scholarship_discounted_documents
 from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint, escape
-
-# import drive_demo as drive
-# from drive_demo import search_folder
-# from googleapiclient.http import MediaFileUpload, MediaIoBaseUpload
 
 import os
 import io 
@@ -20,23 +17,49 @@ views = Blueprint('views', __name__)
 def index():
     return render_template("public/index.html")
 
+
+def isInvalid(name):
+    invalid_symbols = ['<', '>', '"', '&']
+    for symbol in invalid_symbols:
+        if name.find(symbol) != -1:
+            return True
+    return False
+
 @views.route("/choose_requirements", methods = ["GET", "POST"])
 def choose_requirements():
     if request.method == "POST":
 
         name = request.form.getlist("name")
-        name = [escape(n) for n in name]
-        email = escape(request.form.get("email"))
-        total_price = escape(request.form.get("total_price"))
-        year_level = escape(request.form.get("YearLevel"))
+
+        for n in name:
+            if isInvalid(n):
+                flash("Invalid characters in input form", "error")
+                return redirect(request.url)
+
+        email = request.form.get("email")
+        student_number = request.form.get("student_number")
+        total_price = request.form.get("total_price")
+        year_level = request.form.get("YearLevel")
         documents = request.form.getlist("check")
+
+        price_map = request.form.get("map")
+
+        if len(student_number) != 9:
+            flash("Please enter a valid student number", "error")
+            return redirect(request.url)           
+
+        try:
+            int(student_number)
+        except:
+            flash("Please enter a valid student number", "error")
+            return redirect(request.url)
 
         try:
 
           emailinfo = validate_email(email, check_deliverability=True)
           email = emailinfo.normalized
 
-        except EmailNotValidError as e:
+        except:
           flash("Enter a valid email", "error")
           return redirect(request.url)
 
@@ -46,23 +69,24 @@ def choose_requirements():
 
         temp = dict()
 
-        for k, _ in Lists.Requirements.items():
-            temp[k] = any([val in documents for val in Lists.Requirements[k]])
+        for k, _ in Requirements.items():
+            temp[k] = any([val in documents for val in Requirements[k]])
 
         session["requirements"] = temp
 
         session["name"] = name
         session["email"] = email
+        session["student_number"] = student_number[:4] + '-' + student_number[4:]
         session["total_price"] = total_price
         session["year_level"] = year_level
         session["documents"] = "@".join(documents)
+        session["price_map"] = price_map
         session.modified = True
-
 
         return redirect(url_for("views.upload_image"))
 
-    return render_template("public/choose_requirements.html", list1 = Lists.Documents1, list2 = Lists.Documents2, scholarship_documents = 
-        Lists.scholarship_discounted_documents, base_prices = Lists.Base_Prices)
+    return render_template("public/choose_requirements.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
+        scholarship_discounted_documents, base_prices = Base_Prices)
 
 def allowed_file(filename):
     if not "." in filename:
@@ -94,32 +118,6 @@ def upload_image():
 
                 folder_name = " ".join([name.upper() for name in session["name"]])
 
-                # file_metadata = {
-                #     'name' : folder_name,
-                #     'mimeType' : 'application/vnd.google-apps.folder'  
-                # }
-
-                # drive.service.files().create(body = file_metadata).execute()
-                # folder_id = search_folder(folder_name)
-
-                # for file in files:
-                #     file_metadata = {
-                #         'name' : secure_filename(file.filename),
-                #         'parents' : [folder_id]
-                #     }
-
-                #     buffer = io.BytesIO()
-                #     buffer.name = file.filename
-                #     file.save(buffer)
-                #     media = MediaIoBaseUpload(buffer, mimetype='application/pdf', resumable=True)
-
-                #     drive.service.files().create(
-                #         body = file_metadata,
-                #         media_body = media,
-                #         fields = 'id'
-                #     ).execute()
-                #IF CANT FIX MULTIPLE FOLDERS, NEED TO MAKE FILE TYPE ZIP
-
             new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
             os.mkdir(new_directory)
                 
@@ -132,8 +130,10 @@ def upload_image():
                     first_name = session["name"][0],
                     middle_name = session["name"][1],
                     email = session["email"],
+                    student_number = session["student_number"],
                     year_level = session["year_level"],
                     requested_documents = session["documents"],
+                    price_map = session["price_map"],
                     total_price = session["total_price"]
                 )
 

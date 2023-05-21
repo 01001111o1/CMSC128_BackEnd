@@ -5,7 +5,15 @@ from .models import Request
 from .email_template import request_approved_template, documents_approved_template, documents_available_template
 import shutil
 
+from datetime import date
+
+from docxtpl import DocxTemplate
+from docx2pdf import convert
+import ast 
+
 from send_email import send_message
+
+import pythoncom
 
 admin_views = Blueprint('admin_views', __name__)
 
@@ -51,6 +59,31 @@ def delete_entry(queue_number):
     query = Request.query.get_or_404(queue_number)  
     folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
     folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
+
+    price_map = query.price_map
+    price_dictionary = ast.literal_eval(price_map)
+    for k, v in price_dictionary.items():
+        price_dictionary[k] = int(v)
+
+    invoice_list = [[1, k, v] for k, v in price_dictionary.items()]
+    
+    doc = DocxTemplate("app/invoice_template.docx")
+
+    doc.render({
+        "name" : folder_name,
+        "student_number" : query.student_number,
+        "date" : date.today(),
+        "invoice_list" : invoice_list,
+        "total" : sum(v[2] for v in invoice_list)
+    })
+
+    docxpath = folder_path + "/" + query.last_name + ".docx"
+    pdfpath = folder_path + "/" + query.last_name + ".pdf"
+    doc.save(docxpath)
+    pythoncom.CoInitialize()
+    convert(docxpath, pdfpath)
+
+    send_message("scvizconde@up.edu.ph", query.email, f'Receipt for order number {query.queue_number}', "test content", [pdfpath])
 
     try:
         shutil.rmtree(folder_path, ignore_errors = False)

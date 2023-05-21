@@ -30,6 +30,7 @@ const year_level = document.getElementById("YearLevel")
 const final_price = document.getElementById("total_price")
 const is_scholarship = document.getElementById("scholarship_toggle")
 const is_scholarship_label = document.getElementById("scholarship_toggle_label")
+const hidden = document.getElementById("hidden")
 
 let updatePrice_scholarship = () => {
 	const discounted_documents = document.getElementsByClassName("scholarship")
@@ -72,10 +73,16 @@ let updatePrice_Yearlevel = () => {
 
 let updatePrice = () => {
 	let price = 0.0
+	const map = new Map()
 	const checkboxes = document.getElementsByName("check")
     for(let i = 0; i < checkboxes.length; i++) {
-        if(checkboxes[i].checked) price += parseInt(checkboxes[i].dataset.price);
+        if(checkboxes[i].checked){
+        	price += parseInt(checkboxes[i].dataset.price);
+    		map.set(checkboxes[i].value, checkboxes[i].dataset.price)
+    	}
     }
+	const json = JSON.stringify(Object.fromEntries(map))
+    hidden.value = json
     final_price.innerText = price
 }
 

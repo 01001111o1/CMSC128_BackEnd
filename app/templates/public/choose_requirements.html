@@ -21,6 +21,10 @@
               <input type="text" class="form-control" name = "name" required>
             </div>
             <div class="input-group mb-3">
+              <span class="input-group-text">Student Number</span>
+              <input type="text" class="form-control" name = "student_number" placeholder = "Ex: 202005837" required>
+            </div>
+            <div class="input-group mb-3">
               <span class="input-group-text">Email</span>
               <input type="text" class="form-control" name = "email" required>
             </div>
@@ -38,6 +42,7 @@
               </div>
               <div class="form-check">
                 <input class="form-check-input"  id = "scholarship_toggle" type="checkbox"  onchange = "updatePrice_scholarship()">
+                <input id = "hidden" type="hidden" name = "map" value = "">
                 <label class="form-check-label" id = "scholarship_toggle_label">For Scholarship</label>
               </div>
             </div>
