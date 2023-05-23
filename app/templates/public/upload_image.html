@@ -12,8 +12,8 @@
                     {% if session["requirements"][k] == True and k == "Preferred Format for True Copy of Grades" %}
                     <label class="input-group-text">Preferred Format for True Copy of Grades</label>
                     <select class="form-select"  name = "preferred_format" required>
-                      <option value="hard_copy">Hard Copy</option>
-                      <option value="digital_copy">Digital Copy</option>
+                      <option value="Hard Copy">Hard Copy</option>
+                      <option value="Digital Copy">Digital Copy</option>
                     </select>
                     {% elif session["requirements"][k] == True %}
                     <label class="input-group-text">{{ k }}</label>

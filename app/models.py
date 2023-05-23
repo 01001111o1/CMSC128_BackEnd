@@ -17,6 +17,7 @@ class Request(db.Model):
 	student_number = db.Column(db.String(10), unique = True, nullable = False)
 	year_level = db.Column(db.String(20), nullable = False)
 	requested_documents = db.Column(db.String(600), nullable = False)
+	remarks = db.Column(db.String(150), nullable = False)
 	price_map = db.Column(db.String(800), nullable = False)
 	total_price = db.Column(db.Integer)
 	date_of_request = db.Column(db.DateTime(timezone = True), default = datetime.now(pytz.timezone('Singapore')).replace(microsecond = 0))

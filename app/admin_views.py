@@ -119,10 +119,6 @@ def delete_entry(queue_number):
         flash("Error deleting transaction", "error")
         return redirect(url_for("admin_views.admin_dashboard"))
 
-
-
-
-
 @admin_views.route("/remove/<int:queue_number>")
 @login_required
 def remove_entry(queue_number):
