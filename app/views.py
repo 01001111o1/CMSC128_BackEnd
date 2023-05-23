@@ -21,6 +21,7 @@ views = Blueprint('views', __name__)
 
 @views.route("/")
 def index():
+
     return render_template("public/index.html", user = current_user)
 
 @views.route("/choose_requirements", methods = ["GET", "POST"])
@@ -41,9 +42,11 @@ def choose_requirements():
         documents = request.form.getlist("check")
 
         scholarship = request.form.get("scholarship")
+
+        session["remarks"] = [""]
         
         if scholarship is not None:
-            session["remarks"] = ["For Scholarship"]
+            session["remarks"].append("For Scholarship")
 
         price_map = request.form.get("map")
 
@@ -114,8 +117,6 @@ def upload_image():
             if "True Copy of Grades" in session["documents"]:
                 session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
 
-            session["remarks"] = "@".join(session["remarks"])
-
             folder_name = " ".join([name.upper() for name in session["name"]])
 
             check_email = Request.query.filter_by(email = session["email"]).first()
@@ -144,7 +145,7 @@ def upload_image():
                     student_number = session["student_number"],
                     year_level = session["year_level"],
                     requested_documents = session["documents"],
-                    remarks = session["remarks"],
+                    remarks = "@".join(session["remarks"]),
                     price_map = session["price_map"],
                     total_price = session["total_price"]
                 )
