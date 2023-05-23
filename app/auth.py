@@ -4,7 +4,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 from . import db
 from .models import Request, Admin
-
+from .functions import isInvalid
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -14,9 +14,14 @@ auth = Blueprint('auth', __name__)
 def login():
 
 	if request.method == 'POST':
+
 		email = request.form.get("email_login")
 		password = request.form.get("password")
 		admin = Admin.query.filter_by(email = email).first()
+
+		if isInvalid(email) or isInvalid(password):
+			flash("Invalid username or password", "error")
+			return redirect(request.url)
 
 		if not admin:
 			flash("Email does not exist", "error")

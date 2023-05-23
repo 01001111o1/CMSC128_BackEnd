@@ -13,20 +13,15 @@ from .models import Request, Admin
 
 from flask_login import current_user
 
+from .functions import allowed_file, allowed_file_size, isInvalid
+
+from werkzeug.security import generate_password_hash, check_password_hash
+
 views = Blueprint('views', __name__)
 
 @views.route("/")
 def index():
-
     return render_template("public/index.html", user = current_user)
-
-
-def isInvalid(name):
-    invalid_symbols = ['<', '>', '"', '&']
-    for symbol in invalid_symbols:
-        if name.find(symbol) != -1:
-            return True
-    return False
 
 @views.route("/choose_requirements", methods = ["GET", "POST"])
 def choose_requirements():
@@ -44,6 +39,11 @@ def choose_requirements():
         total_price = request.form.get("total_price")
         year_level = request.form.get("YearLevel")
         documents = request.form.getlist("check")
+
+        scholarship = request.form.get("scholarship")
+        
+        if scholarship is not None:
+            session["remarks"] = ["For Scholarship"]
 
         price_map = request.form.get("map")
 
@@ -91,14 +91,6 @@ def choose_requirements():
     return render_template("public/choose_requirements.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
         scholarship_discounted_documents, base_prices = Base_Prices, user = current_user)
 
-def allowed_file(filename):
-    if not "." in filename:
-        return False
-    return filename.rsplit(".", 1)[1].upper() in app.config["ALLOWED_FILE_EXTENSIONS"]
-
-def allowed_file_size(filesize):
-    return int(filesize) <= app.config["MAX_FILE_FILESIZE"]
-
 @views.route("/upload_image", methods = ["GET", "POST"])
 def upload_image():
 
@@ -119,6 +111,10 @@ def upload_image():
                     flash("Invalid file extension", "error")
                     return redirect(request.url)
 
+            if "True Copy of Grades" in session["documents"]:
+                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+            session["remarks"] = "@".join(session["remarks"])
 
             folder_name = " ".join([name.upper() for name in session["name"]])
 
@@ -148,6 +144,7 @@ def upload_image():
                     student_number = session["student_number"],
                     year_level = session["year_level"],
                     requested_documents = session["documents"],
+                    remarks = session["remarks"],
                     price_map = session["price_map"],
                     total_price = session["total_price"]
                 )
