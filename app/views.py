@@ -11,12 +11,14 @@ from email_validator import validate_email, EmailNotValidError
 from . import db
 from .models import Request, Admin
 
+from flask_login import current_user
+
 views = Blueprint('views', __name__)
 
 @views.route("/")
 def index():
 
-    return render_template("public/index.html")
+    return render_template("public/index.html", user = current_user)
 
 
 def isInvalid(name):
@@ -87,7 +89,7 @@ def choose_requirements():
         return redirect(url_for("views.upload_image"))
 
     return render_template("public/choose_requirements.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
-        scholarship_discounted_documents, base_prices = Base_Prices)
+        scholarship_discounted_documents, base_prices = Base_Prices, user = current_user)
 
 def allowed_file(filename):
     if not "." in filename:
@@ -117,7 +119,19 @@ def upload_image():
                     flash("Invalid file extension", "error")
                     return redirect(request.url)
 
-                folder_name = " ".join([name.upper() for name in session["name"]])
+
+            folder_name = " ".join([name.upper() for name in session["name"]])
+
+            check_email = Request.query.filter_by(email = session["email"]).first()
+            check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
+
+            if check_email:
+                flash("Email already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.choose_requirements"))
+
+            if check_student_number:
+                flash("Student number already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.choose_requirements"))
 
             new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
             os.mkdir(new_directory)
@@ -146,7 +160,7 @@ def upload_image():
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
 
-    return render_template("public/upload_image.html")
+    return render_template("public/upload_image.html", user = current_user)
 
 
 

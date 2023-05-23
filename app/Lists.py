@@ -7,6 +7,7 @@ Documents2 = ["Certificate of Graduation", "Certificate of No Disciplinary Actio
 	"Certificate of Units Earned", "Certificate of Medium of Instruction", "Certificate of Grade Equivalence", 
 	"Certificate of Non-Issuance of Honorable Dismissal for Graduates", "Certificate of Non-Issuance of S.O. Number"]
 
+Documents = [item for sublist in [Documents1, Documents2] for item in sublist]
 
 Requirements = OrderedDict([  
 	("Letter from parents stating the reason for Honorable Dismissal" , ["Honorable Dismissal"]) ,

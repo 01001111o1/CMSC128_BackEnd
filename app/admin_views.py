@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint
-from flask_login import login_required
+from flask_login import login_required, current_user
 from . import db
 from app import app
 from .models import Request
@@ -14,6 +14,8 @@ import ast
 
 from send_email import send_message
 
+from .Lists import Documents
+
 import pythoncom
 
 admin_views = Blueprint('admin_views', __name__)
@@ -22,8 +24,24 @@ admin_views = Blueprint('admin_views', __name__)
 @login_required
 def admin_dashboard():
     requests = Request.query.all()
+    return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
 
-    return render_template("admin/dashboard.html", requests = requests)
+@admin_views.route("/sort_by_date")
+@login_required
+def sort_by_date():
+    requests = Request.query.order_by(Request.date_of_request.desc()).all()
+    return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
+
+@admin_views.route("/sort_by_document/<document>")
+@login_required
+def sort_by_document(document):
+    requests = Request.query.all()
+    new_list = list()
+    for request in requests:
+        if document in request.requested_documents:
+            new_list.append(request)
+
+    return render_template("admin/dashboard.html", requests = new_list, documents = Documents, user = current_user)
 
 @admin_views.route("/update/<int:queue_number>/<classification>")
 @login_required
@@ -101,5 +119,26 @@ def delete_entry(queue_number):
         flash("Error deleting transaction", "error")
         return redirect(url_for("admin_views.admin_dashboard"))
 
+
+
+
+
+@admin_views.route("/remove/<int:queue_number>")
+@login_required
+def remove_entry(queue_number):
+    query = Request.query.get_or_404(queue_number)  
+    folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
+    folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
+
+    try:
+        shutil.rmtree(folder_path, ignore_errors = False)
+
+        db.session.delete(query)
+        db.session.commit()
+        flash("Entry successfully deleted", "success")
+        return redirect(url_for("admin_views.admin_dashboard"))
+    except:
+        flash("Error deleting transaction", "error")
+        return redirect(url_for("admin_views.admin_dashboard"))
 
 

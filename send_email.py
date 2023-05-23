@@ -36,14 +36,14 @@ def send_message(sender, receiver, subject, content, pdfs : list = None, images 
             for image in images:
                 with open(image, 'rb') as content_image:
                     img = MIMEImage(content_image.read())
-                    img.add_header('Content-Disposition', 'attachment', filename = "test.jpg")
+                    img.add_header('Content-Disposition', 'attachment', filename = "invoice.jpg")
                     message.attach(img)
 
         if pdfs: 
             for pdf in pdfs: 
                 with open(pdf, 'rb') as content_file:
                     file = MIMEApplication(content_file.read())
-                    file.add_header('Content-Disposition', 'attachment', filename = "test.pdf")
+                    file.add_header('Content-Disposition', 'attachment', filename = "invoice.pdf")
                     message.attach(file)
 
         create_message = {
