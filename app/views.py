@@ -17,6 +17,9 @@ from .functions import allowed_file, allowed_file_size, isInvalid
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from .send_generated_files import background_runner
+
+
 views = Blueprint('views', __name__)
 
 @views.route("/")
@@ -154,6 +157,9 @@ def upload_image():
             db.session.commit()
 
             session.clear()
+
+            latest_request = Request.query.order_by(Request.queue_number.desc()).first()
+            background_runner.send_email_async(latest_request.queue_number)
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))

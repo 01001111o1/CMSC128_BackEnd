@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from os import path
 from flask_login import LoginManager
+from flask_executor import Executor
 
 db = SQLAlchemy()
 DB_NAME = "testing.db"
@@ -17,6 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+executor = Executor(app)
 
 login = LoginManager()
 login.login_view = 'auth.login'

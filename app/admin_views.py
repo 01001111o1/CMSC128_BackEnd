@@ -1,7 +1,7 @@
-from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint
+from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint, jsonify
 from flask_login import login_required, current_user
 from . import db
-from app import app
+from app import app, executor
 from .models import Request
 from .email_template import request_approved_template, documents_approved_template, documents_available_template
 import shutil
@@ -18,6 +18,8 @@ from .Lists import Documents
 
 import pythoncom
 
+from .send_generated_files import background_runner
+
 admin_views = Blueprint('admin_views', __name__)
 
 @admin_views.route("/admin/dashboard")
@@ -26,10 +28,16 @@ def admin_dashboard():
     requests = Request.query.all()
     return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
 
-@admin_views.route("/sort_by_date")
+@admin_views.route("/sort_by_date_desc")
 @login_required
-def sort_by_date():
+def sort_by_date_desc():
     requests = Request.query.order_by(Request.date_of_request.desc()).all()
+    return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
+
+@admin_views.route("/sort_by_date_asc")
+@login_required
+def sort_by_date_asc():
+    requests = Request.query.order_by(Request.date_of_request).all()
     return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
 
 @admin_views.route("/sort_by_document/<document>")
@@ -52,7 +60,7 @@ def update(queue_number, classification):
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"Request approved for order number { query.queue_number }", 
-                request_approved_template(query.first_name, query.queue_number)) 
+                request_approved_template(query.first_name, query.queue_number))
             query.request_approved = True
         elif classification == "documents_approved":
             send_message("scvizconde@up.edu.ph", 
@@ -61,15 +69,16 @@ def update(queue_number, classification):
                 documents_approved_template(query.first_name, query.queue_number))
             query.documents_approved = True
         else:
+            send_invoice_or_receipt(queue_number)
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"order number { query.queue_number } available for claiming", 
                 documents_available_template(query.first_name, query.queue_number))
             query.request_available = True
 
-        db.session.commit()
-        flash("Successfully sent update email", "success")
-        return redirect(url_for("admin_views.admin_dashboard"))
+            db.session.commit()
+            flash("Successfully sent update email", "success")
+            return redirect(url_for("admin_views.admin_dashboard"))
     except:
         flash("error sending update email", "error")
         return redirect(url_for("admin_views.admin_dashboard"))
