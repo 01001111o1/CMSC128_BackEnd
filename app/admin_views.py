@@ -84,37 +84,12 @@ def update(queue_number, classification):
 @admin_views.route("/delete/<int:queue_number>")
 @login_required
 def delete_entry(queue_number):
-    query = Request.query.get_or_404(queue_number)  
-    folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
-    folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
-
-    price_map = query.price_map
-    price_dictionary = ast.literal_eval(price_map)
-
-    invoice_list = [[1, k, int(v)] for k, v in price_dictionary.items()]
-    
-    doc = DocxTemplate("app/invoice_template.docx")
-
     try:
-        doc.render({
-            "name" : folder_name,
-            "student_number" : query.student_number,
-            "date" : date.today(),
-            "invoice_list" : invoice_list,
-            "total" : sum(v[2] for v in invoice_list)
-        })
-
-        docxpath = folder_path + "/" + query.last_name + ".docx"
-        pdfpath = folder_path + "/" + query.last_name + ".pdf"
-        doc.save(docxpath)
-        pythoncom.CoInitialize()
-        convert(docxpath, pdfpath)
-
-        send_message("scvizconde@up.edu.ph", 
-                    query.email, 
-                    f'Receipt for order number {query.queue_number}', 
-                    "test content", 
-                    [pdfpath])
+        query = Request.query.get_or_404(queue_number)  
+        folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
+        folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
+        
+        background_runner.send_email_async(queue_number)
 
         shutil.rmtree(folder_path, ignore_errors = False)
 
