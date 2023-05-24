@@ -1,0 +1,22 @@
+
+<link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% block main %}
+
+<div class="intro-page screen">
+    <div class="group-container">
+        <div class="overlap-group1">
+            <div class="rectangle-1">
+                
+                <img class="oble-1" src="{{ url_for('static', filename='images/logos/oble.png') }}">
+                <img class="up2goicon-1" src="{{ url_for('static', filename='images/logos/up2goicon.png') }}">
+            </div>
+            <img class="uplogo-1" src="{{ url_for('static', filename='images/logos/uplogo.png') }}">
+                <h1 class="title">A Project for University of the Philippines Baguio</h1>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

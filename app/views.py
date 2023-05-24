@@ -25,7 +25,7 @@ views = Blueprint('views', __name__)
 @views.route("/")
 def index():
 
-    return render_template("public/index.html", user = current_user)
+    return render_template("public/intro.html", user = current_user)
 
 @views.route("/choose_requirements", methods = ["GET", "POST"])
 def choose_requirements():
