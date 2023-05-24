@@ -69,16 +69,14 @@ def update(queue_number, classification):
                 documents_approved_template(query.first_name, query.queue_number))
             query.documents_approved = True
         else:
-            send_invoice_or_receipt(queue_number)
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"order number { query.queue_number } available for claiming", 
                 documents_available_template(query.first_name, query.queue_number))
             query.request_available = True
-
-            db.session.commit()
-            flash("Successfully sent update email", "success")
-            return redirect(url_for("admin_views.admin_dashboard"))
+        db.session.commit()
+        flash("Successfully sent update email", "success")
+        return redirect(url_for("admin_views.admin_dashboard"))
     except:
         flash("error sending update email", "error")
         return redirect(url_for("admin_views.admin_dashboard"))

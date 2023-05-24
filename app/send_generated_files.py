@@ -12,7 +12,7 @@ from send_email import send_message
 import pythoncom
 
 from flask_executor import Executor
-import uuid4
+import uuid
 
 class BackgroundRunner: 
     def __init__(self, executor):

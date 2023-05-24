@@ -20,13 +20,29 @@
       type="image/x-icon"
       href="{{ url_for('static', filename='up_logo_favicon.png') }}"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <title>{% block title %}{% endblock title %}</title>
 
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav
+      class="navbar navbar-expand-sm"
+      style="border-bottom: 5px solid #0e6021; background-color: #850038"
+    >
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#"
+          ><img
+            src="{{ url_for('static', filename='images/up2go_logo_white.png') }}"
+            alt="UP2GoLogoWhite"
+            width="auto"
+            height="45"
+            class="ms-5 d-inline-block align-text-top"
+        /></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -39,61 +55,93 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav mx-auto ms-n3 mb-2 mb-lg-0 fs-6 text-uppercase">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a
+                class="nav-link active text-white mx-5"
+                aria-current="page"
+                href="/"
+                >Home</a
+              >
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+              <a class="nav-link text-white mx-5" href="/admin/dashboard"
+                >Dashboard</a
+              >
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../choose_requirements"
-                >Choose Requirements</a
+              <a class="nav-link text-white mx-5" href="../choose_requirements"
+                >Forms</a
               >
             </li>
             {% endif %}
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
+            <li class="nav-item">
+              <a class="nav-link text-white mx-5">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+              <a class="nav-link text-white mx-5">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white mx-5">FAQs</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+          <ul class="navbar-nav me-3">
+            <li class="nav-item dropdown dropstart me-1 w-100">
+              <a
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                data-bs-auto-close="outside"
+                data-bs-offset="10,20"
+              >
+                <img
+                  src="{{url_for('static', filename='images/14.png')}}"
+                  alt="LoginIcn"
+                  width="auto"
+                  height="40"
+                  class="d-inline-block align-text-top"
+                />
+              </a>
+              <div class="dropdown-menu p-4">
+                {% if not user.is_authenticated %}
+                <form action="/login" method="POST">
+                  <h1 class="dropdown-header" align="center">Login</h1>
+                  <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email_login"
+                      name="email_login"
+                      placeholder="Enter email"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Enter password"
+                    />
+                  </div>
+                  <br />
+                  <button type="submit" class="btn btn-primary">Login</button>
+                  {% else %}
+                  <h3 align="center">Database</h3>
+                  <div>Username</div>
+                  <div>Details</div>
+                  <br />
+                  <a type="submit" href="/logout" class="btn btn-primary"
+                    >Logout</a
+                  >
+                  {% endif %}
+                </form>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
