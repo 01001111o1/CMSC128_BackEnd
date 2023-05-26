@@ -20,36 +20,32 @@ import pythoncom
 
 from .send_generated_files import background_runner
 
+from flask_paginate import Pagination
+
 admin_views = Blueprint('admin_views', __name__)
 
 @admin_views.route("/admin/dashboard")
 @login_required
 def admin_dashboard():
-    requests = Request.query.all()
-    return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
+    page = int(request.args.get('page', 1))
+    requests = Request.query.order_by(Request.queue_number)
+    pages = requests.paginate(page = page, per_page = app.config['REQUESTS_PER_PAGE']) 
 
-@admin_views.route("/sort_by_date_desc")
+    return render_template("admin/dashboard.html", pages = pages, documents = Documents, user = current_user)
+
+@admin_views.route("/sort/<parameter>")
 @login_required
-def sort_by_date_desc():
-    requests = Request.query.order_by(Request.date_of_request.desc()).all()
-    return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
+def sort(parameter):
+    if parameter == "desc":
+        requests = Request.query.order_by(Request.date_of_request.desc())
+    elif parameter == "asc":
+        requests = Request.query.order_by(Request.date_of_request)
+    else:
+        requests = Request.query.filter(Request.requested_documents.contains(parameter))
 
-@admin_views.route("/sort_by_date_asc")
-@login_required
-def sort_by_date_asc():
-    requests = Request.query.order_by(Request.date_of_request).all()
-    return render_template("admin/dashboard.html", requests = requests, documents = Documents, user = current_user)
+    pages = requests.paginate(page = 1, per_page = app.config['REQUESTS_PER_PAGE']) 
 
-@admin_views.route("/sort_by_document/<document>")
-@login_required
-def sort_by_document(document):
-    requests = Request.query.all()
-    new_list = list()
-    for request in requests:
-        if document in request.requested_documents:
-            new_list.append(request)
-
-    return render_template("admin/dashboard.html", requests = new_list, documents = Documents, user = current_user)
+    return render_template("admin/dashboard.html", pages = pages, documents = Documents, user = current_user)
 
 @admin_views.route("/update/<int:queue_number>/<classification>")
 @login_required
@@ -68,12 +64,14 @@ def update(queue_number, classification):
                 f"Documents approved for order number { query.queue_number }", 
                 documents_approved_template(query.first_name, query.queue_number))
             query.documents_approved = True
-        else:
+        elif classification == "claiming_available":
             send_message("scvizconde@up.edu.ph", 
                 query.email, 
                 f"order number { query.queue_number } available for claiming", 
                 documents_available_template(query.first_name, query.queue_number))
             query.request_available = True
+        else:
+            query.request_paid = True
         db.session.commit()
         flash("Successfully sent update email", "success")
         return redirect(url_for("admin_views.admin_dashboard"))

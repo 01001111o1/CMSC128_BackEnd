@@ -54,3 +54,9 @@ textarea {
   height: 200px;
   overflow-y: scroll;
 }
+
+.hdots{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+}

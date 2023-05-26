@@ -24,7 +24,6 @@ views = Blueprint('views', __name__)
 
 @views.route("/")
 def index():
-
     return render_template("public/index.html", user = current_user)
 
 @views.route("/choose_requirements", methods = ["GET", "POST"])
@@ -119,6 +118,9 @@ def upload_image():
 
             if "True Copy of Grades" in session["documents"]:
                 session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+            if len(session["remarks"]) == 1: 
+                session["remarks"].append("None")
 
             folder_name = " ".join([name.upper() for name in session["name"]])
 

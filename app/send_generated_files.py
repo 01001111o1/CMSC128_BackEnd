@@ -33,6 +33,7 @@ class BackgroundRunner:
         doc.render({
             "name" : folder_name,
             "student_number" : query.student_number,
+            "scholar" : "Yes" if "For Scholarship" in query.remarks else "No",
             "date" : date.today(),
             "invoice_list" : invoice_list,
             "total" : sum(v[2] for v in invoice_list)
