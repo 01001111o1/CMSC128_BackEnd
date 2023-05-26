@@ -2,6 +2,7 @@
 {% block title %}Admin Dashboard{% endblock %}
 {% block main %}
 
+<div id = "table_content"></div>
 <table class="table">
   <thead>
     <tr>
@@ -22,85 +23,91 @@
       <th scope="col">Available for Claiming</th>
     </tr>
   </thead>
-  <tbody>
-    {% for request in pages.items %}
-    {% set requested_list = request.requested_documents.split('@') %}
-    {% set remark_list = request.remarks.split('@') %}
-    <tr>
-        <th scope = "row"> {{ request.queue_number }} </th>
-        <td> {{ request.last_name }} </td>
-        <td> {{ request.first_name }} </td>
-        <td> {{ request.middle_name }} </td>
-        <td> {{ request.email }} </td>
-        <td> {{ request.student_number }} </td>
-        <td> {{ request.year_level }} </td>
-        <td>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Test
-              </button>
-              <ul class="dropdown-menu">
-                {% for document in requested_list %}
-                <li><a class="dropdown-item view_only" href="#">{{ document }}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
-        </td>
-        <td>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Test
-              </button>
-              <ul class="dropdown-menu">
-                {% for remark in remark_list %}
-                <li><a class="dropdown-item view_only" href="#">{{ remark }}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
-        </td>
-        <td> {{ request.total_price }} </td>
-        <td> {{ request.date_of_request }} </td>
-        {% if request.request_paid == True %}
-        <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_paid">Yes</a></td>
-        {% else %}
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved">No</a></td>
-        {% endif %}
-        {% if request.request_approved == True %}
-        <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved">Yes</a></td>
-        {% else %}
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved">No</a></td>
-        {% endif %}
-        {% if request.documents_approved == True %}
-        <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/documents_approved">Yes</a></td>
-        {% else %}
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved">No</a></td>
-        {% endif %}
-        {% if request.request_available == True %}
-        <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available">Yes</a></td>
-        {% else %}
-        <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available">No</a></td>
-        {% endif %}
-        <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}">Finish Transaction</a></td>
-        <td><a class="btn btn-primary" href="/remove/{{ request.queue_number }}">Delete Entry</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
+  <div id = "table_content"> 
+    <tbody>
+      {% for request in pages.items %}
+      {% set requested_list = request.requested_documents.split('@') %}
+      {% set remark_list = request.remarks.split('@') %}
+      <tr>
+          <th scope = "row"> {{ request.queue_number }} </th>
+          <td> {{ request.last_name }} </td>
+          <td> {{ request.first_name }} </td>
+          <td> {{ request.middle_name }} </td>
+          <td> {{ request.email }} </td>
+          <td> {{ request.student_number }} </td>
+          <td> {{ request.year_level }} </td>
+          <td>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                  Test
+                </button>
+                <ul class="dropdown-menu">
+                  {% for document in requested_list %}
+                  <li><a class="dropdown-item view_only" href="#">{{ document }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+          </td>
+          <td>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                  Test
+                </button>
+                <ul class="dropdown-menu">
+                  {% for remark in remark_list %}
+                  <li><a class="dropdown-item view_only" href="#">{{ remark }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+          </td>
+          <td> {{ request.total_price }} </td>
+          <td> {{ request.date_of_request }} </td>
+
+
+          {% if request.request_paid == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_paid">Yes</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid">No</a></td>
+          {% endif %}
+          {% if request.request_approved == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved">Yes</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved">No</a></td>
+          {% endif %}
+          {% if request.documents_approved == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/documents_approved">Yes</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved">No</a></td>
+          {% endif %}
+          {% if request.request_available == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available">Yes</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available">No</a></td>
+          {% endif %}
+
+
+          <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}">Finish Transaction</a></td>
+          <td><a class="btn btn-primary" href="/remove/{{ request.queue_number }}">Delete Entry</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </div>
 </table>
 
 <nav>
   <ul class="pagination justify-content-center">
     <li class="page-item {% if not pages.has_prev %} disabled {% endif %}">
-      <a class="page-link" href="/admin/dashboard?page={{ pages.prev_num }}" tabindex="-1" aria-disabled="true">Previous</a>
+      <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.prev_num }}" tabindex="-1" aria-disabled="true">Previous</a>
     </li>
 {% for page in pages.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %} 
 {% if page %} 
 {% if page == pages.page %}
   <li class="page-item active">
-    <a class="page-link" href="/admin/dashboard?page={{ page }}" >{{ page }}</a>
+    <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}" >{{ page }}</a>
   </li>
 {% else %}
   <li class = "page-item">
-    <a class="page-link" href="/admin/dashboard?page={{ page }}">{{ page }}</a>
+    <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}">{{ page }}</a>
   </li>
 {% endif %} 
 {% else %} 
@@ -108,7 +115,7 @@
 {% endif %} 
 {% endfor %}
     <li class="page-item {% if not pages.has_next %} disabled {% endif %}">
-      <a class="page-link" href="/admin/dashboard?page={{ pages.next_num }}">Next</a>
+      <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.next_num }}">Next</a>
     </li>
   </ul>
 </nav>
@@ -117,13 +124,13 @@
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Sort Requests By</button>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="/sort/desc">Request Date: Descending</a></li>
-    <li><a class="dropdown-item" href="/sort/asc">Request Date: Ascending</a></li>
+    <li><a class="dropdown-item" href="/admin/dashboard/desc">Request Date: Descending</a></li>
+    <li><a class="dropdown-item" href="/admin/dashboard/asc">Request Date: Ascending</a></li>
     <li><a class="dropdown-item read_only" href="#">By Document &raquo;</a>
       <ul class="dropdown-menu dropdown-submenu">
         <div class = "scroll">
         {% for i in range(documents|length) %}
-        <li><a class="dropdown-item" href="/sort/{{ documents[i] }}">{{ documents[i] }}</a></li>
+        <li><a class="dropdown-item" href="/admin/dashboard/{{ documents[i] }}">{{ documents[i] }}</a></li>
         {% endfor %}
       </div>
       </ul>

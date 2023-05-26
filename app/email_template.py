@@ -41,4 +41,8 @@ def documents_available_template(name, queue_number):
 	prompt = f"The documents you requested for order number {queue_number} is available for claiming. Please proceed to the OUR to claim it"
 	content = html_email(name, prompt)
 	return content
-#NOTE: CONTENT CAN BE FORMATTED USING HTML!
+
+def payment_received_template(name, queue_number):
+	prompt = f"Payment received for order number {queue_number}"
+	content = html_email(name, prompt)
+	return content

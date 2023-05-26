@@ -99,4 +99,22 @@ if (honorable_dismissal[0]){
 	})
 }
 
+/*$(document).ready(function(){
+  $(document).on('click', '.page-link', function(event){
+    var link = $(this).attr('href')
+    searchResults(link)
+    event.preventDefault()
+  })
+})
 
+var searchResults = function(link){{
+    $.ajax({
+      url: link,
+      success: function(response) {
+        $("#table_content").html(response);
+      },
+      error: function(xhr) {
+        //Do Something to handle error
+      }
+    });
+}} */

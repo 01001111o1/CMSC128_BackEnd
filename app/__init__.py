@@ -15,7 +15,7 @@ app.config["ALLOWED_FILE_EXTENSIONS"] = ["PDF"]
 app.config["MAX_FILE_FILESIZE"] = 0.5 * 1024 * 1024 * 1024
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['REQUESTS_PER_PAGE'] = 1
+app.config['REQUESTS_PER_PAGE'] = 2
 
 db.init_app(app)
 
