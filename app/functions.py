@@ -9,7 +9,7 @@ def allowed_file_size(filesize):
     return int(filesize) <= app.config["MAX_FILE_FILESIZE"]
 
 def isInvalid(name):
-    invalid_symbols = ['<', '>', '"', '&']
+    invalid_symbols = ['<', '>', '"', '&', "*", "=", "SELECT", "WHERE"]
     for symbol in invalid_symbols:
         if name.find(symbol) != -1:
             return True

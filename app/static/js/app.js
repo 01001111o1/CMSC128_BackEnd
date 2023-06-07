@@ -22,10 +22,24 @@ const course_description_prices = {
 	"Alumni" : "80",
 }
 
+const otr_prices = {
+	"1" : "70",
+	"2" : "70",
+	"3" : "140", 
+	"4" : "210",
+	"Alumni" : "210",
+	"Graduate Student" : "280"
+}
+
 const course_description = document.querySelectorAll('input[value= "Course Description"]')
 const course_description_label = document.querySelectorAll('label[value="Course Description"]')
+
 const honorable_dismissal = document.querySelectorAll('input[value= "Honorable Dismissal"]')
 const honorable_dismissal_label = document.querySelectorAll('label[value="Honorable Dismissal"]')
+
+const otr = document.querySelectorAll('input[value="Official Transcript of Records"]')
+const otr_label = document.querySelectorAll('label[value="Official Transcript of Records"]')
+
 const year_level = document.getElementById("YearLevel")
 const final_price = document.getElementById("total_price")
 const is_scholarship = document.getElementById("scholarship_toggle")
@@ -63,10 +77,16 @@ let updatePrice_Yearlevel = () => {
 		course_description[0].disabled = true
 		course_description[0].checked = false
 		course_description_label[0].innerText = "Cannot Apply As A Graduate Student"
+
+		otr[0].dataset.price = otr_prices[event.target.value]
+		otr_label[0].innerText = otr_prices[event.target.value]	
 	}else{
 		course_description[0].disabled = false
 		course_description[0].dataset.price = course_description_prices[event.target.value]
 		course_description_label[0].innerText = course_description_prices[event.target.value]	
+
+		otr[0].dataset.price = otr_prices[event.target.value]
+		otr_label[0].innerText = otr_prices[event.target.value]	
 	}
 	updatePrice()	
 }

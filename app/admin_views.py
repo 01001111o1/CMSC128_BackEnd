@@ -7,9 +7,6 @@ from .email_template import request_approved_template, documents_approved_templa
 import shutil
 
 from datetime import date
-
-from docxtpl import DocxTemplate
-from docx2pdf import convert
 import ast 
 
 from send_email import send_message
@@ -54,39 +51,39 @@ def admin_dashboard(parameter):
 @login_required
 def update(queue_number, classification):
     query = Request.query.get_or_404(queue_number)  
-    #try:
-    if classification == "request_paid":
-        send_message("scvizconde@up.edu.ph", 
-            query.email, 
-            f"Payment received for order number { query.queue_number }", 
-            payment_received_template(query.first_name, query.queue_number))
-        query.request_paid = True
-    elif classification == "request_approved":
-        send_message("scvizconde@up.edu.ph", 
-            query.email, 
-            f"Request approved for order number { query.queue_number }", 
-            request_approved_template(query.first_name, query.queue_number))
-        query.request_approved = True
-    elif classification == "documents_approved":
-        send_message("scvizconde@up.edu.ph", 
-            query.email, 
-            f"Documents approved for order number { query.queue_number }", 
-            documents_approved_template(query.first_name, query.queue_number))
-        query.documents_approved = True
-    elif classification == "claiming_available":
-        send_message("scvizconde@up.edu.ph", 
-            query.email, 
-            f"order number { query.queue_number } available for claiming", 
-            documents_available_template(query.first_name, query.queue_number))
-        query.request_available = True
-    else:
-        query.request_paid = True
-    db.session.commit()
-    flash("Successfully sent update email", "success")
-    return redirect(session["url"])
-    # except:
-    #     flash("error sending update email", "error")
-    #     return redirect(url_for("admin_views.admin_dashboard", parameter = parameter))
+    try:
+        if classification == "request_paid":
+            send_message("scvizconde@up.edu.ph", 
+                query.email, 
+                f"Payment received for order number { query.queue_number }", 
+                payment_received_template(query.first_name, query.queue_number))
+            query.request_paid = True
+        elif classification == "request_approved":
+            send_message("scvizconde@up.edu.ph", 
+                query.email, 
+                f"Request approved for order number { query.queue_number }", 
+                request_approved_template(query.first_name, query.queue_number))
+            query.request_approved = True
+        elif classification == "documents_approved":
+            send_message("scvizconde@up.edu.ph", 
+                query.email, 
+                f"Documents approved for order number { query.queue_number }", 
+                documents_approved_template(query.first_name, query.queue_number))
+            query.documents_approved = True
+        elif classification == "claiming_available":
+            send_message("scvizconde@up.edu.ph", 
+                query.email, 
+                f"order number { query.queue_number } available for claiming", 
+                documents_available_template(query.first_name, query.queue_number))
+            query.request_available = True
+        else:
+            query.request_paid = True
+        db.session.commit()
+        flash("Successfully sent update email", "success")
+        return redirect(session["url"])
+    except:
+        flash("error sending update email", "error")
+        return redirect(url_for("admin_views.admin_dashboard", parameter = parameter))
 
 @admin_views.route("/delete/<int:queue_number>")
 @login_required
@@ -112,7 +109,7 @@ def delete_entry(queue_number):
 @login_required
 def remove_entry(queue_number):
     query = Request.query.get_or_404(queue_number)  
-    folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
+    folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
     folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
 
     try:
