@@ -32,7 +32,7 @@ def login():
 
 		login_user(admin, remember = True)
 		flash("Logged in successfully", "success")
-		return redirect(url_for("admin_views.admin_dashboard"))
+		return redirect(url_for("admin_views.admin_dashboard", parameter="default"))
 
 	return render_template("public/login.html", user = current_user)
 

@@ -24,15 +24,10 @@ views = Blueprint('views', __name__)
 
 @views.route("/")
 def index():
-<<<<<<< HEAD
-    return render_template("public/index.html", user = current_user)
-=======
-
     return render_template("public/intro.html", user = current_user)
->>>>>>> 6fd1a1cc8a104f08fe684ced75e4d6cbef1d51b8
 
-@views.route("/choose_requirements", methods = ["GET", "POST"])
-def choose_requirements():
+@views.route("/request_forms", methods = ["GET", "POST"])
+def request_forms():
     if request.method == "POST":
 
         name = request.form.getlist("name")
@@ -98,7 +93,7 @@ def choose_requirements():
 
         return redirect(url_for("views.upload_image"))
 
-    return render_template("public/choose_requirements.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
+    return render_template("public/request_forms.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
         scholarship_discounted_documents, base_prices = Base_Prices, user = current_user)
 
 @views.route("/upload_image", methods = ["GET", "POST"])
@@ -134,11 +129,11 @@ def upload_image():
 
             if check_email:
                 flash("Email already exists", "error") #pag bawal 2 request kada student
-                return redirect(url_for("views.choose_requirements"))
+                return redirect(url_for("views.request_forms"))
 
             if check_student_number:
                 flash("Student number already exists", "error") #pag bawal 2 request kada student
-                return redirect(url_for("views.choose_requirements"))
+                return redirect(url_for("views.request_forms"))
 
             new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
             os.mkdir(new_directory)
