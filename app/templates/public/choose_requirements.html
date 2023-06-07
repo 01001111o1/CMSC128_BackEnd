@@ -1,0 +1,104 @@
+{% extends "public/templates/public_template.html" %}
+{% block title %} Upload Image {% endblock %}
+{% block main %}
+
+<form action = "/choose_requirements" method = "POST" enctype = "multipart/form-data">
+
+<div class = "container">
+    <div class="row">
+
+            <div class="col">
+            <div class="input-group mb-3">
+              <span class="input-group-text">First Name</span>
+              <input type="text" class="form-control" name = "name" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Middle Name</span>
+              <input type="text" class="form-control" name = "name" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Last Name</span>
+              <input type="text" class="form-control" name = "name" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Student Number</span>
+              <input type="text" class="form-control" name = "student_number" placeholder = "Ex: 202005837" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Email</span>
+              <input type="text" class="form-control" name = "email" required>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">Purpose</span>
+              <input type="text" class="form-control" name = "purpose" placeholder = "Ex: For Transcript of Records">
+            </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text">Year Level</label>
+                <select class="form-select" id="YearLevel" name = "YearLevel" onchange="updatePrice_Yearlevel()" required>
+                  <option disabled selected value="">Current Year Level</option>
+                  <option value="1">First Year</option>
+                  <option value="2">Second Year</option>
+                  <option value="3">Third Year</option>
+                  <option value="4">Fourth Year</option>
+                  <option value="Graduate Student">Graduate Student</option>
+                  <option value="Alumni">Alumni</option>
+                </select>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" name = "scholarship" id = "scholarship_toggle" type="checkbox"  onchange = "updatePrice_scholarship()">
+                <input id = "hidden" type="hidden" name = "map" value = "">
+                <label class="form-check-label" id = "scholarship_toggle_label">For Scholarship</label>
+              </div>
+              </div>
+
+            <div class = "col">
+            {% for i in range (list1 |length) %}
+              <div class="form-check"> 
+                <label class="form-check-label">{{ list1[i] }}</label>
+                {% if list1[i] in scholarship_documents %}
+                <input class="form-check-input scholarship" type="checkbox" value="{{ list1[i] }}" name = "check" data-price = "{{ base_prices[list1[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label scholarship_label"><h4>{{ base_prices[list1[i]] }}</h4></label>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="{{ list1[i] }}" name = "check" data-price = "{{ base_prices[list1[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label" value="{{ list1[i] }}"><h4>{{ base_prices[list1[i]] }}</h4></label>                
+                {% endif %}
+              </div>
+            {% endfor %}
+            </div>
+
+            <div class = "col">
+            {% for i in range (list2 |length) %}
+              <div class="form-check"> 
+                <label class="form-check-label">{{ list2[i] }}</label>
+                {% if list2[i] in scholarship_documents %}
+                <input class="form-check-input scholarship" type="checkbox" value="{{ list2[i] }}" name = "check" data-price = "{{ base_prices[list2[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label scholarship_label"><h4>{{ base_prices[list2[i]] }}</h4></label>
+                {% else %}
+                <input class="form-check-input" type="checkbox" value="{{ list2[i] }}" name = "check" data-price = "{{ base_prices[list2[i]] }}" onClick="updatePrice()">
+                <label class="form-check-label"><h4>{{ base_prices[list2[i]] }}</h4></label>                
+                {% endif %}
+              </div>
+            {% endfor %}
+            </div>
+
+            <button type = "submit" class = "btn btn-primary">Choose Requirements</button>
+            <textarea id = "total_price" name = "total_price" readonly> 0 </textarea>
+
+    </div>
+</div>
+</form>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
