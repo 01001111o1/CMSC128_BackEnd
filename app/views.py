@@ -40,6 +40,11 @@ def choose_requirements():
         purpose = "Purpose: " + request.form.get("purpose").upper()
         price_map = request.form.get("map")
 
+        temp = dict()
+
+        for k, _ in Requirements.items():
+            temp[k] = any([val in documents for val in Requirements[k]])
+
         for n in name:
             if isInvalid(n):
                 flash("Invalid characters in input form", "error")
@@ -72,11 +77,6 @@ def choose_requirements():
             flash("Select at least one requirement", "error")
             return redirect(request.url)
 
-        temp = dict()
-
-        for k, _ in Requirements.items():
-            temp[k] = any([val in documents for val in Requirements[k]])
-
         session["remarks"] = [purpose]
 
         if scholarship is not None:
@@ -104,6 +104,7 @@ def upload_image():
         if request.files:
 
             files = request.files.getlist("file")
+
             for file in files:
                 if not allowed_file_size(request.cookies.get("filesize")):
                     flash("File size too large", "error")
@@ -117,21 +118,33 @@ def upload_image():
                     flash("Invalid file extension", "error")
                     return redirect(request.url)
 
+            check_fname = Request.query.filter_by(first_name = session["name"][0]).first()
+            check_mname = Request.query.filter_by(middle_name = session["name"][1]).first()
+            check_lname = Request.query.filter_by(last_name = session["name"][2]).first()
+            check_email = Request.query.filter_by(email = session["email"]).first()
+            check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
+
             if "True Copy of Grades" in session["documents"]:
                 session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
 
             folder_name = " ".join([name.upper() for name in session["name"]])
 
-            check_email = Request.query.filter_by(email = session["email"]).first()
-            check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
+            if check_fname and check_mname and check_lname:
+                flash("You currently have a request in progress")
+                return redirect(url_for("views.choose_requirements"))
 
             if check_email:
-                flash("Email already exists", "error") #pag bawal 2 request kada student
+                flash("Email already exists", "error")
                 return redirect(url_for("views.choose_requirements"))
 
             if check_student_number:
-                flash("Student number already exists", "error") #pag bawal 2 request kada student
+                flash("Student number already exists", "error")
                 return redirect(url_for("views.choose_requirements"))
+
+            if "True Copy of Grades" in session["documents"]:
+                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+            folder_name = " ".join([name.upper() for name in session["name"]])
 
             new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
             os.mkdir(new_directory)
@@ -159,7 +172,7 @@ def upload_image():
             session.clear()
 
             latest_request = Request.query.order_by(Request.queue_number.desc()).first()
-            background_runner.send_email_async(latest_request.queue_number)
+            background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number)
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
