@@ -14,7 +14,17 @@
                       <option value="Hard Copy">Hard Copy</option>
                       <option value="Digital Copy">Digital Copy</option>
                     </select>
+
                     {% elif session["requirements"][k] == True %}
+
+                    {% if session["year_level"] == "Graduate Student" and k == "Letter from parents stating the reason for Honorable Dismissal" %}
+                    {% continue %}
+                    {% endif %}
+
+                    {% if session["year_level"] != "Graduate Student" and k == "Signed letter stating the reason for Honorable Dismissal" %}
+                    {% continue %}
+                    {% endif %}
+
                     <label class="input-group-text">{{ k }}</label>
                     <input type="file" class="form-control" id="file" name = "file" oninput="filesize(this)" required>
                     {% endif %}

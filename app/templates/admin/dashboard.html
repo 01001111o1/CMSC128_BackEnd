@@ -17,9 +17,9 @@
       <th scope="col">Remarks</th>
       <th scope="col">Total Price</th>
       <th scope="col">Date of Request</th>
-      <th scope="col">Request Paid</th>
       <th scope="col">Request Approved</th>
       <th scope="col">Documents Approved</th>
+      <th scope="col">Request Paid</th>
       <th scope="col">Available for Claiming</th>
     </tr>
   </thead>
@@ -63,12 +63,6 @@
           <td> {{ request.total_price }} </td>
           <td> {{ request.date_of_request }} </td>
 
-
-          {% if request.request_paid == True %}
-          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_paid">Yes</a></td>
-          {% else %}
-          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid">No</a></td>
-          {% endif %}
           {% if request.request_approved == True %}
           <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved">Yes</a></td>
           {% else %}
@@ -79,12 +73,16 @@
           {% else %}
           <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved">No</a></td>
           {% endif %}
+          {% if request.request_paid == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_paid">Yes</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid">No</a></td>
+          {% endif %}
           {% if request.request_available == True %}
           <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available">Yes</a></td>
           {% else %}
           <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available">No</a></td>
           {% endif %}
-
 
           <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}">Finish Transaction</a></td>
           <td><a class="btn btn-primary" href="/remove/{{ request.queue_number }}">Delete Entry</a></td>
