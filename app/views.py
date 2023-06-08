@@ -24,10 +24,11 @@ views = Blueprint('views', __name__)
 @views.route("/")
 @views.route("/home")
 def index():
-    return render_template("public/index.html", user = current_user)
+    return render_template("public/intro.html", user = current_user)
 
-@views.route("/choose_requirements", methods = ["GET", "POST"])
-def choose_requirements():
+
+@views.route("/request_forms", methods = ["GET", "POST"])
+def request_forms():
     if request.method == "POST":
 
         name = [name.upper() for name in request.form.getlist("name")]
@@ -94,7 +95,7 @@ def choose_requirements():
 
         return redirect(url_for("views.upload_image"))
 
-    return render_template("public/choose_requirements.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
+    return render_template("public/request_forms.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
         scholarship_discounted_documents, base_prices = Base_Prices, user = current_user)
 
 @views.route("/upload_image", methods = ["GET", "POST"])
@@ -134,12 +135,21 @@ def upload_image():
                 return redirect(url_for("views.choose_requirements"))
 
             if check_email:
+<<<<<<< HEAD
                 flash("Email already exists", "error")
                 return redirect(url_for("views.choose_requirements"))
 
             if check_student_number:
                 flash("Student number already exists", "error")
                 return redirect(url_for("views.choose_requirements"))
+=======
+                flash("Email already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.request_forms"))
+
+            if check_student_number:
+                flash("Student number already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.request_forms"))
+>>>>>>> 5213cd29e7ebebf3a2a62b623a32d342a22b73cb
 
             if "True Copy of Grades" in session["documents"]:
                 session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
