@@ -172,7 +172,7 @@ def upload_image():
             session.clear()
 
             latest_request = Request.query.order_by(Request.queue_number.desc()).first()
-            background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number)
+            background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number, "invoice")
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))

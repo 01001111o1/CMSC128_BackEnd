@@ -21,7 +21,7 @@ class BackgroundRunner:
     def __init__(self, executor):
         self.executor = executor
 
-    def send_invoice_or_receipt(self, queue_number, classification = None):
+    def send_invoice_or_receipt(self, queue_number, classification):
 
         query = Request.query.get_or_404(queue_number)  
         folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper(), classification.upper()])
@@ -60,9 +60,14 @@ class BackgroundRunner:
 
         return None
 
-    def send_invoice_or_receipt_asynch(self, queue_number, classification = None):
+    def send_invoice_or_receipt_asynch(self, queue_number, classification):
         task_id = uuid.uuid4().hex
         self.executor.submit_stored(task_id, self.send_invoice_or_receipt, queue_number, classification)
+        return task_id
+
+    def send_message_asynch(self, receiver, subject, content, pdfs : list = None, images : list = None,  cc = None):
+        task_id = uuid.uuid4().hex
+        self.executor.submit_stored(task_id, send_message, receiver, subject, content, pdfs, images, cc)
         return task_id
 
 background_runner = BackgroundRunner(executor)

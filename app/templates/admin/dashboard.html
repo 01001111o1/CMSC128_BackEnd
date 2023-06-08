@@ -79,9 +79,9 @@
           <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid">No</a></td>
           {% endif %}
           {% if request.request_available == True %}
-          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available">Yes</a></td>
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_available">Yes</a></td>
           {% else %}
-          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available">No</a></td>
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_available">No</a></td>
           {% endif %}
 
           <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}">Finish Transaction</a></td>

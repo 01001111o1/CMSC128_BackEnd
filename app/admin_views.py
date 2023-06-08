@@ -50,7 +50,11 @@ def admin_dashboard(parameter):
     if request.method == "POST":
         reason = request.form.get("reason_reject")
         queue_number = request.form.get("id_to_remove")
-        
+        query = Request.query.get_or_404(queue_number)  
+
+        subject, content = email_template(query.first_name, queue_number, "request_rejected", reason)
+        background_runner.send_message_asynch(query.email, subject, content)
+
         remove_entry(queue_number)
 
         return redirect(session["url"])
@@ -63,8 +67,7 @@ def update(queue_number, classification):
     query = Request.query.get_or_404(queue_number)  
     try:
         subject, content = email_template(query.first_name, queue_number, classification)
-        send_message(query.email, subject, content)
-        background_runner.send_invoice_or_receipt_asynch(queue_number)
+        background_runner.send_message_asynch(query.email, subject, content)
 
         exec(f'query.{classification} = True')
 
