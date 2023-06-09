@@ -24,11 +24,7 @@ views = Blueprint('views', __name__)
 @views.route("/")
 @views.route("/home")
 def index():
-<<<<<<< HEAD
     return render_template("public/intro.html", user = current_user)
-=======
-    return render_template("public/index.html", user = current_user)
->>>>>>> origin/master
 
 @views.route("/request_forms", methods = ["GET", "POST"])
 def request_forms():

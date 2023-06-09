@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -57,16 +57,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto ms-n3 mb-2 mb-lg-0 fs-6 text-uppercase">
             <li class="nav-item">
-              <a
-                class="nav-link active text-white mx-5"
-                aria-current="page"
-                href="/"
-                >Home</a
-              >
+              <a class="nav-link text-white mx-5" href="/">Home</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link text-white mx-5" href="/admin/dashboard/default"
+              <a
+                class="nav-link text-white mx-5"
+                href="/admin/dashboard/default"
                 >Dashboard</a
               >
             </li>
@@ -100,7 +97,7 @@
                   alt="LoginIcn"
                   width="auto"
                   height="40"
-                  class="d-inline-block align-text-top"
+                  class="authicn d-inline-block align-text-top"
                 />
               </a>
               <div class="dropdown-menu p-4">

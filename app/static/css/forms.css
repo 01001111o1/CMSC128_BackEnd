@@ -1,7 +1,7 @@
 body {
   background-color: #ffffff;
   color: #444444;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   font-weight: 300;
   margin: 0;
@@ -84,6 +84,62 @@ body {
   padding-left: 10px;
   cursor: pointer;
 }
+.form-wizard .wizard-form-checkbox {
+  display: inline-block;
+  margin-left: 5px;
+  position: relative;
+}
+.form-wizard .wizard-form-checkbox input[type='checkbox'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  background-color: #dddddd;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+.form-wizard .wizard-form-checkbox input[type='checkbox']:focus {
+  outline: 0;
+}
+.form-wizard .wizard-form-checkbox input[type='checkbox']:checked {
+  background-color: #850038;
+}
+.form-wizard .wizard-form-checkbox input[type='checkbox']:checked::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background-color: #ffffff;
+  border-radius: 50%;
+  left: 1px;
+  right: 0;
+  margin: 0 auto;
+  top: 8px;
+}
+.form-wizard .wizard-form-checkbox input[type='checkbox']:checked::after {
+  content: '';
+  display: inline-block;
+  -webkit-animation: click-radio-wave 0.65s;
+  -moz-animation: click-radio-wave 0.65s;
+  animation: click-radio-wave 0.65s;
+  background: #000000;
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 100;
+  border-radius: 50%;
+}
+.form-wizard .wizard-form-checkbox input[type='checkbox'] ~ label {
+  padding-left: 10px;
+  cursor: pointer;
+}
 .form-wizard .form-wizard-header {
   text-align: center;
 }
@@ -118,10 +174,6 @@ body {
 .form-wizard .wizard-form-error {
   display: none;
   background-color: #850038;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
   height: 2px;
   width: 100%;
 }
@@ -145,7 +197,7 @@ body {
 }
 .form-wizard .wizard-form-text-label {
   position: absolute;
-  left: 10px;
+  left: 20px;
   top: 16px;
   transition: 0.2s linear all;
 }
@@ -216,6 +268,15 @@ body {
   transform: translateY(-50%);
   cursor: pointer;
 }
+.form-wizard .ylopt {
+  margin: 0px 0px;
+}
+.form-wizard .schlopt {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 @keyframes click-radio-wave {
   0% {
     width: 25px;
@@ -235,4 +296,132 @@ body {
   .wizard-content-left {
     height: auto;
   }
+}
+
+/*** choose forms ***/
+:focus {
+  outline: 0px;
+}
+
+.quiz_content_area .row {
+  height: 20%;
+  overflow-y: auto;
+  overflow-x: visible;
+}
+
+.quiz_content_area .row .col-sm-3 {
+  width: calc(100% / 3);
+}
+
+.quiz_title {
+  font-size: 25px;
+  font-weight: 700;
+  color: #292d3f;
+  text-align: center;
+}
+
+.quiz_content_area .prize_detail {
+  color: #292d3f;
+  font-size: 20px;
+}
+
+.quiz_card_area {
+  position: relative;
+  margin-bottom: 30px;
+}
+.single_quiz_card {
+  border: 2px solid #850038;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  -khtml-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+.quiz_card_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  padding: 20px;
+  text-align: center;
+  color: #850038;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.quiz_card_price {
+  padding: 10px;
+  text-align: center;
+  background-color: #850038;
+}
+.quiz_card_price h3 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.quiz_checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  cursor: pointer;
+}
+.quiz_checkbox:checked ~ .single_quiz_card {
+  border: 2px solid #0e6021;
+}
+
+.quiz_checkbox:checked ~ .single_quiz_card .quiz_card_content .quiz_card_price {
+  background-color: #0e6021;
+  color: #fff;
+}
+
+.quiz_checkbox:checked ~ .single_quiz_card .quiz_card_content .quiz_card_title {
+  color: #0e6021;
+}
+
+.quiz_checkbox:checked
+  ~ .single_quiz_card
+  .quiz_card_content
+  .quiz_card_price
+  h3 {
+  color: #fff;
+}
+
+.quiz_checkbox:disabled {
+  cursor: not-allowed;
+}
+
+.quiz_checkbox:disabled ~ .single_quiz_card {
+  border: 2px solid #9f9f9f;
+}
+
+.quiz_checkbox:disabled
+  ~ .single_quiz_card
+  .quiz_card_content
+  .quiz_card_price {
+  background-color: #9f9f9f;
+  color: black;
+}
+
+.quiz_checkbox:disabled
+  ~ .single_quiz_card
+  .quiz_card_content
+  .quiz_card_title {
+  color: #9f9f9f;
+}
+
+.quiz_checkbox:disabled
+  ~ .single_quiz_card
+  .quiz_card_content
+  .quiz_card_price
+  h3 {
+  color: black;
+  font-size: x-small;
 }
