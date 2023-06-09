@@ -79,13 +79,52 @@
           <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid">No</a></td>
           {% endif %}
           {% if request.request_available == True %}
-          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available">Yes</a></td>
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_available">Yes</a></td>
           {% else %}
-          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available">No</a></td>
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_available">No</a></td>
           {% endif %}
 
           <td><a class="btn btn-primary" href="/delete/{{ request.queue_number }}">Finish Transaction</a></td>
-          <td><a class="btn btn-primary" href="/remove/{{ request.queue_number }}">Delete Entry</a></td>
+
+          <td>
+
+            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal"> Delete Entry </a>
+            
+            <form action = "/admin/dashboard/{{ parameter }}/" method = "POST">
+            <div class="modal fade" id="modal">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5">Delete Entry</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <table>
+                      <tr><td>Order ID: {{ request.queue_number }}</td></tr>
+                      <tr><td>Name: {{ request.first_name + " " + request.middle_name + " " + request.last_name }}</td></tr>
+                      <tr><td>Student Number: {{request.student_number }}</td></tr>
+                    </table>
+                    
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">Reason For Rejecting</span>
+                        <input type="text" class="form-control" name = "reason_reject" placeholder = "Ex: Invalid requested documents" required>
+                        <input type="hidden" name = "id_to_remove" value = "{{ request.queue_number }}">
+                      </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type = "submit" class="btn btn-primary">Delete</a>
+                  </div>
+                
+                </div>
+              </div>
+            </div>
+            </form>
+
+          </td>      
       </tr>
       {% endfor %}
     </tbody>

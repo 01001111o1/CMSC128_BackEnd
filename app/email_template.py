@@ -27,22 +27,21 @@ def html_email(name,prompt):
 	</td></tr></table><![endif]--></td></tr><tr><td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;"><div style="font-family:helvetica;font-size:10px;line-height:1;text-align:center;color:rgb(155, 155, 155);">&copy;2023 OUR UPB. All rights reserved.</div></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]--></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table></td></tr></table><![endif]--></td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]--></div></body></html>
 	"""
 
-def request_approved_template(name, queue_number):
-  prompt = f"Your request with order number {queue_number} has been approved."
-  content = html_email(name, prompt)
-  return content
+def email_template(name, queue_number, classification, reason = None):
+    if classification == "request_paid":
+        subject = f"Payment received for order number {queue_number}"
+    elif classification == "request_approved":
+        subject = f"Your request with order number {queue_number} has been approved."
+    elif classification == "documents_approved":
+        subject = f"The documents you submitted for order number {queue_number} has been verified and approved."
+    else:
+        subject = f"Order number { queue_number } available for claiming."
 
-def documents_approved_template(name, queue_number):
-	prompt = f"The documents you submitted for order number {queue_number} has been verified and approved."
-	content = html_email(name, prompt)
-	return content
+    content = html_email(name, subject)
+	
+    if classification == "request_rejected":
+        subject = f"Your request has been declined "
+        content = html_email(name, subject + "because: " + reason)
 
-def documents_available_template(name, queue_number):
-	prompt = f"The documents you requested for order number {queue_number} is available for claiming. Please proceed to the OUR to claim it"
-	content = html_email(name, prompt)
-	return content
+    return (subject, content)
 
-def payment_received_template(name, queue_number):
-	prompt = f"Payment received for order number {queue_number}"
-	content = html_email(name, prompt)
-	return content

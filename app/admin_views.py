@@ -3,8 +3,10 @@ from flask_login import login_required, current_user
 from . import db
 from app import app, executor
 from .models import Request
-from .email_template import request_approved_template, documents_approved_template, documents_available_template, payment_received_template
+from .email_template import email_template
 import shutil
+
+import time
 
 from datetime import date
 import ast 
@@ -45,6 +47,18 @@ def admin_dashboard(parameter):
 
     pages = requests.paginate(page = page, per_page = app.config['REQUESTS_PER_PAGE']) 
 
+    if request.method == "POST":
+        reason = request.form.get("reason_reject")
+        queue_number = request.form.get("id_to_remove")
+        query = Request.query.get_or_404(queue_number)  
+
+        subject, content = email_template(query.first_name, queue_number, "request_rejected", reason)
+        background_runner.send_message_asynch(query.email, subject, content)
+
+        remove_entry(queue_number)
+
+        return redirect(session["url"])
+
     return render_template("admin/dashboard.html", pages = pages, documents = Documents, user = current_user, parameter = parameter)
 
 @admin_views.route("/update/<int:queue_number>/<classification>")
@@ -52,38 +66,17 @@ def admin_dashboard(parameter):
 def update(queue_number, classification):
     query = Request.query.get_or_404(queue_number)  
     try:
-        if classification == "request_paid":
-            send_message("scvizconde@up.edu.ph", 
-                query.email, 
-                f"Payment received for order number { query.queue_number }", 
-                payment_received_template(query.first_name, query.queue_number))
-            query.request_paid = True
-        elif classification == "request_approved":
-            send_message("scvizconde@up.edu.ph", 
-                query.email, 
-                f"Request approved for order number { query.queue_number }", 
-                request_approved_template(query.first_name, query.queue_number))
-            query.request_approved = True
-        elif classification == "documents_approved":
-            send_message("scvizconde@up.edu.ph", 
-                query.email, 
-                f"Documents approved for order number { query.queue_number }", 
-                documents_approved_template(query.first_name, query.queue_number))
-            query.documents_approved = True
-        elif classification == "claiming_available":
-            send_message("scvizconde@up.edu.ph", 
-                query.email, 
-                f"order number { query.queue_number } available for claiming", 
-                documents_available_template(query.first_name, query.queue_number))
-            query.request_available = True
-        else:
-            query.request_paid = True
+        subject, content = email_template(query.first_name, queue_number, classification)
+        background_runner.send_message_asynch(query.email, subject, content)
+
+        exec(f'query.{classification} = True')
+
         db.session.commit()
         flash("Successfully sent update email", "success")
         return redirect(session["url"])
     except:
         flash("error sending update email", "error")
-        return redirect(url_for("admin_views.admin_dashboard", parameter = parameter))
+        return redirect(session["url"])
 
 @admin_views.route("/delete/<int:queue_number>")
 @login_required
@@ -92,13 +85,14 @@ def delete_entry(queue_number):
         query = Request.query.get_or_404(queue_number)  
         folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
         folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
-        
-        background_runner.send_email_async(queue_number)
 
-        shutil.rmtree(folder_path, ignore_errors = False)
+        background_runner.send_invoice_or_receipt_asynch(queue_number, "receipt")
 
         db.session.delete(query)
         db.session.commit()
+        
+        shutil.rmtree(folder_path)
+
         flash("Transaction successfully deleted", "success")
         return redirect(session["url"])
     except:

@@ -14,14 +14,20 @@ import pythoncom
 from flask_executor import Executor
 import uuid
 
+import shutil
+import os
+
 class BackgroundRunner: 
     def __init__(self, executor):
         self.executor = executor
 
-    def send_invoice_or_receipt(self, queue_number):
+    def send_invoice_or_receipt(self, queue_number, classification):
+
         query = Request.query.get_or_404(queue_number)  
-        folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
+        folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper(), classification.upper()])
         folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
+
+        os.mkdir(folder_path)
 
         price_map = query.price_map
         price_dictionary = ast.literal_eval(price_map)
@@ -45,16 +51,23 @@ class BackgroundRunner:
         pythoncom.CoInitialize()
         convert(docxpath, pdfpath)
 
-        send_message("scvizconde@up.edu.ph", 
-                    query.email, 
+        send_message(query.email, 
                     f'Receipt for order number {query.queue_number}', 
                     "test content", 
                     [pdfpath])
+
+        shutil.rmtree(folder_path, ignore_errors = False)
+
         return None
 
-    def send_email_async(self, queue_number):
+    def send_invoice_or_receipt_asynch(self, queue_number, classification):
         task_id = uuid.uuid4().hex
-        self.executor.submit_stored(task_id, self.send_invoice_or_receipt, queue_number)
+        self.executor.submit_stored(task_id, self.send_invoice_or_receipt, queue_number, classification)
+        return task_id
+
+    def send_message_asynch(self, receiver, subject, content, pdfs : list = None, images : list = None,  cc = None):
+        task_id = uuid.uuid4().hex
+        self.executor.submit_stored(task_id, send_message, receiver, subject, content, pdfs, images, cc)
         return task_id
 
 background_runner = BackgroundRunner(executor)

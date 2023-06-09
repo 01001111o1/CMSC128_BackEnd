@@ -17,7 +17,7 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
 #NOTE: SENDER EMAIL IS THE ONE YOU USED TO CREATE THE PROJECT IN GOOGLE CLOUSPACE!!!!!
 
-def send_message(sender, receiver, subject, content, pdfs : list = None, images : list = None,  cc = None):
+def send_message(receiver, subject, content, pdfs : list = None, images : list = None,  cc = None):
 
     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     try:
@@ -25,7 +25,6 @@ def send_message(sender, receiver, subject, content, pdfs : list = None, images 
         
         message = MIMEMultipart()
         message['To'] = receiver
-        message['From'] = sender
         message['Subject'] = subject
         message['cc'] = cc
 
