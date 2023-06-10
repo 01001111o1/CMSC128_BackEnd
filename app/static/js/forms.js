@@ -169,11 +169,11 @@ function validateEmailInput() {
   const emailErrorElement = emailElement.nextElementSibling;
 
   if (!validateEmail(emailElement.value.trim())) {
-    emailElement.classList.add('error'); 
-    emailErrorElement.innerText = 'Email should contain at least "@" and "."'; 
+    emailElement.classList.add('error');
+    emailErrorElement.innerText = emailElement.value.trim() === '' ? '' : 'Email should contain at least "@" and "."';
   } else {
-    emailElement.classList.remove('error'); 
-    emailErrorElement.innerText = ''; 
+    emailElement.classList.remove('error');
+    emailErrorElement.innerText = '';
   }
 }
 
@@ -182,15 +182,16 @@ function validateForm() {
   const emailErrorElement = emailElement.nextElementSibling;
 
   if (!validateEmail(emailElement.value.trim())) {
-    emailElement.classList.add('error'); 
-    emailErrorElement.innerText = 'Email should contain at least "@" and "."'; 
-    return false; 
+    emailElement.classList.add('error');
+    emailErrorElement.innerText = emailElement.value.trim() === '' ? '' : 'Email should contain at least "@" and "."';
+    return false;
   } else {
-    emailElement.classList.remove('error'); 
-    emailErrorElement.innerText = ''; 
+    emailElement.classList.remove('error');
+    emailErrorElement.innerText = '';
   }
-  return true; 
+  return true;
 }
+
 
 
 /* function validateEmail(email) {
