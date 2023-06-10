@@ -168,7 +168,7 @@ if (honorable_dismissal[0]) {
         'Cannot Apply For This With Honorary Dimissal';
     } else {
       is_scholarship.disabled = false;
-      is_scholarship_label.innerText = 'For Scholarship';
+      is_scholarship_label.innerText = '';
     }
   });
 }
