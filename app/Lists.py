@@ -15,7 +15,6 @@ Requirements = OrderedDict([
 	("Latest University Clearance", ["Honorable Dismissal", "Official Transcript of Records"]),
 	("Exit counseling from the Office of Counseling and Guidance" , ["Honorable Dismissal"]),
 	("Official Transcript of Records", ["Honorable Dismissal"]),
-	("Proof of Payment" ,  [item for sublist in [Documents1, Documents2] for item in sublist]),
 	("Affidavit of Loss" , ["Certified True Text of Diploma"]),
 	("Scanned Copy of Diploma" , ["Diploma Translation", "Certified True Copy of Diploma"]),
 	("Preferred Format for True Copy of Grades" , ["True Copy of Grades"]),

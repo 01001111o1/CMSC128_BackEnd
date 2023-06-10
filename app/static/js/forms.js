@@ -228,7 +228,10 @@ function validateForm() {
 }
  */
 // Get the total amount from the query parameters
-const urlParams = new URLSearchParams(window.location.search);
+/* const urlParams = new URLSearchParams(window.location.search);
+
+const totalAmount = urlParams.get('total_amount');
+
 const totalAmount = urlParams.get('total_amount');
 
 // Update the amount payable in the HTML
@@ -236,7 +239,7 @@ const totalPriceElement = document.getElementById('total_price');
 if (totalPriceElement) {
   totalPriceElement.textContent = totalAmount || '0.00';
 }
-
+ */
 
 // ../imgs/icons/payment1.jpg
 
