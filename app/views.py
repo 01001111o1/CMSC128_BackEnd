@@ -181,9 +181,6 @@ def upload_image():
                     flash("Invalid file extension", "error")
                     return redirect(request.url)
 
-<<<<<<< HEAD
-            new_directory = new_request()
-=======
             check_fname = Request.query.filter_by(first_name = session["name"][0]).first()
             check_mname = Request.query.filter_by(middle_name = session["name"][1]).first()
             check_lname = Request.query.filter_by(last_name = session["name"][2]).first()
@@ -214,7 +211,6 @@ def upload_image():
 
             new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
             os.mkdir(new_directory)
->>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706
                 
             for file in files:
                 filename = secure_filename(file.filename)

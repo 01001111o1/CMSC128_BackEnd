@@ -59,11 +59,6 @@ const is_scholarship_label = document.getElementById(
   'scholarship_toggle_label'
 );
 const hidden = document.getElementById('hidden');
-<<<<<<< HEAD
-
-const checkboxes = document.getElementsByName('check');
-=======
->>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706
 
 let updatePrice_scholarship = () => {
   const discounted_documents = document.getElementsByClassName('scholarship');
@@ -137,54 +132,6 @@ let updatePrice_Yearlevel = () => {
       if (text_length <= 2) {
         course_description_label[0].insertAdjacentText('beforebegin', 'PHP ');
         course_description_label[0].insertAdjacentText('afterend', '.00');
-<<<<<<< HEAD
-      }
-    });
-    course_description_label[0].innerText =
-      course_description_prices[event.target.value];
-
-    otr[0].dataset.price = otr_prices[event.target.value];
-    otr_label[0].innerText = otr_prices[event.target.value];
-  }
-  updatePrice();
-};
-let updatePrice = () => {
-  let price = 0.0;
-  const map = new Map();
-  //const checkboxes = document.getElementsByName('check');
-  for (let i = 0; i < checkboxes.length; i++) {
-    if (checkboxes[i].checked) {
-      price += parseInt(checkboxes[i].dataset.price);
-      map.set(checkboxes[i].value, checkboxes[i].dataset.price);
-    }
-  }
-  document.getElementById("amount_payable").innerText = price
-  const json = JSON.stringify(Object.fromEntries(map));
-  hidden.value = json;
-  final_price.innerText = price;
-};
-
-if (honorable_dismissal[0]) {
-  honorable_dismissal[0].addEventListener('click', (event) => {
-    if (event.target.checked) {
-      is_scholarship.checked = false;
-      is_scholarship.disabled = true;
-      is_scholarship_label.innerText =
-        'Cannot Apply For This With Honorary Dimissal';
-    } else {
-      is_scholarship.disabled = false;
-      is_scholarship_label.innerText = 'For Scholarship';
-    }
-  });
-}
-
-document.querySelectorAll('.nav-link').forEach((link) => {
-    if (link.href === window.location.href) {
-        link.classList.add('active');
-        link.setAttribute('aria-current', 'page');
-    }
-});
-=======
       }
     });
     course_description_label[0].innerText =
@@ -251,4 +198,3 @@ var searchResults = function(link){{
       }
     });
 }} */
->>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706
