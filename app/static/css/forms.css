@@ -165,12 +165,38 @@ body {
   opacity: 0.8;
   text-decoration: none;
 }
+
 .form-wizard .wizard-fieldset {
+  text-align: center;
   display: none;
 }
+
 .form-wizard .wizard-fieldset.show {
   display: block;
 }
+
+.wizard-form-radio input[type="radio"] {
+  display: none;
+}
+
+.wizard-form-radio label {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border: 2px solid #999;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.wizard-form-radio input[type="radio"]:checked + label {
+  border-color: #850038;
+  background-color: #850038; /* Add background color to fill the box */
+  color: #fff; /* Add text color to improve visibility */
+}
+
+
+
 .form-wizard .wizard-form-error {
   display: none;
   background-color: #850038;
@@ -425,3 +451,4 @@ body {
   color: black;
   font-size: x-small;
 }
+
