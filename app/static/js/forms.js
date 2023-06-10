@@ -218,4 +218,31 @@ function validateForm() {
  */
 // Get the total amount from the query parameters
 const urlParams = new URLSearchParams(window.location.search);
+<<<<<<< HEAD
 const totalAmount = urlParams.get('total_amount');
+=======
+const totalAmount = urlParams.get('total_amount');
+
+// Update the amount payable in the HTML
+const totalPriceElement = document.getElementById('total_price');
+if (totalPriceElement) {
+  totalPriceElement.textContent = totalAmount || '0.00';
+}
+
+
+// Get the price value
+var price = base_prices[list2[i]];
+
+// Update the span element with the price value
+document.getElementById("priceValue").textContent = price;
+
+
+
+
+
+
+
+
+
+
+>>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706

@@ -15,7 +15,7 @@ from send_email import send_message
 
 from .Lists import Documents
 
-import pythoncom
+#import pythoncom
 
 from .send_generated_files import background_runner
 

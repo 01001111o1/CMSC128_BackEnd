@@ -181,7 +181,40 @@ def upload_image():
                     flash("Invalid file extension", "error")
                     return redirect(request.url)
 
+<<<<<<< HEAD
             new_directory = new_request()
+=======
+            check_fname = Request.query.filter_by(first_name = session["name"][0]).first()
+            check_mname = Request.query.filter_by(middle_name = session["name"][1]).first()
+            check_lname = Request.query.filter_by(last_name = session["name"][2]).first()
+            check_email = Request.query.filter_by(email = session["email"]).first()
+            check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
+
+            if "True Copy of Grades" in session["documents"]:
+                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+            folder_name = " ".join([name.upper() for name in session["name"]])
+
+            if check_fname and check_mname and check_lname:
+                flash("You currently have a request in progress")
+                return redirect(url_for("views.choose_requirements"))
+
+            if check_email:
+                flash("Email already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.request_forms"))
+
+            if check_student_number:
+                flash("Student number already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.request_forms"))
+
+            if "True Copy of Grades" in session["documents"]:
+                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+            folder_name = " ".join([name.upper() for name in session["name"]])
+
+            new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
+            os.mkdir(new_directory)
+>>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706
                 
             for file in files:
                 filename = secure_filename(file.filename)
