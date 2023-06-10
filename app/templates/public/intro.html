@@ -2,44 +2,43 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='css/style.css') }}"
 />
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% block main %}
-<style>
-  body {
-    overflow: hidden;
-  }
-</style>
-<nav class="intro-page">
-  <div class="grp-container">
-    <h1 class="intro-title">
-      A Project for University of the Philippines Baguio
-    </h1>
-  </div>
-  <img
-    class="intro-uplogo"
-    src="{{ url_for('static', filename='imgs/logos/uplogo.png') }}"
-  />
-</nav>
-<section class="intro-sect">
-  <div class="intro-row">
-    <div class="intro-col">
-      <img
-        src="{{ url_for('static', filename='imgs/logos/oble.png') }}"
-        alt="Oble"
-        class="intro-img1"
-      />
-    </div>
-    <div class="intro-col">
-      <img
-        src="{{ url_for('static', filename='imgs/logos/up2go-1.png') }}"
-        alt="UP2GO"
-        class="intro-img2"
-      />
-    </div>
-  </div>
-</section>
 
+  
+
+  <div class="content">
+    <nav class="start-page">
+      <div class="grp-container">
+          <h1 class="intro-title">A Project for University of the Philippines Baguio</h1>
+      </div>
+      <img class="intro-uplogo" src="{{ url_for('static', filename='imgs/logos/uplogo.png') }}">
+    </nav>
+    <img src="{{ url_for('static', filename='imgs/logos/up2go-1.png') }}">
+    <div class="arrow bounce">
+    <a class="fa fa-arrow-down" href="#"></a>
+  </div>
+
+  <section class="start-button">
+    <button class="start-btn" href="request_forms.html">PROCEED</button>
+  </section>
+
+  <section class="social_icons">
+    <a href="#" title="Facebook" target="_blank"><i class='bx bxs-info-circle' ></i></i></a>
+    <a href="#" title="Instagram" target="_blank"><i class='bx bxs-phone' ></i></a>
+    <a href="#" title="Twitter" target="_blank"><i class='bx bxs-message-alt-detail' ></i></a>
+    <a href="/admin/admin-login" title="Login" target="_blank"><i class='bx bxs-user-circle' ></i></i></a>
+  </section>
+  </div>
+
+<script src="../js/app.js"></script>
+
+<!--
 {% if user.is_authenticated %}
 <a class="intro-wrapper" href="/admin/dashboard/default"></a>
 {% else %}
 <a class="intro-wrapper" href="/request_forms"></a>
 {% endif %} {% endblock %}
+-->
+
