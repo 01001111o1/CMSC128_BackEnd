@@ -46,12 +46,28 @@ jQuery(document).ready(function () {
       }
     });
     // checks if atleast 1 form is checked
-    forms_section = parentFieldset.find('input[name="check"]').length !== 0;
-    atLeastOneIsChecked =
+    var forms_section = parentFieldset.find('input[name="check"]').length !== 0;
+    var atLeastOneIsChecked =
       parentFieldset.find('input[name="check"]:checked').length > 0;
 
     if (!atLeastOneIsChecked && forms_section) {
       nextWizardStep = false;
+    }
+
+    // checks if they chose a payment method
+    var payment_section =
+      parentFieldset.find('input[name="payment_method"]').length !== 0;
+    atLeastOneIsChecked =
+      parentFieldset.find('input[name="payment_method"]:checked').length > 0;
+
+    if (!atLeastOneIsChecked && payment_section) {
+      nextWizardStep = false;
+    } else {
+      for (const key of Object.keys(summaryDetails)) {
+        jQuery('.summary-details').append(
+          '<p>' + key + ':' + summaryDetails[key] + '</p>'
+        );
+      }
     }
 
     if (nextWizardStep) {
@@ -86,10 +102,6 @@ jQuery(document).ready(function () {
               });
           }
         });
-    }
-
-    if (parentFieldset.find('.req_title').length !== 0) {
-      console.log(summaryDetails);
     }
   });
   //click on previous button
