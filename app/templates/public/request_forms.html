@@ -6,7 +6,14 @@
 <style>
   body {
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
+  }
+
+  @media screen and (max-width: 1396px) {
+    body {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
   }
 </style>
 <section class="wizard-section">
@@ -96,7 +103,7 @@
                 <div class="wizard-form-error"></div>
               </div>
             </div>
-            <div class="form-group clearfix">
+            <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
           </fieldset>
           <fieldset class="wizard-fieldset">
@@ -185,7 +192,7 @@
                   </div><!-- end of row -->
                 </div><!-- end of container -->
             </section><!-- end of quiz_section -->
-            <div class="form-group clearfix">
+            <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
               <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
             </div>
@@ -203,14 +210,14 @@
               </div>
             </div>
             <h6 class="price_detail">Amount Payable: PHP <span id="total_price">0.00</span></h6>
-            <div class="form-group clearfix">
+            <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
               <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
             </div>
           </fieldset>
           <fieldset class="wizard-fieldset">
             <h3 class="quiz_title">Request Summary</h3>
-            <div class="form-group clearfix">
+            <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
               <button type="submit" class="btn btn-primary">Submit</button>
             </div>
