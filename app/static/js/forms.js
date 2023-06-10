@@ -59,6 +59,17 @@ jQuery(document).ready(function () {
           }
         });
     }
+
+
+  // Function to show the image
+  function showImage() {
+    // Append the image to the body or any other desired location
+    document.body.appendChild(imageElement);
+  }
+
+  // Add event listeners to the radio buttons
+  onlinePaymentRadio.addEventListener('click', showImageOnClick);
+  cashPaymentRadio.addEventListener('click', showImageOnClick);
     
   });
   //click on previous button
@@ -217,10 +228,10 @@ function validateForm() {
 }
  */
 // Get the total amount from the query parameters
-const urlParams = new URLSearchParams(window.location.search);
-<<<<<<< HEAD
+/* const urlParams = new URLSearchParams(window.location.search);
+
 const totalAmount = urlParams.get('total_amount');
-=======
+
 const totalAmount = urlParams.get('total_amount');
 
 // Update the amount payable in the HTML
@@ -228,21 +239,64 @@ const totalPriceElement = document.getElementById('total_price');
 if (totalPriceElement) {
   totalPriceElement.textContent = totalAmount || '0.00';
 }
+ */
+
+// ../imgs/icons/payment1.jpg
+
+/* // Get the radio buttons
+const onlinePaymentRadio = document.getElementById('online_paymode');
+const cashPaymentRadio = document.getElementById('cash_paymode');
+
+// Function to handle the click event
+function showImageOnClick(event) {
+  const imageContainer = document.getElementById('image_container');
+  
+  // Check which radio button was clicked
+  if (event.target === onlinePaymentRadio) {
+    // Show the image for online payment
+    imageContainer.innerHTML = '<img src="../imgs/icons/payment1.jpg" alt="Online Payment" />';
+  } else if (event.target === cashPaymentRadio) {
+    // Show the image for cash payment
+    imageContainer.innerHTML = '<img src="path/to/payment1.jpg" alt="Cash Payment" />';
+  }
+}
+
+// Add event listeners to the radio buttons
+onlinePaymentRadio.addEventListener('click', showImageOnClick);
+cashPaymentRadio.addEventListener('click', showImageOnClick); */
+
+/* $(document).ready(function() {
+  // Event handler for radio button change
+  $('input[name="payment_method"]').change(function() {
+    var selectedPayment = $(this).attr('id');
+    var imageToShow = '';
+
+    if (selectedPayment === 'online_paymode') {
+      imageToShow = '{{ url_for("static", filename="payment1.jpg") }}'; // Image for Online Payment
+    } else if (selectedPayment === 'cash_paymode') {
+      imageToShow = '{{ url_for("static", filename="imgs/icons/payment2.jpg") }}'; // Image for Cash Payment
+    }
+
+    // Update the image container with the new image
+    $('#image_container').html('<img src="' + imageToShow + '">');
+  });
+}); */
+$(document).ready(function() {
+  // Event handler for radio button change
+  $('input[name="payment_method"]').change(function() {
+    var selectedPayment = $(this).attr('id');
+    var imageToShow = '';
+
+    if (selectedPayment === 'online_paymode') {
+      imageToShow = 'static/imgs/icons/payment1.png'; // Image for Online Payment
+    } else if (selectedPayment === 'cash_paymode') {
+      imageToShow = 'static/imgs/icons/payment2.png'; // Image for Cash Payment
+    }
+
+    // Update the image container with the new image
+    $('#image_container').html('<img src="' + imageToShow + '" style="height: 3in; width: 5in;">');
+  });
+});
 
 
-// Get the price value
-var price = base_prices[list2[i]];
 
-// Update the span element with the price value
-document.getElementById("priceValue").textContent = price;
-
-
-
-
-
-
-
-
-
-
->>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706

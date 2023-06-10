@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
 {% extends "public/templates/public_template.html" %} {% block title %} UP2GO: Choose Forms {% endblock %} {% block main
 %}
@@ -189,7 +190,7 @@
             <h3 class="quiz_title">Mode of Payment</h3>
             <div class="form-group">
               <div class="wizard-form-radio">
-<<<<<<< HEAD
+
                 <input name="payment_method" id="online_paymode" type="radio" value = "Online" />
                 <label for="online_paymode">Online Payment</label>
               </div>
@@ -199,7 +200,7 @@
               </div>
             </div>
             <h6 class="price_detail">Amount Payable: PHP <span id="amount_payable">0.00</span></h6>
-=======
+
                 <input name="payment_method" id="online_paymode" type="radio" />
                 <label for="online_paymode">Online Payment</label>
               </div>
@@ -209,7 +210,6 @@
               </div>
             </div>
             <h6 class="price_detail">Amount Payable: PHP <span id="total_price">0.00</span></h6>
->>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706
             <div class="form-group clearfix">
               <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
               <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
