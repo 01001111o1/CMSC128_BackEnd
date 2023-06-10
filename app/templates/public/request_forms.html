@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
 {% extends "public/templates/public_template.html" %} {% block title %} UP2GO: Choose Forms {% endblock %} {% block main
 %}
@@ -198,6 +199,8 @@
               </div>
             </div>
             <h6 class="price_detail">Amount Payable: PHP <span id="total_price">0.00</span></h6>
+            <div id="image_container" type="hidden">
+            </div>
             <div class="form-group clearfix">
               <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
               <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
