@@ -9,7 +9,7 @@ import ast
 
 from send_email import send_message
 
-#import pythoncom
+import pythoncom
 
 from flask_executor import Executor
 import uuid
@@ -48,7 +48,7 @@ class BackgroundRunner:
         docxpath = folder_path + "/" + query.last_name + ".docx"
         pdfpath = folder_path + "/" + query.last_name + ".pdf"
         doc.save(docxpath)
-        #pythoncom.CoInitialize()
+        pythoncom.CoInitialize()
         convert(docxpath, pdfpath)
 
         send_message(query.email, 

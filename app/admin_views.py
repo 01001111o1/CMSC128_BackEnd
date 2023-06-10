@@ -15,7 +15,7 @@ from send_email import send_message
 
 from .Lists import Documents
 
-#import pythoncom
+import pythoncom
 
 from .send_generated_files import background_runner
 
@@ -26,6 +26,10 @@ from werkzeug.urls import iri_to_uri
 from werkzeug.wsgi import get_current_url
 
 admin_views = Blueprint('admin_views', __name__)
+
+@admin_views.route("/admin/login")
+def admin_login():
+    return render_template("admin/admin-login.html", user = current_user)
 
 @admin_views.route("/admin/dashboard/<parameter>/", methods = ["GET", "POST"])
 @login_required

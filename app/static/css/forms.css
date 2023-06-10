@@ -8,12 +8,24 @@ body {
   padding: 0;
 }
 
-textarea {
+#total_price {
   border-style: none;
   border-color: transparent;
   resize: none;
   background-color: transparent;
   pointer-events: none;
+  height: 15px;
+  overflow: hidden;
+  color: #888888;
+  font-weight: 500;
+}
+
+#scholarship_toggle_label {
+  font-size: x-small;
+  font-variant: all-small-caps;
+  text-align: justify;
+  color: #850038;
+  padding-left: 5px;
 }
 
 .wizard-content-left {
@@ -110,6 +122,9 @@ textarea {
   display: inline-block;
   vertical-align: middle;
   border-radius: 50%;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  /* box-shadow: 0 0px 3px 1px #85003774, 0 0px 3px 1px #85003774; */
   position: relative;
   cursor: pointer;
 }
@@ -158,12 +173,20 @@ textarea {
   background-color: #850038;
   color: #ffffff;
   display: inline-block;
+  border: 0;
+  border-radius: 25px;
   min-width: 100px;
   min-width: 120px;
   padding: 10px;
   text-align: center;
   text-decoration: none;
+  font-weight: bold;
 }
+
+.form-wizard .form-wizard-submit {
+  margin: 0;
+}
+
 .form-wizard .form-wizard-next-btn:hover,
 .form-wizard .form-wizard-next-btn:focus,
 .form-wizard .form-wizard-previous-btn:hover,
@@ -171,12 +194,10 @@ textarea {
 .form-wizard .form-wizard-submit:hover,
 .form-wizard .form-wizard-submit:focus {
   color: #ffffff;
-  opacity: 0.8;
-  text-decoration: none;
+  opacity: 0.9;
 }
 
 .form-wizard .wizard-fieldset {
-  text-align: center;
   display: none;
 }
 
@@ -209,6 +230,10 @@ textarea {
   height: 2px;
   width: 100%;
 }
+.form-wizard .wizard-form-error-msg {
+  color: #850038;
+  font-size: 12px;
+}
 .form-wizard .form-wizard-previous-btn {
   background-color: #850038;
 }
@@ -217,15 +242,23 @@ textarea {
   height: auto !important;
   padding: 15px;
   color: #888888;
-  background-color: #f1f1f1;
+  background-color: #e7e7e7;
   border: none;
 }
 .form-wizard .form-control:focus {
   box-shadow: none;
+  background-color: #e7e7e7;
 }
 .form-wizard .form-group {
   position: relative;
   margin: 25px 0;
+}
+.form-wizard .form-btn {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  width: 75%;
+  justify-content: space-between;
 }
 .form-wizard .wizard-form-text-label {
   position: absolute;
@@ -305,8 +338,9 @@ textarea {
 }
 .form-wizard .schlopt {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 @keyframes click-radio-wave {
@@ -324,9 +358,12 @@ textarea {
     opacity: 0;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1396px) {
   .wizard-content-left {
     height: auto;
+  }
+  .form-wizard .form-btn {
+    position: relative;
   }
 }
 

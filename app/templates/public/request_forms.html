@@ -88,13 +88,15 @@
             </div>
             <div class="row">
               <div class="form-group col-md-4 schlopt">
-                <div class="wizard-form-checkbox">
-                  <input name="scholarship wizard-required" id="scholarship_toggle" type="checkbox"
-                    onchange="updatePrice_scholarship()" />
-                  <input id="hidden" type="hidden" name="map" value="">
+                <div>
+                  <div class="wizard-form-checkbox">
+                    <input name="scholarship wizard-required" id="scholarship_toggle" type="checkbox"
+                      onchange="updatePrice_scholarship()" />
+                    <input id="hidden" type="hidden" name="map" value="">
+                  </div>
+                  For Scholarship
                 </div>
-                For Scholarship
-                <div class="scholarship_toggle_label"></div>
+                <div id="scholarship_toggle_label"></div>
               </div>
               <div class="form-group col-md-8">
                 <input type="text" class="form-control wizard-required" id="purpose" name="purpose"
@@ -114,7 +116,7 @@
                     <div class="quiz_content_area">
                       <h3 class="quiz_title">Choose Forms</h3>
                       <h6 class="price_detail">Price: Php <textarea id="total_price" name="total_price"
-                          readonly> 0 </textarea>.00
+                          readonly> 0 </textarea>
                       </h6>
                       <div class="row">
                         {% for i in range (list1 |length) %}
@@ -219,7 +221,7 @@
             <h3 class="quiz_title">Request Summary</h3>
             <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="form-wizard-submit">Submit</button>
             </div>
           </fieldset>
         </form>

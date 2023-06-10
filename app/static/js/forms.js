@@ -28,6 +28,11 @@ jQuery(document).ready(function () {
         jQuery(this).siblings('.wizard-form-error').slideUp('300');
       }
     });
+    jQuery('quiz_checkbox').click(function () {
+      // total_price
+      jQuery('#total_price').append('.00');
+      console.log('clicked checkbox', 'Price: ', jQuery('#total_price').val());
+    });
     // var temp_checked = jQuery('input.quiz_checkbox:checked');
     // var quiz_checked = parentFieldset.find(temp_checked).length;
     // if (quiz_checked <= 0) {
@@ -229,18 +234,18 @@ function validateForm() {
   }
 }
  */
-// Get the total amount from the query parameters
-const urlParams = new URLSearchParams(window.location.search);
-const totalAmount = urlParams.get('total_amount');
+// // Get the total amount from the query parameters
+// const urlParams = new URLSearchParams(window.location.search);
+// const totalAmount = urlParams.get('total_amount');
 
-// Update the amount payable in the HTML
-const totalPriceElement = document.getElementById('total_price');
-if (totalPriceElement) {
-  totalPriceElement.textContent = totalAmount || '0.00';
-}
+// // Update the amount payable in the HTML
+// const totalPriceElement = document.getElementById('total_price');
+// if (totalPriceElement) {
+//   totalPriceElement.textContent = totalAmount || '0.00';
+// }
 
-// Get the price value
-var price = base_prices[list2[i]];
+// // Get the price value
+// var price = base_prices[list2[i]];
 
-// Update the span element with the price value
-document.getElementById('priceValue').textContent = price;
+// // Update the span element with the price value
+// document.getElementById('priceValue').textContent = price;
