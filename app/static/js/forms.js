@@ -1,4 +1,21 @@
+let summaryDetails = { scholarship_toggle: false };
+
 jQuery(document).ready(function () {
+  // Event handler for radio button change
+  jQuery('input[name="payment_method"]').change(function () {
+    var selectedPayment = jQuery(this).attr('id');
+    var imageToShow = '';
+
+    if (selectedPayment === 'online_paymode') {
+      imageToShow = 'static/imgs/icons/payment1.png'; // Image for Online Payment
+    } else if (selectedPayment === 'cash_paymode') {
+      imageToShow = 'static/imgs/icons/payment2.png'; // Image for Cash Payment
+    }
+
+    // Update the image container with the new image
+    jQuery('#img_source').removeAttr('hidden');
+    jQuery('#img_source').attr('src', imageToShow);
+  });
   // click on next button
   jQuery('.form-wizard-next-btn').click(function () {
     var parentFieldset = jQuery(this).parents('.wizard-fieldset');
@@ -28,19 +45,15 @@ jQuery(document).ready(function () {
         jQuery(this).siblings('.wizard-form-error').slideUp('300');
       }
     });
-    jQuery('quiz_checkbox').click(function () {
-      // total_price
-      jQuery('#total_price').append('.00');
-      console.log('clicked checkbox', 'Price: ', jQuery('#total_price').val());
-    });
-    // var temp_checked = jQuery('input.quiz_checkbox:checked');
-    // var quiz_checked = parentFieldset.find(temp_checked).length;
-    // if (quiz_checked <= 0) {
-    //   nextWizardStep = false;
-    //   alert('Please request at least one form/certificate.');
-    // } else {
-    //   nextWizardStep = true;
-    // }
+    // checks if atleast 1 form is checked
+    forms_section = parentFieldset.find('input[name="check"]').length !== 0;
+    atLeastOneIsChecked =
+      parentFieldset.find('input[name="check"]:checked').length > 0;
+
+    if (!atLeastOneIsChecked && forms_section) {
+      nextWizardStep = false;
+    }
+
     if (nextWizardStep) {
       next.parents('.wizard-fieldset').removeClass('show', '400');
       currentActiveStep
@@ -73,6 +86,10 @@ jQuery(document).ready(function () {
               });
           }
         });
+    }
+
+    if (parentFieldset.find('.req_title').length !== 0) {
+      console.log(summaryDetails);
     }
   });
   //click on previous button
@@ -141,6 +158,7 @@ jQuery(document).ready(function () {
     })
     .on('blur', function () {
       var tmpThis = jQuery(this).val();
+      summaryDetails[jQuery(this).attr('id')] = tmpThis;
       if (tmpThis == '' || tmpThis == null) {
         jQuery(this).parent().removeClass('focus-input');
         jQuery(this).siblings('.wizard-form-error').slideDown('3000');
@@ -149,6 +167,16 @@ jQuery(document).ready(function () {
         jQuery(this).siblings('.wizard-form-error').slideUp('3000');
       }
     });
+  // checks if scholarship is on or off
+  jQuery('.scholarship-checkbox').click(function () {
+    var tmpThis = jQuery('#scholarship_toggle').is(':checked');
+    summaryDetails[jQuery(this).attr('id')] = tmpThis;
+  });
+  // checks the payment method
+  jQuery('.payment-radio').click(function () {
+    var tmpThis = jQuery(this).val();
+    summaryDetails[jQuery(this).attr('name')] = tmpThis;
+  });
 });
 
 function onKeyDown(evt) {
@@ -211,109 +239,3 @@ function validateForm() {
   }
   return true;
 }
-
-/* function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-function validateForm() {
-  const emailElement = document.getElementById('email');
-  const emailValue = emailElement.value.trim();
-
-  if (!validateEmail(emailValue)) {
-    emailElement.classList.add('error'); // Add a CSS class to highlight the input
-    const errorElement = document.querySelector('.wizard-form-error-msg');
-    errorElement.innerText = 'Please enter a valid email address.';
-    return false; // Prevent form submission
-  } else {
-    emailElement.classList.remove('error'); // Remove the CSS class
-    const errorElement = document.querySelector('.wizard-form-error-msg');
-    errorElement.innerText = '';
-    return true; // Allow form submission
-  }
-}
- */
-// Get the total amount from the query parameters
-/* const urlParams = new URLSearchParams(window.location.search);
-
-const totalAmount = urlParams.get('total_amount');
-
-const totalAmount = urlParams.get('total_amount');
-
-// Update the amount payable in the HTML
-const totalPriceElement = document.getElementById('total_price');
-if (totalPriceElement) {
-  totalPriceElement.textContent = totalAmount || '0.00';
-}
- */
-
-// ../imgs/icons/payment1.jpg
-
-/* // Get the radio buttons
-const onlinePaymentRadio = document.getElementById('online_paymode');
-const cashPaymentRadio = document.getElementById('cash_paymode');
-
-// Function to handle the click event
-function showImageOnClick(event) {
-  const imageContainer = document.getElementById('image_container');
-  
-  // Check which radio button was clicked
-  if (event.target === onlinePaymentRadio) {
-    // Show the image for online payment
-    imageContainer.innerHTML = '<img src="../imgs/icons/payment1.jpg" alt="Online Payment" />';
-  } else if (event.target === cashPaymentRadio) {
-    // Show the image for cash payment
-    imageContainer.innerHTML = '<img src="path/to/payment1.jpg" alt="Cash Payment" />';
-  }
-}
-
-// Add event listeners to the radio buttons
-onlinePaymentRadio.addEventListener('click', showImageOnClick);
-cashPaymentRadio.addEventListener('click', showImageOnClick); */
-
-/* $(document).ready(function() {
-  // Event handler for radio button change
-  $('input[name="payment_method"]').change(function() {
-    var selectedPayment = $(this).attr('id');
-    var imageToShow = '';
-
-    if (selectedPayment === 'online_paymode') {
-      imageToShow = '{{ url_for("static", filename="payment1.jpg") }}'; // Image for Online Payment
-    } else if (selectedPayment === 'cash_paymode') {
-      imageToShow = '{{ url_for("static", filename="imgs/icons/payment2.jpg") }}'; // Image for Cash Payment
-    }
-
-    // Update the image container with the new image
-    $('#image_container').html('<img src="' + imageToShow + '">');
-  });
-}); */
-$(document).ready(function () {
-  // Event handler for radio button change
-  $('input[name="payment_method"]').change(function () {
-    var selectedPayment = $(this).attr('id');
-    var imageToShow = '';
-
-    if (selectedPayment === 'online_paymode') {
-      imageToShow = 'static/imgs/icons/payment1.png'; // Image for Online Payment
-    } else if (selectedPayment === 'cash_paymode') {
-      imageToShow = 'static/imgs/icons/payment2.png'; // Image for Cash Payment
-    }
-
-    // Update the image container with the new image
-    $('#img_source').removeAttr('hidden');
-    $('#img_source').attr('src', imageToShow);
-  });
-});
-
-// // Update the amount payable in the HTML
-// const totalPriceElement = document.getElementById('total_price');
-// if (totalPriceElement) {
-//   totalPriceElement.textContent = totalAmount || '0.00';
-// }
-
-// // Get the price value
-// var price = base_prices[list2[i]];
-
-// // Update the span element with the price value
-// document.getElementById('priceValue').textContent = price;

@@ -14,21 +14,6 @@ body {
   width: 100%;
   justify-content: center;
   align-items: center;
-<<<<<<< HEAD
-}
-
-/***  templates ***/
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type='number'] {
-  appearance: textfield;
-  -moz-appearance: textfield;
-=======
->>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706
 }
 
 /***  templates ***/
@@ -70,10 +55,6 @@ input[type='number'] {
 .authicn {
   cursor: pointer;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> f86dd549b64c99c5ff3dcc923293a9b76d02d706
 /*** end of navbar ***/
 
 /*** start page ***/
@@ -401,7 +382,7 @@ button[type='submit']:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("imgs/bg/bg-upb.webp");
+  background-image: url('../imgs/bg/bg-upb.webp');
   background-size: cover;
   background-position-y: 40%;
   background-repeat: no-repeat;
@@ -410,7 +391,7 @@ button[type='submit']:hover {
 .abt-container {
   width: 100%;
   height: 100%;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   bottom: 0;
   right: 0;
   left: 0;
@@ -546,7 +527,7 @@ button[type='submit']:hover {
 }
 
 .faqs-container .faqs-left {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   padding: 75px;
 }
 
@@ -567,7 +548,7 @@ button[type='submit']:hover {
 
 .faqs-container .faqs-left .faqs-quests-container {
   border: 2px solid #850038;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   margin: 55px auto;
   overflow-y: scroll;
   overflow-x: scroll;
@@ -590,7 +571,7 @@ button[type='submit']:hover {
   margin-bottom: 10px;
 }
 
-.faqs-container .faqs-left .faqs-quests-container table{
+.faqs-container .faqs-left .faqs-quests-container table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
@@ -599,21 +580,21 @@ button[type='submit']:hover {
   min-width: fit-content;
 }
 
-.faqs-container .faqs-left .faqs-quests-container tr td:first-child{
-padding-right: 5px;
+.faqs-container .faqs-left .faqs-quests-container tr td:first-child {
+  padding-right: 5px;
 }
 
 .faqs-container .faqs-left .faqs-quests-container tr td {
-padding: 10px;
+  padding: 10px;
   border-bottom: 1px solid #850038;
 }
 
-.faqs-container .faqs-left .faqs-quests-container tr td span{
-font-weight: 600;
+.faqs-container .faqs-left .faqs-quests-container tr td span {
+  font-weight: 600;
 }
 
-.faqs-container .faqs-left .faqs-quests-container tr:hover{
-background-color: rgba(133, 0, 56, 0.1);
+.faqs-container .faqs-left .faqs-quests-container tr:hover {
+  background-color: rgba(133, 0, 56, 0.1);
 }
 
 .faqs-container .faqs-left .faqs-quests-container tr td button {
@@ -648,7 +629,7 @@ background-color: rgba(133, 0, 56, 0.1);
   opacity: 0.7;
   background-size: 45%;
   overflow: hidden;
-} 
+}
 
 /*** end of faqs ***/
 

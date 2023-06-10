@@ -90,7 +90,7 @@
               <div class="form-group col-md-4 schlopt">
                 <div>
                   <div class="wizard-form-checkbox">
-                    <input name="scholarship wizard-required" id="scholarship_toggle" type="checkbox"
+                    <input class="scholarship-checkbox" name="scholarship" id="scholarship_toggle" type="checkbox"
                       onchange="updatePrice_scholarship()" />
                     <input id="hidden" type="hidden" name="map" value="">
                   </div>
@@ -107,6 +107,7 @@
             </div>
             <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+            </div>
           </fieldset>
           <fieldset class="wizard-fieldset">
             <section class="quiz_section" id="quizeSection">
@@ -157,9 +158,9 @@
                         <div class="col-sm-3">
                           <div class="quiz_card_area">
                             {% if list2[i] in scholarship_documents %}
-                            <input class="quiz_checkbox scholarship" type="checkbox" id="{{i}}: {{list2[i]}}"
-                              value="{{ list2[i] }}" name="check" data-price="{{ base_prices[list2[i]] }}"
-                              onclick="updatePrice()" />
+                            <input class="form-control quiz_checkbox scholarship" type="checkbox"
+                              id="{{i}}: {{list2[i]}}" value="{{ list2[i] }}" name="check"
+                              data-price="{{ base_prices[list2[i]] }}" onclick="updatePrice()" />
                             <div class="single_quiz_card">
                               <div class="quiz_card_content">
                                 <div class="quiz_card_title">{{ list2[i] }}
@@ -171,8 +172,9 @@
                               </div><!-- end of quiz_card_content -->
                             </div><!-- end of single_quiz_card -->
                             {% else %}
-                            <input class="quiz_checkbox" type="checkbox" id="{{i}}: {{list2[i]}}" value="{{ list2[i] }}"
-                              name="check" data-price="{{ base_prices[list2[i]] }}" onclick="updatePrice()" />
+                            <input class="form-control quiz_checkbox" type="checkbox" id="{{i}}: {{list2[i]}}"
+                              value="{{ list2[i] }}" name="check" data-price="{{ base_prices[list2[i]] }}"
+                              onclick="updatePrice()" />
 
                             <div class="single_quiz_card">
                               <div class="quiz_card_content">
@@ -203,11 +205,11 @@
             <h3 class="quiz_title">Mode of Payment</h3>
             <div class="form-group">
               <div class="wizard-form-radio">
-                <input name="payment_method" id="online_paymode" type="radio" value="Online" />
+                <input class="payment-radio" name="payment_method" id="online_paymode" type="radio" value="Online" />
                 <label for="online_paymode">Online Payment</label>
               </div>
               <div class="wizard-form-radio">
-                <input name="payment_method" id="cash_paymode" type="radio" value="Cash" />
+                <input class="payment-radio" name="payment_method" id="cash_paymode" type="radio" value="Cash" />
                 <label for="cash_paymode">Cash Payment</label>
               </div>
             </div>
@@ -220,7 +222,12 @@
             </div>
           </fieldset>
           <fieldset class="wizard-fieldset">
-            <h3 class="quiz_title">Request Summary</h3>
+            <h3 class="quiz_title req_title">Request Summary</h3>
+            <div class="summary-container">
+              <div class="summary-details">
+                sheseh
+              </div>
+            </div>
             <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
               <button type="submit" class="form-wizard-submit">Submit</button>

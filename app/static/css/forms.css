@@ -184,6 +184,7 @@ body {
 }
 
 .form-wizard .form-wizard-submit {
+  background-color: #0e6021;
   margin: 0;
   width: 0;
 }
@@ -249,6 +250,10 @@ body {
 .form-wizard .form-control:focus {
   box-shadow: none;
   background-color: #e7e7e7;
+}
+.form-wizard checkisko {
+  height: 25px;
+  width: 25px;
 }
 .form-wizard .form-group {
   position: relative;

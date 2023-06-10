@@ -105,6 +105,18 @@ def request_forms():
     return render_template("public/request_forms.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
         scholarship_discounted_documents, base_prices = Base_Prices, user = current_user)
 
+@views.route("/about_us")
+def about_us():
+    return render_template("public/about-us.html", user = current_user)
+
+@views.route("/contact_us")
+def contact_us():
+    return render_template("public/contact-us.html", user = current_user)
+
+@views.route("/faqs")
+def faqs():
+    return render_template("public/faqs.html", user = current_user)
+
 def new_request():
 
     check_fname = Request.query.filter_by(first_name = session["name"][0]).first()
