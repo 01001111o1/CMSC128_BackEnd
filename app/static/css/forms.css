@@ -185,6 +185,7 @@ body {
 
 .form-wizard .form-wizard-submit {
   margin: 0;
+  width: 0;
 }
 
 .form-wizard .form-wizard-next-btn:hover,
