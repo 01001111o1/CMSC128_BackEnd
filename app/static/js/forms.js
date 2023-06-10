@@ -74,16 +74,6 @@ jQuery(document).ready(function () {
           }
         });
     }
-
-    // Function to show the image
-    function showImage() {
-      // Append the image to the body or any other desired location
-      document.body.appendChild(imageElement);
-    }
-
-    // Add event listeners to the radio buttons
-    onlinePaymentRadio.addEventListener('click', showImageOnClick);
-    cashPaymentRadio.addEventListener('click', showImageOnClick);
   });
   //click on previous button
   jQuery('.form-wizard-previous-btn').click(function () {
@@ -311,9 +301,8 @@ $(document).ready(function () {
     }
 
     // Update the image container with the new image
-    $('#image_container').html(
-      '<img src="' + imageToShow + '" style="height: 3in; width: 5in;">'
-    );
+    $('#img_source').removeAttr('hidden');
+    $('#img_source').attr('src', imageToShow);
   });
 });
 

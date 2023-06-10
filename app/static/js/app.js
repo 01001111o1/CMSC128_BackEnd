@@ -53,7 +53,7 @@ const otr_label = document.querySelectorAll(
 );
 
 const year_level = document.getElementById('YearLevel');
-const final_price = document.getElementById('total_price');
+const final_price = document.querySelectorAll('[id=total_price]');
 const is_scholarship = document.getElementById('scholarship_toggle');
 const is_scholarship_label = document.getElementById(
   'scholarship_toggle_label'
@@ -154,7 +154,9 @@ let updatePrice = () => {
   }
   const json = JSON.stringify(Object.fromEntries(map));
   hidden.value = json;
-  final_price.innerText = price;
+  final_price.forEach((tp) => {
+    tp.innerText = price;
+  });
 };
 
 if (honorable_dismissal[0]) {

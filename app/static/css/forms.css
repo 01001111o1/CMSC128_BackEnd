@@ -494,3 +494,13 @@ body {
   color: black;
   font-size: x-small;
 }
+
+/*** payment method ***/
+
+.image_container img {
+  height: 3in;
+  width: 5in;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
