@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" />
+{% extends "public/templates/public_template.html" %} 
+{% block title %} UP2GO: About Us {% endblock %} 
+{% block main%}
+    <section class="oblePic"></section>
+
+    <section class="abt-container">
+    <div class="abt-title">
+        <h1>OFFICE OF THE UNIVERSITY REGISTRAR</h1>
+    </div>
+    <div class="abt-line-container">
+        <div class="abt-line"></div>
+    </div>
+    <div class="abt-content">
+        <p>
+        The Office of the University Registrar (OUR) is the repository of
+        student records such as admission, enrolment, grades, and academic
+        status. It is also responsible for the issuance of official documents
+        such as transcript of records, diploma, and certifications. The OUR
+        also provides services such as enrolment, graduation, and
+        authentication of documents.
+        </p>
+    </section>
+{% endblock %}
