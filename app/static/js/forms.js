@@ -142,7 +142,6 @@ function onKeyDown(evt) {
     evt.preventDefault();
   }
 }
-
 function maxLengthCheck(object) {
   const requiredLength = 9;
   if (object.value.length > requiredLength) {
