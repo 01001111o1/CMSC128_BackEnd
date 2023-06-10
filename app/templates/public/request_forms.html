@@ -1,27 +1,21 @@
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/forms.css') }}"
-/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
-{% extends "public/templates/public_template.html" %} {% block title %} Upload
-Image {% endblock %} {% block main %}
-
+{% extends "public/templates/public_template.html" %} {% block title %} UP2GO: Choose Forms {% endblock %} {% block main
+%}
+<style>
+  body {
+    overflow: hidden;
+  }
+</style>
 <section class="wizard-section">
   <div class="row no-gutters">
     <div class="col-lg-6 col-md-6">
-      <div
-        class="wizard-content-left d-flex justify-content-center align-items-center"
-      ></div>
+      <div class="wizard-content-left d-flex justify-content-center align-items-center"></div>
     </div>
     <div class="col-lg-6 col-md-6">
       <div class="form-wizard">
-        <form
-          action="/request_forms"
-          method="POST"
-          enctype="multipart/form-data"
-          role="form"
-        >
+        <form action="/request_forms" method="POST" enctype="multipart/form-data" role="form" onsubmit="return validateForm()">
           <div class="form-wizard-header">
             <p>Please fill all form fields to go to next step.</p>
             <ul class="list-unstyled form-wizard-steps clearfix">
@@ -33,317 +27,187 @@ Image {% endblock %} {% block main %}
           </div>
           <fieldset class="wizard-fieldset show">
             <h5>Personal Information</h5>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="fname"
-                name="name"
-              />
-              <label for="fname" class="wizard-form-text-label"
-                >First Name</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" id="mname" name="name" />
-              <label for="mname" class="wizard-form-text-label"
-                >Middle Name</label
-              >
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="lname"
-                name="name"
-              />
-              <label for="lname" class="wizard-form-text-label"
-                >Last Name</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control wizard-required"
-                id="snum"
-                name="student_number"
-                placeholder="Ex: 2020*****"
-                required
-              />
-              <label for="snum" class="wizard-form-text-label"
-                >Student Number</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              For Scholarship
-              <div class="wizard-form-radio">
-                <input name="radio-name" id="radio1" type="radio" />
+            <div class="row">
+              <div class="form-group col">
+                <input type="text" class="form-control wizard-required" id="fname" name="name" autocomplete="off" />
+                <label for="fname" class="wizard-form-text-label">First Name</label>
+                <div class="wizard-form-error"></div>
               </div>
-            </div>
-            <div class="form-group clearfix">
-              <a href="javascript:;" class="form-wizard-next-btn float-right"
-                >Next</a
-              >
-            </div>
-          </fieldset>
-          <fieldset class="wizard-fieldset">
-            <h5>Account Information</h5>
-            <div class="form-group">
-              <input
-                type="email"
-                class="form-control wizard-required"
-                id="email"
-              />
-              <label for="email" class="wizard-form-text-label">Email*</label>
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="username"
-              />
-              <label for="username" class="wizard-form-text-label"
-                >User Name*</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-control wizard-required"
-                id="pwd"
-              />
-              <label for="pwd" class="wizard-form-text-label">Password*</label>
-              <div class="wizard-form-error"></div>
-              <span class="wizard-password-eye"
-                ><i class="far fa-eye"></i
-              ></span>
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-control wizard-required"
-                id="cpwd"
-              />
-              <label for="cpwd" class="wizard-form-text-label"
-                >Confirm Password*</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group clearfix">
-              <a href="javascript:;" class="form-wizard-previous-btn float-left"
-                >Previous</a
-              >
-              <a href="javascript:;" class="form-wizard-next-btn float-right"
-                >Next</a
-              >
-            </div>
-          </fieldset>
-          <fieldset class="wizard-fieldset">
-            <h5>Bank Information</h5>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="bname"
-              />
-              <label for="bname" class="wizard-form-text-label"
-                >Bank Name*</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="brname"
-              />
-              <label for="brname" class="wizard-form-text-label"
-                >Branch Name*</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="acname"
-              />
-              <label for="acname" class="wizard-form-text-label"
-                >Account Name*</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="acon"
-              />
-              <label for="acon" class="wizard-form-text-label"
-                >Account Number*</label
-              >
-              <div class="wizard-form-error"></div>
-            </div>
-            <div class="form-group clearfix">
-              <a href="javascript:;" class="form-wizard-previous-btn float-left"
-                >Previous</a
-              >
-              <a href="javascript:;" class="form-wizard-next-btn float-right"
-                >Next</a
-              >
-            </div>
-          </fieldset>
-          <fieldset class="wizard-fieldset">
-            <h5>Payment Information</h5>
-            <div class="form-group">
-              Payment Type
-              <div class="wizard-form-radio">
-                <input name="radio-name" id="mastercard" type="radio" />
-                <label for="mastercard">Master Card</label>
+              <div class="form-group col">
+                <input type="text" class="form-control" id="mname" name="name" autocomplete="off" />
+                <label for="mname" class="wizard-form-text-label">Middle Name</label>
               </div>
-              <div class="wizard-form-radio">
-                <input name="radio-name" id="visacard" type="radio" />
-                <label for="visacard">Visa Card</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control wizard-required"
-                id="honame"
-              />
-              <label for="honame" class="wizard-form-text-label"
-                >Holder Name*</label
-              >
-              <div class="wizard-form-error"></div>
             </div>
             <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control wizard-required"
-                    id="cardname"
-                  />
-                  <label for="cardname" class="wizard-form-text-label"
-                    >Card Number*</label
-                  >
-                  <div class="wizard-form-error"></div>
-                </div>
+              <div class="form-group col">
+                <input type="text" class="form-control wizard-required" id="lname" name="name" autocomplete="off" />
+                <label for="lname" class="wizard-form-text-label">Last Name</label>
+                <div class="wizard-form-error"></div>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control wizard-required"
-                    id="cvc"
-                  />
-                  <label for="cvc" class="wizard-form-text-label">CVC*</label>
+              <div class="form-group col">
+                <input type="number" class="form-control wizard-required" id="snum" name="student_number"
+                  inputmode="numeric" pattern="[0-9]*" onkeydown="onKeyDown(event)" oninput="maxLengthCheck(this)" maxlength="9" minlength="" autocomplete="off" />
+                <label for="snum" class="wizard-form-text-label">Student Number Ex: 2020*****</label>
+                <div class="wizard-form-error"></div>
+                <div class="wizard-form-error-msg"></div> <!-- Add this error message element -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col">
+                <input type="email" class="form-control wizard-required" id="email" name="email" autocomplete="off" onblur="validateEmailInput()" />
+                <label for="email" class="wizard-form-text-label">Email</label>
+                <div class="wizard-form-error"></div>
+              </div>
+              <div class="col">
+                Year Level
+                <div class="form-group col ylopt">
+                  <select class="form-control wizard-required" name="YearLevel" id="YearLevel"
+                    onchange="updatePrice_Yearlevel()" required>
+                    <option disabled selected value="">Current Year Level</option>
+                    <option value="1">First Year</option>
+                    <option value="2">Second Year</option>
+                    <option value="3">Third Year</option>
+                    <option value="4">Fourth Year</option>
+                    <option value="Graduate Student">Graduate Student</option>
+                    <option value="Alumni">Alumni</option>
+                  </select>
                   <div class="wizard-form-error"></div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-12">Expiry Date</div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <select class="form-control">
-                    <option value="">Date</option>
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                    <option value="">6</option>
-                    <option value="">7</option>
-                    <option value="">8</option>
-                    <option value="">9</option>
-                    <option value="">10</option>
-                    <option value="">11</option>
-                    <option value="">12</option>
-                    <option value="">13</option>
-                    <option value="">14</option>
-                    <option value="">15</option>
-                    <option value="">16</option>
-                    <option value="">17</option>
-                    <option value="">18</option>
-                    <option value="">19</option>
-                    <option value="">20</option>
-                    <option value="">21</option>
-                    <option value="">22</option>
-                    <option value="">23</option>
-                    <option value="">24</option>
-                    <option value="">25</option>
-                    <option value="">26</option>
-                    <option value="">27</option>
-                    <option value="">28</option>
-                    <option value="">29</option>
-                    <option value="">30</option>
-                    <option value="">31</option>
-                  </select>
+              <div class="form-group col-md-4 schlopt">
+                <div class="wizard-form-checkbox">
+                  <input name="scholarship wizard-required" id="scholarship_toggle" type="checkbox"
+                    onchange="updatePrice_scholarship()" />
+                  <input id="hidden" type="hidden" name="map" value="">
                 </div>
+                For Scholarship
+                <div class="scholarship_toggle_label"></div>
               </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <select class="form-control">
-                    <option value="">Month</option>
-                    <option value="">jan</option>
-                    <option value="">Feb</option>
-                    <option value="">March</option>
-                    <option value="">April</option>
-                    <option value="">May</option>
-                    <option value="">June</option>
-                    <option value="">Jully</option>
-                    <option value="">August</option>
-                    <option value="">Sept</option>
-                    <option value="">Oct</option>
-                    <option value="">Nov</option>
-                    <option value="">Dec</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group">
-                  <select class="form-control">
-                    <option value="">Years</option>
-                    <option value="">2019</option>
-                    <option value="">2020</option>
-                    <option value="">2021</option>
-                    <option value="">2022</option>
-                    <option value="">2023</option>
-                    <option value="">2024</option>
-                    <option value="">2025</option>
-                    <option value="">2026</option>
-                    <option value="">2027</option>
-                    <option value="">2028</option>
-                    <option value="">2029</option>
-                    <option value="">2030</option>
-                    <option value="">2031</option>
-                    <option value="">2032</option>
-                    <option value="">2033</option>
-                    <option value="">2034</option>
-                    <option value="">2035</option>
-                    <option value="">2036</option>
-                    <option value="">2037</option>
-                    <option value="">2038</option>
-                    <option value="">2039</option>
-                    <option value="">2040</option>
-                  </select>
-                </div>
+              <div class="form-group col-md-8">
+                <input type="text" class="form-control wizard-required" id="purpose" name="purpose"
+                  autocomplete="off" />
+                <label for="purpose" class="wizard-form-text-label">Purpose</label>
+                <div class="wizard-form-error"></div>
               </div>
             </div>
             <div class="form-group clearfix">
-              <a href="javascript:;" class="form-wizard-previous-btn float-left"
-                >Previous</a
-              >
-              <a href="javascript:;" class="form-wizard-submit float-right"
-                >Submit</a
-              >
+              <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+          </fieldset>
+          <fieldset class="wizard-fieldset">
+            <section class="quiz_section" id="quizeSection">
+              <div class="quiz_container">
+                <div class="quiz_row">
+                  <div class="col-sm-12">
+                    <div class="quiz_content_area">
+                      <h3 class="quiz_title">Choose Forms</h3>
+                      <h6 class="price_detail">Price: <span id="total_price" name="total_price"> 0 </span>
+                      </h6>
+                      <div class="row">
+                        {% for i in range (list1 |length) %}
+                        <div class="col-sm-3">
+                          <div class="quiz_card_area">
+                            {% if list1[i] in scholarship_documents %}
+                            <input class="quiz_checkbox scholarship" type="checkbox" id="{{i}}: {{list1[i]}}"
+                              value="{{ list1[i] }}" name="check" data-price="{{ base_prices[list1[i]] }}"
+                              onclick="updatePrice()" />
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list1[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span class="scholarship_label">{{ base_prices[list1[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% else %}
+                            <input class="quiz_checkbox" type="checkbox" id="{{i}}: {{list1[i]}}" value="{{ list1[i] }}"
+                              name="check" data-price="{{ base_prices[list1[i]] }}" onclick="updatePrice()" />
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list1[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span data-value="{{ list1[i] }}">{{ base_prices[list1[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% endif %}
+                          </div><!-- end of quiz_card_area -->
+                        </div><!-- end of col3  -->
+                        {% endfor %}
+                        {% for i in range (list2 |length) %}
+                        <div class="col-sm-3">
+                          <div class="quiz_card_area">
+                            {% if list2[i] in scholarship_documents %}
+                            <input class="quiz_checkbox scholarship" type="checkbox" id="{{i}}: {{list2[i]}}"
+                              value="{{ list2[i] }}" name="check" data-price="{{ base_prices[list2[i]] }}"
+                              onclick="updatePrice()" />
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list2[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span class="scholarship_label">{{ base_prices[list2[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% else %}
+                            <input class="quiz_checkbox" type="checkbox" id="{{i}}: {{list2[i]}}" value="{{ list2[i] }}"
+                              name="check" data-price="{{ base_prices[list2[i]] }}" onclick="updatePrice()" />
+
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list2[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span data-value="{{ list2[i] }}">{{ base_prices[list2[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% endif %}
+                          </div><!-- end of quiz_card_area -->
+                        </div><!-- end of col3  -->
+                        {% endfor %}
+
+                      </div><!-- end of quiz_card_area -->
+                    </div><!-- end of quiz_content_area -->
+                  </div><!-- end of row -->
+                </div><!-- end of container -->
+            </section><!-- end of quiz_section -->
+            <div class="form-group clearfix">
+              <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
+              <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
+            </div>
+          </fieldset>
+          <fieldset class="wizard-fieldset">
+            <h3 class="quiz_title">Mode of Payment</h3>
+            <div class="form-group">
+              <div class="wizard-form-radio">
+                <input name="payment_method" id="online_paymode" type="radio" value = "Online" />
+                <label for="online_paymode">Online Payment</label>
+              </div>
+              <div class="wizard-form-radio">
+                <input name="payment_method" id="cash_paymode" type="radio" value = "Cash" />
+                <label for="cash_paymode">Cash Payment</label>
+              </div>
+            </div>
+            <h6 class="price_detail">Amount Payable: PHP <span id="amount_payable">0.00</span></h6>
+            <div class="form-group clearfix">
+              <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
+              <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
+            </div>
+          </fieldset>
+          <fieldset class="wizard-fieldset">
+            <h5>Summary</h5>
+            <div class="form-group clearfix">
+              <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </fieldset>
         </form>
@@ -351,140 +215,4 @@ Image {% endblock %} {% block main %}
     </div>
   </div>
 </section>
-
-<form action="/request_forms" method="POST" enctype="multipart/form-data">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <div class="input-group mb-3">
-          <span class="input-group-text">First Name</span>
-          <input type="text" class="form-control" name="name" required />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Middle Name</span>
-          <input type="text" class="form-control" name="name" required />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Last Name</span>
-          <input type="text" class="form-control" name="name" required />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Student Number</span>
-          <input
-            type="text"
-            class="form-control"
-            name="student_number"
-            placeholder="Ex: 2020*****"
-            required
-          />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Email</span>
-          <input type="text" class="form-control" name="email" required />
-        </div>
-        <div class="input-group mb-3">
-          <label class="input-group-text">Year Level</label>
-          <select
-            class="form-select"
-            id="YearLevel"
-            name="YearLevel"
-            onchange="updatePrice_Yearlevel()"
-            required
-          >
-            <option disabled selected value="">Current Year Level</option>
-            <option value="1">First Year</option>
-            <option value="2">Second Year</option>
-            <option value="3">Third Year</option>
-            <option value="4">Fourth Year</option>
-            <option value="Graduate Student">Graduate Student</option>
-            <option value="Alumni">Alumni</option>
-          </select>
-        </div>
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            name="scholarship"
-            id="scholarship_toggle"
-            type="checkbox"
-            onchange="updatePrice_scholarship()"
-          />
-          <input id="hidden" type="hidden" name="map" value="" />
-          <label class="form-check-label" id="scholarship_toggle_label"
-            >For Scholarship</label
-          >
-        </div>
-      </div>
-
-      <div class="col">
-        {% for i in range (list1 |length) %}
-        <div class="form-check">
-          <label class="form-check-label">{{ list1[i] }}</label>
-          {% if list1[i] in scholarship_documents %}
-          <input
-            class="form-check-input scholarship"
-            type="checkbox"
-            value="{{ list1[i] }}"
-            name="check"
-            data-price="{{ base_prices[list1[i]] }}"
-            onClick="updatePrice()"
-          />
-          <label class="form-check-label scholarship_label"
-            ><h4>{{ base_prices[list1[i]] }}</h4></label
-          >
-          {% else %}
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value="{{ list1[i] }}"
-            name="check"
-            data-price="{{ base_prices[list1[i]] }}"
-            onClick="updatePrice()"
-          />
-          <label class="form-check-label" value="{{ list1[i] }}"
-            ><h4>{{ base_prices[list1[i]] }}</h4></label
-          >
-          {% endif %}
-        </div>
-        {% endfor %}
-      </div>
-
-      <div class="col">
-        {% for i in range (list2 |length) %}
-        <div class="form-check">
-          <label class="form-check-label">{{ list2[i] }}</label>
-          {% if list2[i] in scholarship_documents %}
-          <input
-            class="form-check-input scholarship"
-            type="checkbox"
-            value="{{ list2[i] }}"
-            name="check"
-            data-price="{{ base_prices[list2[i]] }}"
-            onClick="updatePrice()"
-          />
-          <label class="form-check-label scholarship_label"
-            ><h4>{{ base_prices[list2[i]] }}</h4></label
-          >
-          {% else %}
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value="{{ list2[i] }}"
-            name="check"
-            data-price="{{ base_prices[list2[i]] }}"
-            onClick="updatePrice()"
-          />
-          <label class="form-check-label"
-            ><h4>{{ base_prices[list2[i]] }}</h4></label
-          >
-          {% endif %}
-        </div>
-        {% endfor %}
-      </div>
-
-      <button type="submit" class="btn btn-primary">Choose Requirements</button>
-      <textarea id="total_price" name="total_price" readonly> 0 </textarea>
-    </div>
-  </div>
-</form>
-
 {% endblock %}
