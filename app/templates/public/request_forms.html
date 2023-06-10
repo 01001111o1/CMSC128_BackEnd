@@ -106,8 +106,8 @@
                   <div class="col-sm-12">
                     <div class="quiz_content_area">
                       <h3 class="quiz_title">Choose Forms</h3>
-                      <h6 class="price_detail">Price: <textarea id="total_price" name="total_price"
-                          readonly> 0 </textarea>
+                      <h6 class="price_detail">Price: Php <textarea id="total_price" name="total_price"
+                          readonly> 0 </textarea>.00
                       </h6>
                       <div class="row">
                         {% for i in range (list1 |length) %}
@@ -195,13 +195,14 @@
             <div class="form-group">
               <div class="wizard-form-radio">
                 <input name="payment_method" id="online_paymode" type="radio" />
-                <label for="online_paymode">Online</label>
+                <label for="online_paymode">Online Payment</label>
               </div>
               <div class="wizard-form-radio">
                 <input name="payment_method" id="cash_paymode" type="radio" />
-                <label for="cash_paymode">Cash</label>
+                <label for="cash_paymode">Cash Payment</label>
               </div>
             </div>
+            <h6 class="price_detail">Amount Payable: PHP <span id="total_price">0.00</span></h6>
             <div class="form-group clearfix">
               <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
               <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
