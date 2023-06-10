@@ -1,4 +1,5 @@
 jQuery(document).ready(function () {
+  
   // click on next button
   jQuery('.form-wizard-next-btn').click(function () {
     var parentFieldset = jQuery(this).parents('.wizard-fieldset');
@@ -16,6 +17,7 @@ jQuery(document).ready(function () {
         jQuery(this).siblings('.wizard-form-error').slideUp('300');
       }
     });
+    
     // var temp_checked = jQuery('input.quiz_checkbox:checked');
     // var quiz_checked = parentFieldset.find(temp_checked).length;
     // if (quiz_checked <= 0) {
@@ -57,6 +59,7 @@ jQuery(document).ready(function () {
           }
         });
     }
+    
   });
   //click on previous button
   jQuery('.form-wizard-previous-btn').click(function () {
@@ -139,7 +142,89 @@ function onKeyDown(evt) {
     evt.preventDefault();
   }
 }
+
 function maxLengthCheck(object) {
-  if (object.value.length > object.maxLength)
-    object.value = object.value.slice(0, object.maxLength);
+  const requiredLength = 9;
+  if (object.value.length > requiredLength) {
+    object.value = object.value.slice(0, requiredLength);
+  }
+
+  if (object.value.length !== requiredLength) {
+    object.classList.add('error'); // Add a CSS class to highlight the input
+    const errorElement = document.querySelector('.wizard-form-error-msg');
+    errorElement.innerText = `Input must be exactly ${requiredLength} characters long.`;
+  } else {
+    object.classList.remove('error'); // Remove the CSS class
+    const errorElement = document.querySelector('.wizard-form-error-msg');
+    errorElement.innerText = '';
+  }
 }
+
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function validateEmailInput() {
+  const emailElement = document.getElementById('email');
+  const emailErrorElement = emailElement.nextElementSibling;
+
+  if (!validateEmail(emailElement.value.trim())) {
+    emailElement.classList.add('error'); 
+    emailErrorElement.innerText = 'Email should contain at least "@" and "."'; 
+  } else {
+    emailElement.classList.remove('error'); 
+    emailErrorElement.innerText = ''; 
+  }
+}
+
+function validateForm() {
+  const emailElement = document.getElementById('email');
+  const emailErrorElement = emailElement.nextElementSibling;
+
+  if (!validateEmail(emailElement.value.trim())) {
+    emailElement.classList.add('error'); 
+    emailErrorElement.innerText = 'Email should contain at least "@" and "."'; 
+    return false; 
+  } else {
+    emailElement.classList.remove('error'); 
+    emailErrorElement.innerText = ''; 
+  }
+  return true; 
+}
+
+
+
+
+/* function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function validateForm() {
+  const emailElement = document.getElementById('email');
+  const emailValue = emailElement.value.trim();
+
+  if (!validateEmail(emailValue)) {
+    emailElement.classList.add('error'); // Add a CSS class to highlight the input
+    const errorElement = document.querySelector('.wizard-form-error-msg');
+    errorElement.innerText = 'Please enter a valid email address.';
+    return false; // Prevent form submission
+  } else {
+    emailElement.classList.remove('error'); // Remove the CSS class
+    const errorElement = document.querySelector('.wizard-form-error-msg');
+    errorElement.innerText = '';
+    return true; // Allow form submission
+  }
+}
+ */
+
+
+
+
+
+
+
+
+
+

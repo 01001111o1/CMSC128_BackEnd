@@ -15,7 +15,7 @@
     </div>
     <div class="col-lg-6 col-md-6">
       <div class="form-wizard">
-        <form action="/request_forms" method="POST" enctype="multipart/form-data" role="form">
+        <form action="/request_forms" method="POST" enctype="multipart/form-data" role="form" onsubmit="return validateForm()">
           <div class="form-wizard-header">
             <p>Please fill all form fields to go to next step.</p>
             <ul class="list-unstyled form-wizard-steps clearfix">
@@ -46,15 +46,15 @@
               </div>
               <div class="form-group col">
                 <input type="number" class="form-control wizard-required" id="snum" name="student_number"
-                  inputmode="numeric" pattern="[0-9]*" onkeydown="onKeyDown(event)" oninput="maxLengthCheck(this)"
-                  maxlength="9" autocomplete="off" />
+                  inputmode="numeric" pattern="[0-9]*" onkeydown="onKeyDown(event)" oninput="maxLengthCheck(this)" maxlength="9" minlength="" autocomplete="off" />
                 <label for="snum" class="wizard-form-text-label">Student Number Ex: 2020*****</label>
                 <div class="wizard-form-error"></div>
+                <div class="wizard-form-error-msg"></div> <!-- Add this error message element -->
               </div>
             </div>
             <div class="row">
               <div class="form-group col">
-                <input type="email" class="form-control wizard-required" id="email" name="email" autocomplete="off" />
+                <input type="email" class="form-control wizard-required" id="email" name="email" autocomplete="off" onblur="validateEmailInput()" />
                 <label for="email" class="wizard-form-text-label">Email</label>
                 <div class="wizard-form-error"></div>
               </div>
