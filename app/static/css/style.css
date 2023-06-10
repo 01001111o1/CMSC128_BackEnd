@@ -530,7 +530,7 @@ button[type="submit"]:hover {
   height: 0px;
   background-color: #850038;
   border: 3px solid #850038;
-  margin: 15px 0px 81px 0px;
+  margin: 15px 0px 71px 0px;
 }
 
 .faqs-container .faqs-left .faqs-quests-container {
@@ -539,7 +539,7 @@ button[type="submit"]:hover {
   margin: 55px auto;
   overflow-y: scroll;
   overflow-x: scroll;
-  max-height: 300px;
+  max-height: 310px;
   max-width: 1300px;
   justify-content: center;
   align-items: center;
