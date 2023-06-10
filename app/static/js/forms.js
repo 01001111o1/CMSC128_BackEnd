@@ -1,5 +1,4 @@
 jQuery(document).ready(function () {
-  
   // click on next button
   jQuery('.form-wizard-next-btn').click(function () {
     var parentFieldset = jQuery(this).parents('.wizard-fieldset');
@@ -10,6 +9,18 @@ jQuery(document).ready(function () {
     var nextWizardStep = true;
     parentFieldset.find('.wizard-required').each(function () {
       var thisValue = jQuery(this).val();
+      var idName = jQuery(this).attr('id');
+      if (idName == 'snum') {
+        jQuery('#' + idName).val().length !== 9 ? (nextWizardStep = false) : '';
+      } else if (idName == 'email') {
+        !validateEmail(
+          jQuery('#' + idName)
+            .val()
+            .trim()
+        )
+          ? (nextWizardStep = false)
+          : '';
+      }
       if (thisValue == '' || thisValue == null) {
         jQuery(this).siblings('.wizard-form-error').slideDown('300');
         nextWizardStep = false;
@@ -17,7 +28,6 @@ jQuery(document).ready(function () {
         jQuery(this).siblings('.wizard-form-error').slideUp('300');
       }
     });
-    
     // var temp_checked = jQuery('input.quiz_checkbox:checked');
     // var quiz_checked = parentFieldset.find(temp_checked).length;
     // if (quiz_checked <= 0) {
@@ -59,7 +69,6 @@ jQuery(document).ready(function () {
           }
         });
     }
-    
   });
   //click on previous button
   jQuery('.form-wizard-previous-btn').click(function () {
@@ -170,10 +179,13 @@ function validateEmailInput() {
 
   if (!validateEmail(emailElement.value.trim())) {
     emailElement.classList.add('error');
-    emailErrorElement.innerText = emailElement.value.trim() === '' ? '' : 'Email should contain at least "@" and "."';
+    emailErrorElement.innerText =
+      emailElement.value.trim() === ''
+        ? 'Email'
+        : 'Email should contain at least "@" and "."';
   } else {
     emailElement.classList.remove('error');
-    emailErrorElement.innerText = '';
+    emailErrorElement.innerText = 'Email';
   }
 }
 
@@ -183,16 +195,17 @@ function validateForm() {
 
   if (!validateEmail(emailElement.value.trim())) {
     emailElement.classList.add('error');
-    emailErrorElement.innerText = emailElement.value.trim() === '' ? '' : 'Email should contain at least "@" and "."';
+    emailErrorElement.innerText =
+      emailElement.value.trim() === ''
+        ? 'Email'
+        : 'Email should contain at least "@" and "."';
     return false;
   } else {
     emailElement.classList.remove('error');
-    emailErrorElement.innerText = '';
+    emailErrorElement.innerText = 'Email';
   }
   return true;
 }
-
-
 
 /* function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -216,13 +229,3 @@ function validateForm() {
   }
 }
  */
-
-
-
-
-
-
-
-
-
-

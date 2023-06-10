@@ -5,7 +5,8 @@
 %}
 <style>
   body {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 </style>
 <section class="wizard-section">
@@ -15,7 +16,8 @@
     </div>
     <div class="col-lg-6 col-md-6">
       <div class="form-wizard">
-        <form action="/request_forms" method="POST" enctype="multipart/form-data" role="form" onsubmit="return validateForm()">
+        <form action="/request_forms" method="POST" enctype="multipart/form-data" role="form"
+          onsubmit="return validateForm()">
           <div class="form-wizard-header">
             <p>Please fill all form fields to go to next step.</p>
             <ul class="list-unstyled form-wizard-steps clearfix">
@@ -46,7 +48,8 @@
               </div>
               <div class="form-group col">
                 <input type="number" class="form-control wizard-required" id="snum" name="student_number"
-                  inputmode="numeric" pattern="[0-9]*" onkeydown="onKeyDown(event)" oninput="maxLengthCheck(this)" maxlength="9" minlength="" autocomplete="off" />
+                  inputmode="numeric" pattern="[0-9]*" onkeydown="onKeyDown(event)" oninput="maxLengthCheck(this)"
+                  maxlength="9" minlength="" autocomplete="off" />
                 <label for="snum" class="wizard-form-text-label">Student Number Ex: 2020*****</label>
                 <div class="wizard-form-error"></div>
                 <div class="wizard-form-error-msg"></div> <!-- Add this error message element -->
@@ -54,7 +57,8 @@
             </div>
             <div class="row">
               <div class="form-group col">
-                <input type="email" class="form-control wizard-required" id="email" name="email" autocomplete="off" onblur="validateEmailInput()" />
+                <input type="email" class="form-control wizard-required" id="email" name="email" autocomplete="off"
+                  onblur="validateEmailInput()" />
                 <label for="email" class="wizard-form-text-label">Email</label>
                 <div class="wizard-form-error"></div>
               </div>
@@ -102,7 +106,8 @@
                   <div class="col-sm-12">
                     <div class="quiz_content_area">
                       <h3 class="quiz_title">Choose Forms</h3>
-                      <h6 class="price_detail">Price: <span id="total_price" name="total_price"> 0 </span>
+                      <h6 class="price_detail">Price: <textarea id="total_price" name="total_price"
+                          readonly> 0 </textarea>
                       </h6>
                       <div class="row">
                         {% for i in range (list1 |length) %}
@@ -203,7 +208,7 @@
             </div>
           </fieldset>
           <fieldset class="wizard-fieldset">
-            <h5>Summary</h5>
+            <h3 class="quiz_title">Request Summary</h3>
             <div class="form-group clearfix">
               <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
               <button type="submit" class="btn btn-primary">Submit</button>

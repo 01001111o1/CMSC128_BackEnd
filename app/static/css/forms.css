@@ -7,6 +7,15 @@ body {
   margin: 0;
   padding: 0;
 }
+
+textarea {
+  border-style: none;
+  border-color: transparent;
+  resize: none;
+  background-color: transparent;
+  pointer-events: none;
+}
+
 .wizard-content-left {
   background-blend-mode: darken;
   background-color: rgba(0, 0, 0, 0.25);
