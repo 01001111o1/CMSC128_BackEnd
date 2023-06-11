@@ -520,115 +520,110 @@ button[type='submit']:hover {
 
 /*** start of faqs ***/
 
-.faqs-container {
-  display: grid;
-  grid-template-columns: 55% auto;
-  height: 100%;
-}
-
-.faqs-container .faqs-left {
-  background-color: #fafafa;
-  padding: 75px;
-}
-
-.faqs-container .faqs-left .faqs-title h1 {
-  font-size: 30px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: #000;
-}
-
-.faqs-container .faqs-left .faqs-line-container .faqs-line {
-  width: 250px;
-  height: 0px;
-  background-color: #850038;
-  border: 3px solid #850038;
-  margin: 15px 0px 71px 0px;
-}
-
-.faqs-container .faqs-left .faqs-quests-container {
-  border: 2px solid #850038;
-  background-color: #fafafa;
-  margin: 55px auto;
-  overflow-y: scroll;
-  overflow-x: scroll;
-  max-height: 310px;
-  max-width: 1300px;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-}
-
-.faqs-container .faqs-left .faqs-quests-container .faqs-btn img {
-  width: 14px;
-  margin-top: 5px;
-}
-
-.faqs-container .faqs-left .faqs-quests-container .faqs-quests {
+.c-button {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 0;
+  vertical-align: middle;
+  overflow: visible;
+  color: #fff;
+  font: inherit;
   font-size: 14px;
+  line-height: 20px;
   font-weight: 400;
-  color: #000;
-  margin-bottom: 10px;
+  text-align: center;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 0;
+  user-select: none;
+  box-shadow: 2px 2px 0 0 darken(#434a54, 5%);
+  transition: all 0.2s ease;
 }
 
-.faqs-container .faqs-left .faqs-quests-container table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: fit-content;
+.c-button::hover,
+.c-button::focus {
+  outline: 0;
+  text-decoration: none;
 }
-
-.faqs-container .faqs-left .faqs-quests-container tr td:first-child {
-  padding-right: 5px;
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr td {
-  padding: 10px;
-  border-bottom: 1px solid #850038;
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr td span {
-  font-weight: 600;
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr:hover {
-  background-color: rgba(133, 0, 56, 0.1);
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr td button {
-  background-color: transparent;
-  border: none;
-  outline: none;
+.c-button:not(:disabled) {
   cursor: pointer;
-  width: 100%;
 }
 
-.faqs-container .faqs-right {
-  background-color: rgba(14, 96, 33, 0.1);
-  display: grid;
-  grid-template-rows: 60% auto;
+.bg-white {
+  background-color: #ffffff;
 }
 
-.faqs-container .faqs-right .faqs-answer {
-  padding: 40px;
-  text-align: justify;
+.bg-primary {
+  background-color: #850038 !important;
 }
 
-.faqs-container .faqs-right .faqs-answer .ans {
-  display: none;
-  font-size: 14px;
-  font-weight: 500;
+.text-primary {
+  color: #850038 !important;
 }
 
-.faqs-container .faqs-right .faqs-oble {
-  margin-top: 5px;
+.container .btn {
+  background-color: #850038;
+  border: 0;
+}
+
+.accordion-body {
+  margin-left: 30px;
+  border-bottom: 2px solid #888888;
+}
+
+.accordion-item {
+  background-color: #fff;
+  border: none;
+}
+
+.accordion-button {
+  background-color: #f2f2f2;
+  border: none;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  padding: 20px 50px;
+  margin: 10px 0;
+}
+.accordion-button span {
+  font-weight: bold;
+  margin-left: 5px;
+}
+.accordion-body span {
   margin-left: 20px;
-  background: url(../imgs/logos/oble-flip.png) no-repeat right;
-  opacity: 0.7;
-  background-size: 45%;
-  overflow: hidden;
+}
+.accordion-button:not(.collapsed) {
+  border-bottom: 4px solid #850038;
+  color: #850038;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+.accordion-button:focus {
+  z-index: 3;
+  border-color: none;
+  outline: 0;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url('../imgs/icons/collapse.png');
+  transform: rotate(-180deg);
+}
+
+.accordion-button::after {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  content: '';
+  background-image: url('../imgs/icons/expand.png');
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  transition: transform 0.2s ease-in-out;
 }
 
 /*** end of faqs ***/

@@ -200,3 +200,18 @@ var searchResults = function(link){{
       }
     });
 }} */
+
+// faqs
+function expandAll() {
+  $('.accordion-collapse').addClass('show');
+  $('.accordion-button').addClass('show');
+  $('.accordion-button').attr('aria-expanded', 'true');
+  $('.accordion-button').removeClass('collapsed');
+}
+
+function collapseAll() {
+  $('.accordion-collapse').removeClass('show');
+  $('.accordion-button').removeClass('show');
+  $('.accordion-button').attr('aria-expanded', 'false');
+  $('.accordion-button').addClass('collapsed');
+}
