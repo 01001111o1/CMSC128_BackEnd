@@ -46,6 +46,7 @@
         <th>Remarks</th>
         <th>Total Price</th>
         <th>Date of Request</th>
+        <th>Date of Payment</th>
         <th>Request Approved</th>
         <th>Requirements Verified</th>
         <th>Request Paid</th>
@@ -109,7 +110,7 @@
           </td>
           <td>{{ request.total_price }}</td>
           <td>{{ request.date_of_request }} </td>
-
+          <td> june 11 2023 </td>
 
           {% if request.request_approved == True %}
           <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i
@@ -220,74 +221,6 @@
       </li>
     </ul>
   </nav>
-
-</section>
-
-
-{% if request.request_approved == True %}
-<td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i
-      class='bx bx-badge-check'></i> APPROVED</a></td>
-{% else %}
-<td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved"><i
-      class='bx bx-loader bx-tada'></i> PENDING</a></td>
-{% endif %}
-
-{% if request.documents_approved == True %}
-<td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/documents_approved"><i
-      class='bx bx-badge-check'></i> VERIFIED</a></td>
-{% else %}
-<td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved"><i
-      class='bx bx-loader bx-tada'></i> PENDING</a></td>
-{% endif %}
-{% if request.request_paid == True %}
-<td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_paid"><i
-      class='bx bx-badge-check'></i> PAID</a></td>
-{% else %}
-<td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid"><i
-      class='bx bx-loader bx-tada'></i> PENDING</a></td>
-{% endif %}
-{% if request.request_available == True %}
-<td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_available"><i
-      class='bx bx-badge-check'></i> READY</a></td>
-{% else %}
-<td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_available"><i
-      class='bx bx-loader bx-tada'></i> PENDING</a></td>
-{% endif %}
-
-<td><a class="btn btn-done"><i class='bx bxs-check-circle'></i>FINISH</a></td>
-<td><a class="btn btn-delete" href="/remove/{{ request.queue_number }}"><i class='bx bxs-trash'></i></a></td>
-</tr>
-
-</tbody>
-</table>
-</div>
-
-<nav class="page-nav">
-  <ul class="pagination justify-content-center">
-    <li class="page-item {% if not pages.has_prev %} disabled {% endif %}">
-      <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.prev_num }}" tabindex="-1"
-        aria-disabled="true">Previous</a>
-    </li>
-    {% for page in pages.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
-    {% if page %}
-    {% if page == pages.page %}
-    <li class="page-item active">
-      <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}">{{ page }}</a>
-    </li>
-    {% else %}
-    <li class="page-item">
-      <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}">{{ page }}</a>
-    </li>
-    {% endif %}
-    {% else %}
-    <div class="hdots"> ... </div>
-    {% endif %}
-    {% endfor %}
-    <li class="page-item {% if not pages.has_next %} disabled {% endif %}">
-      <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.next_num }}">Next</a>
-    </li>
-  </ul>
-</nav>
 
 </section>
 {% endblock %}

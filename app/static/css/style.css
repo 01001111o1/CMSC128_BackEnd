@@ -347,6 +347,7 @@ button[type='submit']:hover {
     ),
     url('../imgs/bg/bg-upb.webp');
   background-size: cover;
+  background-position: center;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -696,7 +697,7 @@ td {
   overflow-y: scroll;
   overflow-x: scroll;
   min-height: 400px;
-  max-width: 1300px;
+  max-width: 1400px;
   justify-content: center;
   align-items: center;
   font-weight: 500;
@@ -722,7 +723,7 @@ td {
 
 .dash-table tr .btn-success {
   display: flex;
-  width: 115px;
+  width: 110px;
   align-items: center;
   justify-content: center;
   padding: 7px 12px;
@@ -736,7 +737,7 @@ td {
 
 .dash-table tr .btn-danger {
   display: flex;
-  width: 115px;
+  width: 110px;
   align-items: center;
   justify-content: center;
   padding: 7px 12px;
