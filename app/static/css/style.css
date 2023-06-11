@@ -832,7 +832,11 @@ td {
 }
 
 .dash-table .dropdown-sort .dropdown-menu a {
+<<<<<<< HEAD
   padding: 5px 10px;
+=======
+  padding: 5px 15px;
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
   color: #850038;
   font-weight: 700;
   text-decoration: none;
@@ -888,7 +892,11 @@ td {
 
 .dash-table .dropdown .dropdown-menu a {
   font-size: 10px;
+<<<<<<< HEAD
   padding: 1px 5px;
+=======
+  padding: 3px 7px;
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
   font-weight: 500;
   color: #000;
 }
@@ -896,6 +904,7 @@ td {
 .dash-table .dropdown .dropdown-menu a span {
   font-weight: 700;
   color: #850038;
+<<<<<<< HEAD
 }
 
 
@@ -914,4 +923,6 @@ left: auto;
 }
 .dropdown-menu > li:hover > .dropdown-submenu {
 display: block;
+=======
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
 }

@@ -195,6 +195,34 @@ def upload_image():
 
             new_directory = new_request()
 
+<<<<<<< HEAD
+=======
+            if "True Copy of Grades" in session["documents"]:
+                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+            folder_name = " ".join([name.upper() for name in session["name"]])
+
+            if check_fname and check_mname and check_lname:
+                flash("You currently have a request in progress")
+                return redirect(url_for("views.choose_requirements"))
+
+            if check_email:
+                flash("Email already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.request_forms"))
+
+            if check_student_number:
+                flash("Student number already exists", "error") #pag bawal 2 request kada student
+                return redirect(url_for("views.request_forms"))
+
+            if "True Copy of Grades" in session["documents"]:
+                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+            folder_name = " ".join([name.upper() for name in session["name"]])
+
+            new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
+            os.mkdir(new_directory)
+                
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
             for file in files:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(new_directory, filename))

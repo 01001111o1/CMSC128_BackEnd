@@ -5,7 +5,10 @@
 {% block main %}
 
 <section class="dash-table">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
   <div class="dropdown-sort">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Sort Requests By</button>
       <ul class="dropdown-menu">
@@ -17,18 +20,34 @@
             {% for i in range(documents|length) %}
             <li><a class="dropdown-item" href="/admin/dashboard/{{ documents[i] }}">{{ documents[i] }}</a></li>
             {% endfor %}
+<<<<<<< HEAD
             </div>
+=======
+          </div>
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
           </ul>
         </li>
       </ul>
     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
   <div class="table-wrap">
       <table>
           <tr>
               <th>ID</th>
+<<<<<<< HEAD
 
               <th>Student Number</th>
+=======
+             <!---<th>Last Name</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Email</th>-->
+              <th>Student Number</th>
+             <!--- <th>Year Level</th> -->
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
               <th>Requested Documents</th>
               <th>Remarks</th>
               <th>Total Price</th>
@@ -46,6 +65,13 @@
               {% set remark_list = request.remarks.split('@') %}
               <tr>
                   <td>{{ request.queue_number }}</td>
+<<<<<<< HEAD
+=======
+                 <!--- <td>{{ request.last_name }}</td>
+                  <td>{{ request.first_name }}</td>
+                  <td>{{ request.middle_name }}</td>
+                  <td>{{ request.email }}</td>-->
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -60,6 +86,10 @@
                         </ul>
                   </div>
                   </td>
+<<<<<<< HEAD
+=======
+                 <!-- <td>{{ request.year_level }}</td>-->
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
                   <td>
                       <div class="dropdown">
                           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -86,6 +116,7 @@
                   </td>
                   <td>{{ request.total_price }}</td>
                   <td>{{ request.date_of_request }} </td>
+<<<<<<< HEAD
 
                   {% if request.request_approved == True %}
                   <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i class='bx bx-badge-check'></i> APPROVED</a></td>
@@ -185,4 +216,65 @@
     
 </section>
 
+=======
+
+                  {% if request.request_approved == True %}
+                  <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i class='bx bx-badge-check'></i> APPROVED</a></td>
+                  {% else %}
+                  <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved"><i class='bx bx-loader bx-tada' ></i> PENDING</a></td>
+                  {% endif %}
+                  
+                  {% if request.documents_approved == True %}
+                  <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/documents_approved"><i class='bx bx-badge-check'></i> VERIFIED</a></td>
+                  {% else %}
+                  <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved"><i class='bx bx-loader bx-tada' ></i> PENDING</a></td>
+                  {% endif %}
+                  {% if request.request_paid == True %}
+                  <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_paid"><i class='bx bx-badge-check'></i>  PAID</a></td>
+                  {% else %}
+                  <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid"><i class='bx bx-loader bx-tada' ></i> PENDING</a></td>
+                  {% endif %}
+                  {% if request.request_available == True %}
+                  <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available"><i class='bx bx-badge-check'></i>  READY</a></td>
+                  {% else %}
+                  <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available"><i class='bx bx-loader bx-tada' ></i> PENDING</a></td>
+                  {% endif %}
+
+                  <td><a class="btn btn-done"><i class='bx bxs-check-circle' ></i>FINISH</a></td>
+                  <td><a class="btn btn-delete" href="/remove/{{ request.queue_number }}"><i class='bx bxs-trash' ></i></a></td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+
+  <nav class="page-nav">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {% if not pages.has_prev %} disabled {% endif %}">
+          <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.prev_num }}" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+    {% for page in pages.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %} 
+    {% if page %} 
+    {% if page == pages.page %}
+      <li class="page-item active">
+        <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}" >{{ page }}</a>
+      </li>
+    {% else %}
+      <li class = "page-item">
+        <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}">{{ page }}</a>
+      </li>
+    {% endif %} 
+    {% else %} 
+    <div class = "hdots"> ... </div> 
+    {% endif %} 
+    {% endfor %}
+        <li class="page-item {% if not pages.has_next %} disabled {% endif %}">
+          <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.next_num }}">Next</a>
+        </li>
+      </ul>
+    </nav>
+    
+</section>
+
+>>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
 {% endblock %}
