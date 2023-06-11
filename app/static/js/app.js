@@ -181,22 +181,38 @@ document.querySelectorAll('.nav-link').forEach((link) => {
   }
 });
 
-/*$(document).ready(function(){
-  $(document).on('click', '.page-link', function(event){
-    var link = $(this).attr('href')
-    searchResults(link)
-    event.preventDefault()
-  })
-})
+const deleteButtons = document.querySelectorAll('.btn-delete');
+const modal = document.querySelector('#modal');
 
-var searchResults = function(link){{
-    $.ajax({
-      url: link,
-      success: function(response) {
-        $("#table_content").html(response);
-      },
-      error: function(xhr) {
-        //Do Something to handle error
+deleteButtons.forEach((deleteButton) => {
+  deleteButton.addEventListener('click', function () {
+    const orderID = this.getAttribute('data-orderid');
+    const name = this.getAttribute('data-name');
+    const studentNumber = this.getAttribute('data-studentnumber');
+
+    document.querySelector('#modal-orderid').textContent = orderID;
+    document.querySelector('#modal-name').textContent = name;
+    document.querySelector('#modal-studentnumber').textContent = studentNumber;
+  });
+});
+/* document.addEventListener('DOMContentLoaded', function() {
+    var toastElements = document.querySelectorAll('.toast');
+
+    toastElements.forEach(function(toastEl) {
+      var toast = new bootstrap.Toast(toastEl);
+      toast.show();
+
+      var closeButton = toastEl.querySelector('.btn-close');
+      closeButton.addEventListener('click', function() {
+        toast.hide();
+      });
+
+      var autohideAttr = toastEl.getAttribute('data-bs-autohide');
+      if (autohideAttr === 'true') {
+        var autohideDelay = parseInt(toastEl.getAttribute('data-bs-delay')) || 5000;
+        setTimeout(function() {
+          toast.hide();
+        }, autohideDelay);
       }
     });
 }} */
