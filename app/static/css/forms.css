@@ -259,6 +259,12 @@ body {
   position: relative;
   margin: 25px 0;
 }
+.form-wizard .payment-group {
+  text-align: center;
+}
+.form-wizard .wizard-fieldset .payment-radio {
+  display: none !important;
+}
 .form-wizard .form-btn {
   position: absolute;
   display: flex;
@@ -509,4 +515,11 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+/*** summary **/
+.summary-container {
+  height: 35%;
+  color: black;
+  background-color: #e7e7e7;
 }

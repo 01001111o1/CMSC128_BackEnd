@@ -158,9 +158,9 @@
                         <div class="col-sm-3">
                           <div class="quiz_card_area">
                             {% if list2[i] in scholarship_documents %}
-                            <input class="form-control quiz_checkbox scholarship" type="checkbox"
-                              id="{{i}}: {{list2[i]}}" value="{{ list2[i] }}" name="check"
-                              data-price="{{ base_prices[list2[i]] }}" onclick="updatePrice()" />
+                            <input class="quiz_checkbox scholarship" type="checkbox" id="{{i}}: {{list2[i]}}"
+                              value="{{ list2[i] }}" name="check" data-price="{{ base_prices[list2[i]] }}"
+                              onclick="updatePrice()" />
                             <div class="single_quiz_card">
                               <div class="quiz_card_content">
                                 <div class="quiz_card_title">{{ list2[i] }}
@@ -172,9 +172,8 @@
                               </div><!-- end of quiz_card_content -->
                             </div><!-- end of single_quiz_card -->
                             {% else %}
-                            <input class="form-control quiz_checkbox" type="checkbox" id="{{i}}: {{list2[i]}}"
-                              value="{{ list2[i] }}" name="check" data-price="{{ base_prices[list2[i]] }}"
-                              onclick="updatePrice()" />
+                            <input class="quiz_checkbox" type="checkbox" id="{{i}}: {{list2[i]}}" value="{{ list2[i] }}"
+                              name="check" data-price="{{ base_prices[list2[i]] }}" onclick="updatePrice()" />
 
                             <div class="single_quiz_card">
                               <div class="quiz_card_content">
@@ -203,7 +202,7 @@
           </fieldset>
           <fieldset class="wizard-fieldset">
             <h3 class="quiz_title">Mode of Payment</h3>
-            <div class="form-group">
+            <div class="form-group payment-group">
               <div class="wizard-form-radio">
                 <input class="payment-radio" name="payment_method" id="online_paymode" type="radio" value="Online" />
                 <label for="online_paymode">Online Payment</label>
@@ -223,10 +222,7 @@
           </fieldset>
           <fieldset class="wizard-fieldset">
             <h3 class="quiz_title req_title">Request Summary</h3>
-            <div class="summary-container" style="
-    height: 25%;
-    overflow: auto;
-">
+            <div class="summary-container">
               <div class="summary-details">
               </div>
             </div>
