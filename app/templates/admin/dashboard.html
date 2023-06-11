@@ -247,10 +247,10 @@
       class='bx bx-loader bx-tada'></i> PENDING</a></td>
 {% endif %}
 {% if request.request_available == True %}
-<td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available"><i
+<td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_available"><i
       class='bx bx-badge-check'></i> READY</a></td>
 {% else %}
-<td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available"><i
+<td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_available"><i
       class='bx bx-loader bx-tada'></i> PENDING</a></td>
 {% endif %}
 
