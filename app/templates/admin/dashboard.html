@@ -5,10 +5,6 @@
 {% block main %}
 
 <section class="dash-table">
-<<<<<<< HEAD
-
-=======
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
   <div class="dropdown-sort">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Sort Requests By</button>
       <ul class="dropdown-menu">
@@ -20,34 +16,30 @@
             {% for i in range(documents|length) %}
             <li><a class="dropdown-item" href="/admin/dashboard/{{ documents[i] }}">{{ documents[i] }}</a></li>
             {% endfor %}
-<<<<<<< HEAD
             </div>
-=======
+
           </div>
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
+
           </ul>
         </li>
       </ul>
     </div>
-<<<<<<< HEAD
 
-=======
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
+
   <div class="table-wrap">
       <table>
           <tr>
               <th>ID</th>
-<<<<<<< HEAD
+
 
               <th>Student Number</th>
-=======
+
              <!---<th>Last Name</th>
               <th>First Name</th>
               <th>Middle Name</th>
               <th>Email</th>-->
               <th>Student Number</th>
              <!--- <th>Year Level</th> -->
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
               <th>Requested Documents</th>
               <th>Remarks</th>
               <th>Total Price</th>
@@ -65,13 +57,11 @@
               {% set remark_list = request.remarks.split('@') %}
               <tr>
                   <td>{{ request.queue_number }}</td>
-<<<<<<< HEAD
-=======
+
                  <!--- <td>{{ request.last_name }}</td>
                   <td>{{ request.first_name }}</td>
                   <td>{{ request.middle_name }}</td>
                   <td>{{ request.email }}</td>-->
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
                   <td>
                     <div class="dropdown">
                       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -86,10 +76,8 @@
                         </ul>
                   </div>
                   </td>
-<<<<<<< HEAD
-=======
+
                  <!-- <td>{{ request.year_level }}</td>-->
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
                   <td>
                       <div class="dropdown">
                           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -116,7 +104,7 @@
                   </td>
                   <td>{{ request.total_price }}</td>
                   <td>{{ request.date_of_request }} </td>
-<<<<<<< HEAD
+
 
                   {% if request.request_approved == True %}
                   <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i class='bx bx-badge-check'></i> APPROVED</a></td>
@@ -143,26 +131,28 @@
                   <td><a class="btn btn-done" href="/delete/{{ request.queue_number }}"><i class='bx bxs-check-circle' ></i>FINISH</a></td>
                   
                   <td>
+                    <a class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#modal" data-orderid="{{ request.queue_number }}" data-name="{{ request.first_name }} {{ request.middle_name }} {{ request.last_name }}" data-studentnumber="{{ request.student_number }}"><i class='bx bxs-trash'></i></a>
 
-                    <a class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#modal"><i class='bx bxs-trash' ></i></a>
-                    
-                    <form action = "/admin/dashboard/{{ parameter }}/" method = "POST">
                     <div class="modal fade" id="modal">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-
                           <div class="modal-header">
                             <h1 class="modal-title fs-5">Delete Entry</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                           </div>
-
                           <div class="modal-body">
                             <table>
-                              <tr><td>Order ID: {{ request.queue_number }}</td></tr>
-                              <tr><td>Name: {{ request.first_name + " " + request.middle_name + " " + request.last_name }}</td></tr>
-                              <tr><td>Student Number: {{ request.student_number }}</td></tr>
+                              <tr>
+                                <td>Order ID: <span id="modal-orderid"></span></td>
+                              </tr>
+                              <tr>
+                                <td>Name: <span id="modal-name"></span></td>
+                              </tr>
+                              <tr>
+                                <td>Student Number: <span id="modal-studentnumber"></span></td>
+                              </tr>
                             </table>
-                            
+                            <form action="/admin/dashboard/{{ parameter }}/" method="POST">
                               <div class="input-group mb-3">
                                 <span class="input-group-text">Reason For Rejecting</span>
                                 <input type="text" class="form-control" name = "reason_reject" placeholder = "Ex: Invalid requested documents" required>
@@ -216,7 +206,6 @@
     
 </section>
 
-=======
 
                   {% if request.request_approved == True %}
                   <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i class='bx bx-badge-check'></i> APPROVED</a></td>
@@ -243,7 +232,7 @@
                   <td><a class="btn btn-done"><i class='bx bxs-check-circle' ></i>FINISH</a></td>
                   <td><a class="btn btn-delete" href="/remove/{{ request.queue_number }}"><i class='bx bxs-trash' ></i></a></td>
               </tr>
-              {% endfor %}
+         
           </tbody>
       </table>
   </div>
@@ -275,6 +264,4 @@
     </nav>
     
 </section>
-
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
 {% endblock %}
