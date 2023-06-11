@@ -231,3 +231,13 @@ function collapseAll() {
   $('.accordion-button').attr('aria-expanded', 'false');
   $('.accordion-button').addClass('collapsed');
 }
+
+jQuery('.accordion-item').click(function () {
+  jQuery('html,body').animate(
+    {
+      scrollTop: $(this).offset().top,
+    },
+    100,
+    'swing'
+  );
+});
