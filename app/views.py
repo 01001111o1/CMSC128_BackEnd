@@ -26,7 +26,6 @@ views = Blueprint('views', __name__)
 def index():
     return render_template("public/intro.html", user = current_user)
 
-
 @views.route("/request_forms", methods = ["GET", "POST"])
 def request_forms():
     if request.method == "POST":
@@ -40,11 +39,14 @@ def request_forms():
         scholarship = request.form.get("scholarship")
         purpose = "Purpose: " + request.form.get("purpose").upper()
         price_map = request.form.get("map")
+        mode_of_payment = request.form.get("payment_method")
 
         temp = dict()
+        count = 0
 
         for k, _ in Requirements.items():
             temp[k] = any([val in documents for val in Requirements[k]])
+            count += 1 if temp[k] == True else 0
 
         for n in name:
             if isInvalid(n):
@@ -79,6 +81,7 @@ def request_forms():
             return redirect(request.url)
 
         session["remarks"] = [purpose]
+        session["remarks"].append("Mode of payment: " + mode_of_payment)
 
         if scholarship is not None:
             session["remarks"].append("For Scholarship")
@@ -93,10 +96,81 @@ def request_forms():
         session["price_map"] = price_map
         session.modified = True
 
+        if count == 0:
+            _ = new_request()
+            return redirect(url_for("views.index"))
+
         return redirect(url_for("views.upload_image"))
 
     return render_template("public/request_forms.html", list1 = Documents1, list2 = Documents2, scholarship_documents = 
         scholarship_discounted_documents, base_prices = Base_Prices, user = current_user)
+
+@views.route("/about_us")
+def about_us():
+    return render_template("public/about-us.html", user = current_user)
+
+@views.route("/contact_us")
+def contact_us():
+    return render_template("public/contact-us.html", user = current_user)
+
+@views.route("/faqs")
+def faqs():
+    return render_template("public/faqs.html", user = current_user)
+
+def new_request():
+
+    check_fname = Request.query.filter_by(first_name = session["name"][0]).first()
+    check_mname = Request.query.filter_by(middle_name = session["name"][1]).first()
+    check_lname = Request.query.filter_by(last_name = session["name"][2]).first()
+    check_email = Request.query.filter_by(email = session["email"]).first()
+    check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
+
+    if "True Copy of Grades" in session["documents"]:
+        session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+    if check_fname and check_mname and check_lname:
+        flash("You currently have a request in progress")
+        return redirect(url_for("views.request_formsx"))
+
+    if check_email:
+        flash("Email already exists", "error")
+        return redirect(url_for("views.request_forms"))
+
+    if check_student_number:
+        flash("Student number already exists", "error")
+        return redirect(url_for("views.request_forms"))
+
+    if "True Copy of Grades" in session["documents"]:
+        session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
+
+    folder_name = " ".join([name.upper() for name in session["name"]])
+
+    new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
+    os.mkdir(new_directory)
+
+    new_request = Request(
+            last_name = session["name"][2],
+            first_name = session["name"][0],
+            middle_name = session["name"][1],
+            email = session["email"],
+            student_number = session["student_number"],
+            year_level = session["year_level"],
+            requested_documents = session["documents"],
+            remarks = "@".join(session["remarks"]),
+            price_map = session["price_map"],
+            total_price = session["total_price"]
+        )
+
+    db.session.add(new_request)
+    db.session.commit()
+
+    session.clear()
+
+    latest_request = Request.query.order_by(Request.queue_number.desc()).first()
+    background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number, "invoice")
+
+    return new_directory
+
 
 @views.route("/upload_image", methods = ["GET", "POST"])
 def upload_image():
@@ -119,70 +193,11 @@ def upload_image():
                     flash("Invalid file extension", "error")
                     return redirect(request.url)
 
-            check_fname = Request.query.filter_by(first_name = session["name"][0]).first()
-            check_mname = Request.query.filter_by(middle_name = session["name"][1]).first()
-            check_lname = Request.query.filter_by(last_name = session["name"][2]).first()
-            check_email = Request.query.filter_by(email = session["email"]).first()
-            check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
+            new_directory = new_request()
 
-            if "True Copy of Grades" in session["documents"]:
-                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
-
-            folder_name = " ".join([name.upper() for name in session["name"]])
-
-            if check_fname and check_mname and check_lname:
-                flash("You currently have a request in progress")
-                return redirect(url_for("views.choose_requirements"))
-
-            if check_email:
-<<<<<<< HEAD
-                flash("Email already exists", "error")
-                return redirect(url_for("views.choose_requirements"))
-
-            if check_student_number:
-                flash("Student number already exists", "error")
-                return redirect(url_for("views.choose_requirements"))
-=======
-                flash("Email already exists", "error") #pag bawal 2 request kada student
-                return redirect(url_for("views.request_forms"))
-
-            if check_student_number:
-                flash("Student number already exists", "error") #pag bawal 2 request kada student
-                return redirect(url_for("views.request_forms"))
->>>>>>> 5213cd29e7ebebf3a2a62b623a32d342a22b73cb
-
-            if "True Copy of Grades" in session["documents"]:
-                session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
-
-            folder_name = " ".join([name.upper() for name in session["name"]])
-
-            new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
-            os.mkdir(new_directory)
-                
             for file in files:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(new_directory, filename))
-
-            new_request = Request(
-                    last_name = session["name"][2],
-                    first_name = session["name"][0],
-                    middle_name = session["name"][1],
-                    email = session["email"],
-                    student_number = session["student_number"],
-                    year_level = session["year_level"],
-                    requested_documents = session["documents"],
-                    remarks = "@".join(session["remarks"]),
-                    price_map = session["price_map"],
-                    total_price = session["total_price"]
-                )
-
-            db.session.add(new_request)
-            db.session.commit()
-
-            session.clear()
-
-            latest_request = Request.query.order_by(Request.queue_number.desc()).first()
-            background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number, "invoice")
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))

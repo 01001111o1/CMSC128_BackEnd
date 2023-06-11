@@ -27,6 +27,10 @@ from werkzeug.wsgi import get_current_url
 
 admin_views = Blueprint('admin_views', __name__)
 
+@admin_views.route("/admin/login")
+def admin_login():
+    return render_template("admin/admin-login.html", user = current_user)
+
 @admin_views.route("/admin/dashboard/<parameter>/", methods = ["GET", "POST"])
 @login_required
 def admin_dashboard(parameter):

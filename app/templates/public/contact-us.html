@@ -1,0 +1,37 @@
+{% extends "public/templates/public_template.html" %}
+{% block title %} UP2GO: Contact Us {% endblock %}
+{% block main%}
+
+<section class="contact-section">
+    <div class="contact-container">
+        <div class="contact-title">
+            <h1>CONTACT US</h1>
+        </div>
+        <div class="contact-line-container">
+            <div class="contact-line"></div>
+        </div>
+        <div class="contact-content">
+            <h1>Office of the University Registrar</h1>
+            <p>
+                University of the Philippines Baguio <br />
+                Governor Pack Rd., Baguio City <br />
+                Benguet, Philippines 2600
+            </p>
+        </div>
+        <div class="contact-details">
+            <table>
+                <tr>
+                    <td class="label"><img src="{{ url_for('static', filename='imgs/icons/phone.png') }}" /></td>
+                    <td class="label-title">(074) 444-8806</td>
+                </tr>
+                <tr>
+                    <td class="label"><img src="{{ url_for('static', filename='imgs/icons/email.png') }}" /></td>
+                    <td class="label-title">our.upbaguio@gmail.com</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+</section>
+
+{% endblock %}

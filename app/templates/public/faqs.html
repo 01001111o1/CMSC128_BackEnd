@@ -1,0 +1,350 @@
+{% extends "public/templates/public_template.html" %}
+{% block title %} UP2GO: FAQs {% endblock %}
+{% block main%}
+
+<section class="faqs-container">
+    <div class="faqs-left">
+        <div class="faqs-title">
+            <h1>FREQUENTLY ASKED QUESTIONS</h1>
+        </div>
+        <div class="faqs-line-container">
+            <div class="faqs-line"></div>
+        </div>
+        <div class="faqs-quests-container">
+            <div class="faqs-table-warp">
+                <table>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show1();><img id="toggle-1"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">Requirements for the release of <span>Honorable Dismissal</span></td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show2();><img id="toggle-2"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">Instructions/Requirements for <span>Transfer to other UP Units</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show3();><img id="toggle-3"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show4();><img id="toggle-4"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show5();><img id="toggle-5"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show6();><img id="toggle-6"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show7();><img id="toggle-7"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show8();><img id="toggle-8"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show9();><img id="toggle-9"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                    <tr>
+                        <td class="faqs-btn"><button onclick=change_show10();><img id="toggle-10"
+                                    src="../imgs/icons/plus.png" /></button></td>
+                        <td class="faqs-quests">How to pass this semester?</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="faqs-right">
+        <div class="faqs-answer">
+            <p class="ans" id="answer"></p>
+        </div>
+        <div class="faqs-oble"></div>
+    </div>
+</section>
+
+<script>
+    const targetDiv = document.getElementById("answer");
+    const answer = document.getElementById('answer');
+
+    // for displaying answers
+    const answer1 = '>> Letter from parents (not gurardian) stating the reason for HD addressed to: <br>' +
+        'THE UNIVERSITY REGISTRAR <br> Office of the Univeristy Registrar <br> University of the Philippines Baguio <br> Baguio City, 2600 <br><br>' +
+        '>> Latest University Clearance <br><br>' +
+        '>> Exit counseling from the Office of Counseling and Guidance <br><br>' +
+        '>> Oficial Transcript of Records (if applicable)<br><br>' +
+        '>> Proof of payments for:';
+    const answer2 = 'Request the documents listed below. Each document costs ₱50.00/copy. <br><br>' +
+        '>> True Copy of Grades: <br><br>' +
+        '>> Certificate of No Disciplinary Case <br><br>' +
+        '>> Certificate of No Contract';
+    const answer3 = 'Note that Up Baguio does not issue second copy of diploma, and only at most one copy of Certified True Text of Diploma. <br><br> ' +
+        '>> Secure/ apply for an Affidavit of Loss <br><br>' +
+        '>> Pay for Certified True Text of Diploma (₱200.00) and/or Certified Copy of Certified True Text of Diploma (₱20.00/copy)<br><br>';
+    const answer4 = 'answer 4';
+    const answer5 = 'answer 5';
+    const answer6 = 'answer 6';
+    const answer7 = 'answer 7';
+    const answer8 = 'answer 8';
+    const answer9 = 'answer 9';
+    const answer10 = 'answer 10';
+
+    // for toggles
+    const image1 = document.getElementById('toggle-1');
+    const image2 = document.getElementById('toggle-2');
+    const image3 = document.getElementById('toggle-3');
+    const image4 = document.getElementById('toggle-4');
+    const image5 = document.getElementById('toggle-5');
+    const image6 = document.getElementById('toggle-6');
+    const image7 = document.getElementById('toggle-7');
+    const image8 = document.getElementById('toggle-8');
+    const image9 = document.getElementById('toggle-9');
+    const image10 = document.getElementById('toggle-10');
+
+    // functions for toggles
+    function change_show1() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/minus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 1
+            answer.innerHTML = answer1;
+        } else {
+            targetDiv.style.display = "none";
+            image1.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer.innerHTML;
+        }
+    }
+
+    function change_show2() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/minus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 2
+            answer.innerHTML = answer2;
+        } else {
+            targetDiv.style.display = "none";
+            image2.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+    function change_show3() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/minus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 3
+            answer.innerHTML = answer3;
+        } else {
+            targetDiv.style.display = "none";
+            image3.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+    function change_show4() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/minus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 4
+            answer.innerHTML = answer4;
+        } else {
+            targetDiv.style.display = "none";
+            image4.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+    function change_show5() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/minus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 5
+            answer.innerHTML = answer5;
+        } else {
+            targetDiv.style.display = "none";
+            image5.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = "answer1";
+        }
+    }
+
+    function change_show6() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/minus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 6
+            answer.innerHTML = answer6;
+        } else {
+            targetDiv.style.display = "none";
+            image6.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+    function change_show7() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/minus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 7
+            answer.innerHTML = answer7;
+        } else {
+            targetDiv.style.display = "none";
+            image7.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+    function change_show8() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/minus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 8
+            answer.innerHTML = answer8;
+        } else {
+            targetDiv.style.display = "none";
+            image8.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+    function change_show9() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/minus.png";
+            image10.src = "../imgs/icons/plus.png";
+            // show text answer 9
+            answer.innerHTML = answer9;
+        } else {
+            targetDiv.style.display = "none";
+            image9.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+    function change_show10() {
+        if (targetDiv.style.display === "none") {
+            targetDiv.style.display = "block";
+            image1.src = "../imgs/icons/plus.png";
+            image2.src = "../imgs/icons/plus.png";
+            image3.src = "../imgs/icons/plus.png";
+            image4.src = "../imgs/icons/plus.png";
+            image5.src = "../imgs/icons/plus.png";
+            image6.src = "../imgs/icons/plus.png";
+            image7.src = "../imgs/icons/plus.png";
+            image8.src = "../imgs/icons/plus.png";
+            image9.src = "../imgs/icons/plus.png";
+            image10.src = "../imgs/icons/minus.png";
+            // show text answer 10
+            answer.innerHTML = answer10;
+        } else {
+            targetDiv.style.display = "none";
+            image10.src = "../imgs/icons/plus.png";
+            // bring back to orig text
+            answer.innerHTML = answer1;
+        }
+    }
+
+</script>
+
+{% endblock %}
