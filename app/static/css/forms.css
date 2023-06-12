@@ -537,10 +537,12 @@ body {
 }
 .align-right span {
   color: black !important;
+  font-weight: 700 !important;
 }
 .payment-details {
   font-size: smaller;
   margin-left: 7px;
+  margin-bottom: 10px;
 }
 .table-total-price {
   border-top: 2px solid black;
