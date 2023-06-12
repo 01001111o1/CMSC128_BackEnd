@@ -21,29 +21,17 @@
             <li><a class="dropdown-item" href="/admin/dashboard/{{ documents[i] }}">{{ documents[i] }}</a></li>
             {% endfor %}
           </div>
-
+        </ul>
+      </li>
+    </ul>
   </div>
-
-  </ul>
-  </li>
-  </ul>
-  </div>
-
 
   <div class="table-wrap">
     <table>
       <tr>
         <th>ID</th>
-
-
         <th>Student Number</th>
-
-        <!---<th>Last Name</th>
-              <th>First Name</th>
-              <th>Middle Name</th>
-              <th>Email</th>-->
         <th>Requested Documents</th>
-        <!--- <th>Year Level</th> -->
         <th>Remarks</th>
         <th>Total Price</th>
         <th>Date of Request</th>
@@ -61,11 +49,6 @@
         {% set remark_list = request.remarks.split('@') %}
         <tr>
           <td>{{ request.queue_number }}</td>
-
-          <!--- <td>{{ request.last_name }}</td>
-                  <td>{{ request.first_name }}</td>
-                  <td>{{ request.middle_name }}</td>
-                  <td>{{ request.email }}</td>-->
           <td>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -83,8 +66,6 @@
               </ul>
             </div>
           </td>
-
-          <!-- <td>{{ request.year_level }}</td>-->
           <td>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -145,7 +126,6 @@
 
           <td><a class="btn btn-done" href="/delete/{{ request.queue_number }}"><i
                 class='bx bxs-check-circle'></i>FINISH</a></td>
-
           <td>
             <a class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#modal"
               data-orderid="{{ request.queue_number }}"
@@ -168,7 +148,7 @@
           </div>
           <div class="modal-body">
             <table>
-              <tr>
+              <tr class="row-order">
                 <td>Order ID: <span id="modal-orderid"></span></td>
               </tr>
               <tr>
@@ -188,7 +168,6 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Delete</a>
           </div>
         </form>
