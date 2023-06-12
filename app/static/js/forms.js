@@ -300,13 +300,13 @@ function maxLengthCheck(object) {
   } else {
     object.classList.remove('error');
     formLabel.style.display = object.value ? 'none' : 'block';
-    errorElement.innerText = '';
+    errorElement.innerText = 'Student Number Ex: 2020*****';
   }
 
   if (!object.value) {
     object.classList.remove('error');
     formLabel.style.display = 'block';
-    errorElement.innerText = '';
+    errorElement.innerText = 'Student Number Ex: 2020*****';
   }
 }
 
