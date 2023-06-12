@@ -231,3 +231,29 @@ function collapseAll() {
   $('.accordion-button').attr('aria-expanded', 'false');
   $('.accordion-button').addClass('collapsed');
 }
+
+jQuery('.accordion-item').click(function () {
+  jQuery('html,body').animate(
+    {
+      scrollTop: $(this).offset().top,
+    },
+    100,
+    'swing'
+  );
+});
+
+// admin-login
+jQuery(document).ready(function () {
+  if (history.length === 1) {
+    jQuery('.back-btn a').attr('href', '/');
+    jQuery('.back-btn span').text('Home');
+  } else {
+    jQuery('.back-btn a').removeAttr('href');
+    jQuery('.back-btn span').text('Back');
+  }
+  jQuery('.back-btn a').click(function () {
+    if (history.length > 1) {
+      history.back();
+    }
+  });
+});

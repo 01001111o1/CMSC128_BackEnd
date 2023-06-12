@@ -33,7 +33,9 @@ def email_template(name, queue_number, classification, reason = None):
     elif classification == "request_approved":
         subject = f"Your request with order number {queue_number} has been approved."
     elif classification == "documents_approved":
-        subject = f"The documents you submitted for order number {queue_number} has been verified and approved."
+        subject = f"The documents you submitted for order number {queue_number} has been verified and approved. Please scan the QR code if your preferred mode of payment is online"
+    elif classification == "payment_received":
+    	subject = f"Your proof of payment has been received. Wait for further status updates regarding your order status"
     else:
         subject = f"Order number { queue_number } available for claiming."
 

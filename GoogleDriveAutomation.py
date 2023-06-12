@@ -37,6 +37,19 @@ def retrieve_drive_data():
     destinationFolder = "C:/Users/Sean/Desktop/CMSC128Project/Payments"
 
     downloadFolder(service, folderId, destinationFolder)
+    delete_folder_contents(service, folderId)
+
+def delete_folder_contents(service, fileId):
+    
+    results = service.files().list( q = "parents in '{0}'".format(fileId), fields="files(id, name, mimeType)" ).execute()
+    items = results.get('files', [])
+    
+    for item in items:
+        itemId = item['id']
+        itemType = item['mimeType']
+
+        if itemType == 'application/vnd.google-apps.folder':
+            service.files().delete(fileId = itemId).execute()     
 
 def downloadFolder(service, fileId, destinationFolder):
     

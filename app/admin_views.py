@@ -83,8 +83,13 @@ def admin_dashboard(parameter):
 def update(queue_number, classification):
     query = Request.query.get_or_404(queue_number)  
     try:
-        subject, content = email_template(query.first_name, queue_number, classification)
-        background_runner.send_message_asynch(query.email, subject, content)
+        if classification == "documents_approved":
+            image_path = "C:/Users/Sean/Desktop/CMSC128Project/app/qr_code.jpg"
+            subject, content = email_template(query.first_name, queue_number, classification)
+            background_runner.send_message_asynch(query.email, subject, content, None, [image_path])
+        else:
+            subject, content = email_template(query.first_name, queue_number, classification)
+            background_runner.send_message_asynch(query.email, subject, content)
 
         exec(f'query.{classification} = True')
 
@@ -105,13 +110,15 @@ def delete_entry(queue_number):
         query = Request.query.get_or_404(queue_number)  
         folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
         folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
+        payment_path = app.config["PAYMENT_UPLOADS"] + "/" + str(queue_number)
 
         background_runner.send_invoice_or_receipt_asynch(queue_number, "receipt")
 
         db.session.delete(query)
         db.session.commit()
         
-        shutil.rmtree(folder_path)
+        shutil.rmtree(payment_path, ignore_errors = False)
+        shutil.rmtree(folder_path, ignore_errors = False)
 
         flash("Transaction successfully deleted", "success")
         return redirect(session["url"])
@@ -125,10 +132,11 @@ def remove_entry(queue_number):
     query = Request.query.get_or_404(queue_number)  
     folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
     folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
-    payment_path = a
+    payment_path = app.config["PAYMENT_UPLOADS"] + "/" + queue_number
 
     try:
         shutil.rmtree(folder_path, ignore_errors = False)
+        shutil.rmtree(payment_path, ignore_errors = False)
 
         db.session.delete(query)
         db.session.commit()

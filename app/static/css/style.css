@@ -28,12 +28,24 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.intro-wrapper {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+#back-btn-up {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  vertical-align: middle;
+  margin-top: 30px;
+  color: black;
+}
+
+#back-btn-up a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#back-btn-up a:active,
+#back-btn-up a:focus,
+#back-btn-up a:hover {
+  color: #850038;
 }
 /*** start of navbar ***/
 
@@ -55,6 +67,29 @@ input[type='number'] {
 .authicn {
   cursor: pointer;
 }
+
+.p-4 {
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-4 .log-img {
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.p-4 a {
+  width: 100%;
+  height: 100%;
+  background-color: #850038;
+  color: #FFF;
+  font-weight: 600;
+  border-radius: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 /*** end of navbar ***/
 
 /*** start page ***/
@@ -67,7 +102,7 @@ input[type='number'] {
   height: 50px;
   padding: 10px 5%;
   overflow: hidden;
-  margin: 0 0 50px 0;
+  margin: 0 0 90px 0;
   background-color: #850038;
 }
 
@@ -81,15 +116,15 @@ input[type='number'] {
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 8px;
   text-align: center;
-  margin-left: 10%;
+  margin-left: 8%;
 }
 
 .start-page .intro-uplogo {
   width: 110px;
   float: right;
-  right: 10%;
+  right: 8%;
   z-index: 2;
   position: absolute;
 }
@@ -98,7 +133,7 @@ input[type='number'] {
   width: 70%;
   text-align: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   overflow: hidden !important;
   background-color: #fafafa;
@@ -245,6 +280,36 @@ input[type='number'] {
   height: auto;
 }
 
+#back-btn-log {
+  display: flex;
+  left: 30px;
+  top: 30px;
+  position: absolute;
+}
+
+#back-btn-log {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  vertical-align: middle;
+  text-decoration: none;
+  color: black;
+}
+
+#back-btn-log a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+#back-btn-log a:active,
+#back-btn-log a:focus,
+#back-btn-log a:hover {
+  color: #850038;
+}
+
 .login-uplogo .up2go-login {
   width: 220px;
   height: auto;
@@ -267,6 +332,10 @@ input[type='number'] {
   height: 100vh;
   background: #fff;
   padding: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-login {
@@ -343,42 +412,60 @@ button[type='submit']:hover {
   background: linear-gradient(
       60deg,
       rgba(254, 254, 254, 0.3),
-      rgba(133, 0, 56, 0.8)
+      rgba(133, 0, 56, 0.3)
     ),
-    url('../imgs/bg/bg-upb.webp');
+    url('../imgs/bg/login-bg1.jpeg');
   background-size: cover;
+  background-position-y: 80%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: flex-end;
   align-content: center;
   flex-direction: row;
+  transition: 2s ease;
+}
+
+.background .login-line-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.background .login-line-container .login-line {
+  width: 600px;
+  height: 0px;
+  background-color: #fafafa;
+  border: 1px solid #fafafa;
+  bottom: 140px;
+  right: 40px;
+  position: absolute;
 }
 
 .background h1 {
-  max-width: 420px;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  max-width: 600px;
+  font-size: 25px;
   color: #fff;
   text-align: right;
   padding: 0;
   margin: 0;
 }
 
-.background p {
-  max-width: 650px;
-  color: #1a1a1a;
-  font-size: 15px;
-  text-align: right;
-  padding: 0;
-  margin: 15px 0 0 0;
+.background span {
+  font-weight: 400;
 }
-
 /*** end of login ***/
 
 /*** start of about us ***/
 
 .oblePic {
   width: 100%;
-  height: 380px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -389,6 +476,7 @@ button[type='submit']:hover {
 }
 
 .abt-container {
+  margin: 45px 0 0 0;
   width: 100%;
   height: 100%;
   background-color: #fafafa;
@@ -458,9 +546,15 @@ button[type='submit']:hover {
   background-size: 60%;
   background-color: #fdfdfd;
   overflow: hidden;
+  height: 100vh;
 }
 
 .contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  margin: 70px 0 0 0;
   width: 40%;
   float: right;
   background-color: #fdfdfd;
@@ -520,115 +614,142 @@ button[type='submit']:hover {
 
 /*** start of faqs ***/
 
-.faqs-container {
-  display: grid;
-  grid-template-columns: 55% auto;
-  height: 100%;
+.c-button {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 0;
+  vertical-align: middle;
+  overflow: visible;
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 0;
+  user-select: none;
+  box-shadow: 2px 2px 0 0 darken(#434a54, 5%);
+  transition: all 0.2s ease;
 }
 
-.faqs-container .faqs-left {
-  background-color: #fafafa;
-  padding: 75px;
+.c-button::hover,
+.c-button::focus {
+  outline: 0;
+  text-decoration: none;
+}
+.c-button:not(:disabled) {
+  cursor: pointer;
 }
 
-.faqs-container .faqs-left .faqs-title h1 {
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-primary {
+  background-color: #850038 !important;
+}
+
+.text-primary {
+  color: #850038 !important;
+}
+
+.container .faq-title {
   font-size: 30px;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-weight: 700;
+  line-height: 35px;
   color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.faqs-container .faqs-left .faqs-line-container .faqs-line {
-  width: 250px;
+.container .faq-line-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .faq-line-container .faq-line {
+  width: 180px;
   height: 0px;
   background-color: #850038;
   border: 3px solid #850038;
-  margin: 15px 0px 71px 0px;
+  margin: 15px 0px 50px 0px;
 }
 
-.faqs-container .faqs-left .faqs-quests-container {
-  border: 2px solid #850038;
-  background-color: #fafafa;
-  margin: 55px auto;
-  overflow-y: scroll;
-  overflow-x: scroll;
-  max-height: 310px;
-  max-width: 1300px;
-  justify-content: center;
+.container .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container .btn {
+  background-color: #850038;
+  border: 0;
+  display: flex;
   align-items: center;
-  font-weight: 500;
+  justify-content: center;
 }
 
-.faqs-container .faqs-left .faqs-quests-container .faqs-btn img {
-  width: 14px;
-  margin-top: 5px;
+.accordion-body {
+  margin-left: 30px;
+  border-bottom: 2px solid #888888;
 }
 
-.faqs-container .faqs-left .faqs-quests-container .faqs-quests {
-  font-size: 14px;
-  font-weight: 400;
-  color: #000;
-  margin-bottom: 10px;
-}
-
-.faqs-container .faqs-left .faqs-quests-container table {
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: fit-content;
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr td:first-child {
-  padding-right: 5px;
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr td {
-  padding: 10px;
-  border-bottom: 1px solid #850038;
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr td span {
-  font-weight: 600;
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr:hover {
-  background-color: rgba(133, 0, 56, 0.1);
-}
-
-.faqs-container .faqs-left .faqs-quests-container tr td button {
-  background-color: transparent;
+.accordion-item {
+  background-color: #fff;
   border: none;
-  outline: none;
-  cursor: pointer;
-  width: 100%;
 }
 
-.faqs-container .faqs-right {
-  background-color: rgba(14, 96, 33, 0.1);
-  display: grid;
-  grid-template-rows: 60% auto;
+.accordion-button {
+  background-color: #f2f2f2;
+  border: none;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  padding: 20px 50px;
+  margin: 10px 0;
 }
-
-.faqs-container .faqs-right .faqs-answer {
-  padding: 40px;
-  text-align: justify;
+.accordion-button span {
+  font-weight: bold;
+  margin-left: 5px;
 }
-
-.faqs-container .faqs-right .faqs-answer .ans {
-  display: none;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.faqs-container .faqs-right .faqs-oble {
-  margin-top: 5px;
+.accordion-body span {
   margin-left: 20px;
-  background: url(../imgs/logos/oble-flip.png) no-repeat right;
-  opacity: 0.7;
-  background-size: 45%;
-  overflow: hidden;
+}
+.accordion-button:not(.collapsed) {
+  border-bottom: 4px solid #850038;
+  color: #850038;
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+.accordion-button:focus {
+  z-index: 3;
+  border-color: none;
+  outline: 0;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: url('../imgs/icons/collapse.png');
+  transform: rotate(-180deg);
+}
+
+.accordion-button::after {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  content: '';
+  background-image: url('../imgs/icons/expand.png');
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  transition: transform 0.2s ease-in-out;
 }
 
 /*** end of faqs ***/
@@ -697,11 +818,11 @@ td {
   border: 2px solid #850038;
   box-shadow: 0 0 5px #850038;
   background-color: #fafafa;
-  margin: 60px auto;
+  margin: 100px auto 60px auto;
   overflow-y: scroll;
-  overflow-x: scroll;
+  /**overflow-x: scroll;**/
   min-height: 400px;
-  max-width: 1300px;
+  max-width: 1400px;
   justify-content: center;
   align-items: center;
   font-weight: 500;
@@ -727,7 +848,7 @@ td {
 
 .dash-table tr .btn-success {
   display: flex;
-  width: 115px;
+  width: 110px;
   align-items: center;
   justify-content: center;
   padding: 7px 12px;
@@ -741,7 +862,7 @@ td {
 
 .dash-table tr .btn-danger {
   display: flex;
-  width: 115px;
+  width: 110px;
   align-items: center;
   justify-content: center;
   padding: 7px 12px;
@@ -758,6 +879,10 @@ td {
   background-color: #efefef;
   color: #0e6021;
   border: 2px solid #0e6021;
+}
+
+.dash-table tr .btn-danger i {
+  padding-right: 10px;
 }
 
 .dash-table tr i {
@@ -830,11 +955,7 @@ td {
 }
 
 .dash-table .dropdown-sort .dropdown-menu a {
-<<<<<<< HEAD
-  padding: 5px 10px;
-=======
   padding: 5px 15px;
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
   color: #850038;
   font-weight: 700;
   text-decoration: none;
@@ -859,11 +980,28 @@ td {
   background-color: #fff;
 }
 
+.dash-table .page-nav .previous {
+  color: #000;
+}
+
+.dash-table .page-nav .next {
+  color: #000;
+}
+
 .dash-table .page-nav .page-item {
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
+  color: #fff;
+}
+
+.dash-table .page-nav .active a {
+  color: #fff;
+}
+
+.dash-table .page-nav .inactive a {
+  color: #850038;
 }
 
 .dash-table .page-nav .page-item.active .page-link {
@@ -890,11 +1028,7 @@ td {
 
 .dash-table .dropdown .dropdown-menu a {
   font-size: 10px;
-<<<<<<< HEAD
-  padding: 1px 5px;
-=======
   padding: 3px 7px;
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
   font-weight: 500;
   color: #000;
 }
@@ -902,25 +1036,121 @@ td {
 .dash-table .dropdown .dropdown-menu a span {
   font-weight: 700;
   color: #850038;
-<<<<<<< HEAD
 }
-
 
 .dropdown-menu li {
-position: relative;
+  position: relative;
 }
+
 .dropdown-menu .dropdown-submenu {
-display: none;
-position: absolute;
-left: 100%;
-top: -7px;
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -7px;
 }
-.dropdown-menu .dropdown-submenu-left {
-right: 100%;
-left: auto;
+
+.dropdown-menu .dropdown-menu-left {
+  right: 100%;
+  left: auto;
 }
+
 .dropdown-menu > li:hover > .dropdown-submenu {
-display: block;
-=======
->>>>>>> 14f0eefa233b4dabdad930b494e660568d2fe5f4
+  display: block;
 }
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-footer button {
+  width: 200px;
+  background-color: #850038;
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.modal-footer button:hover {
+  border: 2px solid #850038;
+  background-color: #fff;
+  color: #850038;
+}
+.error {
+  border: 2px solid red;
+}
+
+.wizard-form-group {
+  position: relative;
+}
+
+.wizard-form-error-msg {
+  position: absolute;
+  top: -1.5em; 
+  color: red;
+}
+
+
+/*** upload requirements ***/
+.up-container {
+  display: block;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 150px;
+}
+
+.up-container .up-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.up-container button {
+  margin-top: 30px;
+  width: 350px;
+  padding: 7px 12px;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: #850038;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  transition: 0.3s ease;
+}
+
+.up-container button:hover {
+  background-color: #0e6021;
+  transform: scale(1.1);
+  color: #fff;
+}
+
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 700px;
+  border: 1.5px solid rgba(133, 0, 56, 0.3);
+  color: #000;
+  border-right: none;
+}
+
+#file {
+  border: 1.5px solid rgba(133, 0, 56, 0.3);
+}
+
+.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  text-align: center;
+  white-space: nowrap;
+  background-color: var(--bs-tertiary-bg);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+}
+

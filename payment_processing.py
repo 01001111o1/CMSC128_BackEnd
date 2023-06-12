@@ -15,6 +15,8 @@ from sqlalchemy.orm.exc import NoResultFound
 from datetime import datetime
 import pytz
 
+from app import email_template
+
 def payment_received():
 
     task_id = send_generated_files.background_runner.retrieve_drive_data_asynch()
@@ -36,13 +38,17 @@ def payment_received():
         except NoResultFound:
             request = None
             continue
-        
-        send_message(request.email, "AAAAAAAAAAAA PAYMENT SLIP RECEIVED", "TEST AAAAA")
 
         current_dt = datetime.now(pytz.timezone('Singapore')).replace(microsecond = 0)
 
         request.payment_date = current_dt
         db.session.commit()
+
+        subject, content = email_template.email_template(request.first_name, order_number, "payment_received")        
+
+        send_message(request.email, subject, content)
+
+
 
     
 

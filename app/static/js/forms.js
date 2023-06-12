@@ -1,4 +1,14 @@
 let summaryDetails = { scholarship_toggle: false };
+let orderDetails = new Map();
+var summaryToggle = true;
+const YearLevel = {
+  1: 'First Year',
+  2: 'Second Year',
+  3: 'Third Year',
+  4: 'Fourth Year',
+  'Graduate Student': 'Graduate Student',
+  Alumni: 'Alumni',
+};
 
 jQuery(document).ready(function () {
   // Event handler for radio button change
@@ -11,7 +21,7 @@ jQuery(document).ready(function () {
     } else if (selectedPayment === 'cash_paymode') {
       imageToShow = 'static/imgs/icons/payment2.png'; // Image for Cash Payment
     }
-
+    jQuery(this).find('.wizard-form-error-msg').text('');
     // Update the image container with the new image
     jQuery('#img_source').removeAttr('hidden');
     jQuery('#img_source').attr('src', imageToShow);
@@ -47,11 +57,16 @@ jQuery(document).ready(function () {
     });
     // checks if atleast 1 form is checked
     var forms_section = parentFieldset.find('input[name="check"]').length !== 0;
-    var atLeastOneIsChecked =
-      parentFieldset.find('input[name="check"]:checked').length > 0;
 
-    if (!atLeastOneIsChecked && forms_section) {
-      nextWizardStep = false;
+    if (forms_section) {
+      if (orderDetails.size === 0) {
+        parentFieldset
+          .find('.wizard-form-error-msg')
+          .text('Please select at least 1 form.');
+        nextWizardStep = false;
+      } else {
+        parentFieldset.find('.wizard-form-error-msg').text('');
+      }
     }
 
     // checks if they chose a payment method
@@ -60,14 +75,66 @@ jQuery(document).ready(function () {
     atLeastOneIsChecked =
       parentFieldset.find('input[name="payment_method"]:checked').length > 0;
 
-    if (!atLeastOneIsChecked && payment_section) {
-      nextWizardStep = false;
-    } else {
-      for (const key of Object.keys(summaryDetails)) {
-        jQuery('.summary-details').append(
-          '<p>' + key + ':' + summaryDetails[key] + '</p>'
-        );
+    if (payment_section) {
+      if (!atLeastOneIsChecked) {
+        parentFieldset
+          .find('.wizard-form-error-msg')
+          .text('Please select your preferred payment method.');
+        nextWizardStep = false;
+      } else {
+        parentFieldset.find('.wizard-form-error-msg').text('');
       }
+    }
+
+    var summary_section =
+      next
+        .parents('.wizard-fieldset')
+        .next('.wizard-fieldset')
+        .find('.summary-container').length !== 0;
+
+    if (summary_section && summaryToggle) {
+      summaryToggle = false;
+      orderDetails.forEach((key, value) => {
+        jQuery('.order-details').append(
+          `<tr><td>1x ${value}</td><th class="align-right" scope="row">Php${key}.00</th><tr/>`
+        );
+        console.log(key, ':', value);
+      });
+      Object.keys(summaryDetails).forEach(function (key) {
+        switch (key) {
+          case 'scholarship_toggle':
+            jQuery('.scholarship-detail').text(
+              summaryDetails[key] ? 'Yes' : 'No'
+            );
+            break;
+          case 'fname':
+            jQuery('.username-detail').text(summaryDetails[key].trim() + ' ');
+            break;
+          case 'mname':
+            jQuery('.username-detail').append(summaryDetails[key].trim() + ' ');
+            break;
+          case 'lname':
+            jQuery('.username-detail').append(summaryDetails[key].trim());
+            break;
+          case 'snum':
+            jQuery('.snum-detail').text(summaryDetails[key]);
+            break;
+          case 'email':
+            jQuery('.email-detail').text(summaryDetails[key].trim());
+            break;
+          case 'YearLevel':
+            jQuery('.ylevel-detail').text(YearLevel[summaryDetails[key]]);
+            break;
+          case 'purpose':
+            jQuery('.purpose-detail').text(summaryDetails[key].trim());
+            break;
+          case 'payment_method':
+            jQuery('.payment-details').text(summaryDetails[key]);
+            break;
+          default:
+            break;
+        }
+      });
     }
 
     if (nextWizardStep) {
@@ -188,27 +255,77 @@ jQuery(document).ready(function () {
   jQuery('.payment-radio').click(function () {
     var tmpThis = jQuery(this).val();
     summaryDetails[jQuery(this).attr('name')] = tmpThis;
+    jQuery('.wizard-form-error-msg').text('');
+  });
+  // checks if there's at least 1 selected form
+  jQuery('.quiz_checkbox').click(function () {
+    if (jQuery(this).prop('checked')) {
+      orderDetails.set(jQuery(this).val(), jQuery(this).attr('data-price'));
+      console.log(orderDetails);
+    } else {
+      orderDetails.delete(jQuery(this).val());
+      console.log(orderDetails);
+    }
+    if (orderDetails.size == 0) {
+      jQuery('.wizard-form-error-msg').text('Please select at least 1 form.');
+    } else {
+      jQuery('.wizard-form-error-msg').text('');
+    }
   });
 });
 
 function onKeyDown(evt) {
-  if (['e', 'E', '+', '-', '.', '='].includes(evt.key)) {
+  const forbiddenChars = [".", "-", "+", "e", "E"];
+  const inputChar = evt.key;
+
+  if (forbiddenChars.includes(inputChar) || isForbiddenInput(evt)) {
+    evt.preventDefault();
+  }
+
+  if (evt.target.value.length >= 9 && evt.key !== 'Backspace' && evt.key !== 'Delete') {
     evt.preventDefault();
   }
 }
+
+function isForbiddenInput(evt) {
+  const input = evt.target.value;
+  const selectionStart = evt.target.selectionStart;
+  const selectionEnd = evt.target.selectionEnd;
+
+  for (let i = selectionStart; i < selectionEnd; i++) {
+    if (forbiddenChars.includes(input.charAt(i))) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+
 function maxLengthCheck(object) {
   const requiredLength = 9;
   if (object.value.length > requiredLength) {
     object.value = object.value.slice(0, requiredLength);
   }
 
+  const formGroup = object.parentElement; 
+  const formLabel = formGroup.querySelector('.wizard-form-text-label'); 
+  const errorElement = formGroup.querySelector('.wizard-form-error-msg');
+
   if (object.value.length !== requiredLength) {
-    object.classList.add('error'); // Add a CSS class to highlight the input
-    const errorElement = document.querySelector('.wizard-form-error-msg');
-    errorElement.innerText = `Input must be exactly ${requiredLength} characters long.`;
+    object.classList.add('error'); 
+    formLabel.style.display = 'none'; 
+    errorElement.innerText = `Student Number must be exactly ${requiredLength} characters long.`;
   } else {
-    object.classList.remove('error'); // Remove the CSS class
-    const errorElement = document.querySelector('.wizard-form-error-msg');
+    object.classList.remove('error'); 
+    formLabel.style.display = object.value ? 'none' : 'block'; 
+    errorElement.innerText = '';
+  }
+
+  if (!object.value) {
+    object.classList.remove('error'); 
+    formLabel.style.display = 'block'; 
     errorElement.innerText = '';
   }
 }
@@ -234,20 +351,3 @@ function validateEmailInput() {
   }
 }
 
-function validateForm() {
-  const emailElement = document.getElementById('email');
-  const emailErrorElement = emailElement.nextElementSibling;
-
-  if (!validateEmail(emailElement.value.trim())) {
-    emailElement.classList.add('error');
-    emailErrorElement.innerText =
-      emailElement.value.trim() === ''
-        ? 'Email'
-        : 'Email should contain at least "@" and "."';
-    return false;
-  } else {
-    emailElement.classList.remove('error');
-    emailErrorElement.innerText = 'Email';
-  }
-  return true;
-}
