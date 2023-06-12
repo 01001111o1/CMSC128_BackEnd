@@ -281,14 +281,6 @@ function onKeyDown(evt) {
   if (forbiddenChars.includes(inputChar)) {
     evt.preventDefault();
   }
-
-  if (
-    evt.target.value.length >= 9 &&
-    evt.key !== 'Backspace' &&
-    evt.key !== 'Delete'
-  ) {
-    evt.preventDefault();
-  }
 }
 
 function maxLengthCheck(object) {
