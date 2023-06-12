@@ -96,7 +96,7 @@ jQuery(document).ready(function () {
       summaryToggle = false;
       orderDetails.forEach((key, value) => {
         jQuery('.order-details').append(
-          `<tr><td>1x ${value}</td><th class="align-right" scope="row">Php${key}.00</th><tr/>`
+          `<tr><td>1x ${value}</td><th class="align-right" scope="row">Php ${key}.00</th><tr/>`
         );
         console.log(key, ':', value);
       });
