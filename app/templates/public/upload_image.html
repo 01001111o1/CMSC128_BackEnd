@@ -3,7 +3,7 @@
 {% block title %} Upload Image {% endblock %}
 {% block main %}
 
-<div class="container">
+<div class="up-container">
     <div class="back-btn" id="back-btn-up">
         <a><i class='bx bx-chevron-left'></i><span>Back</span></a>
     </div>
@@ -35,11 +35,14 @@
                     {% endif %}
 
                     <label class="input-group-text">{{ k }}</label>
-                    <input type="file" class="form-control" id="file" name="file" oninput="filesize(this)" required>
+                    <input type="file" class="form-control upload" id="file" name="file" oninput="filesize(this)" required>
                     {% endif %}
                 </div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary">Upload File(s)</button>
+                <div class="up-button">
+                    <button type="submit" class="btn btn-upload">UPLOAD FILE(S)</button>
+                </div>
+                
             </form>
         </div>
     </div>
