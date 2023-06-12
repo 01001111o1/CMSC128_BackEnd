@@ -28,26 +28,23 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.back-btn {
+#back-btn-up {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   vertical-align: middle;
-  text-decoration: none;
+  margin-top: 30px;
   color: black;
 }
 
-.back-btn a {
+#back-btn-up a {
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
+  text-decoration: none;
 }
 
-.back-btn a:active,
-.back-btn a:focus,
-.back-btn a:hover {
+#back-btn-up a:active,
+#back-btn-up a:focus,
+#back-btn-up a:hover {
   color: #850038;
 }
 /*** start of navbar ***/
@@ -105,7 +102,7 @@ input[type='number'] {
   height: 50px;
   padding: 10px 5%;
   overflow: hidden;
-  margin: 0 0 50px 0;
+  margin: 0 0 90px 0;
   background-color: #850038;
 }
 
@@ -136,7 +133,7 @@ input[type='number'] {
   width: 70%;
   text-align: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   overflow: hidden !important;
   background-color: #fafafa;
@@ -283,11 +280,34 @@ input[type='number'] {
   height: auto;
 }
 
-.back-btn {
+#back-btn-log {
   display: flex;
   left: 30px;
   top: 30px;
   position: absolute;
+}
+
+#back-btn-log {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  vertical-align: middle;
+  text-decoration: none;
+  color: black;
+}
+
+#back-btn-log a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+#back-btn-log a:active,
+#back-btn-log a:focus,
+#back-btn-log a:hover {
+  color: #850038;
 }
 
 .login-uplogo .up2go-login {
@@ -445,7 +465,7 @@ button[type='submit']:hover {
 
 .oblePic {
   width: 100%;
-  height: 400px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -456,7 +476,7 @@ button[type='submit']:hover {
 }
 
 .abt-container {
-  margin: 25px 0;
+  margin: 45px 0 0 0;
   width: 100%;
   height: 100%;
   background-color: #fafafa;
@@ -534,7 +554,7 @@ button[type='submit']:hover {
   flex-direction: column;
   align-items: left;
   justify-content: center;
-  margin: 30px 0;
+  margin: 70px 0 0 0;
   width: 40%;
   float: right;
   background-color: #fdfdfd;
@@ -798,7 +818,7 @@ td {
   border: 2px solid #850038;
   box-shadow: 0 0 5px #850038;
   background-color: #fafafa;
-  margin: 60px auto;
+  margin: 100px auto 60px auto;
   overflow-y: scroll;
   overflow-x: scroll;
   min-height: 400px;
