@@ -55,11 +55,11 @@
               </div>
               <div class="form-group col">
                 <input type="number" class="form-control wizard-required" id="snum" name="student_number"
-                inputmode="numeric" pattern="[0-9]*" onkeyup="maxLengthCheck(this)"
-                maxlength="9" minlength="" autocomplete="off" />
+                  inputmode="numeric" pattern="[0-9]*" onkeydown="onKeyDown(event)" oninput="maxLengthCheck(this)"
+                  maxlength="9" minlength="" autocomplete="off" />
                 <label for="snum" class="wizard-form-text-label">Student Number Ex: 2020*****</label>
                 <div class="wizard-form-error"></div>
-                <div class="wizard-form-error-msg"></div> 
+                <div class="wizard-form-error-msg"></div>
               </div>
             </div>
             <div class="row">

@@ -275,33 +275,21 @@ jQuery(document).ready(function () {
 });
 
 function onKeyDown(evt) {
-  const forbiddenChars = [".", "-", "+", "e", "E"];
+  const forbiddenChars = ['.', '-', '+', 'e', 'E'];
   const inputChar = evt.key;
 
-  if (forbiddenChars.includes(inputChar) || isForbiddenInput(evt)) {
+  if (forbiddenChars.includes(inputChar)) {
     evt.preventDefault();
   }
 
-  if (evt.target.value.length >= 9 && evt.key !== 'Backspace' && evt.key !== 'Delete') {
+  if (
+    evt.target.value.length >= 9 &&
+    evt.key !== 'Backspace' &&
+    evt.key !== 'Delete'
+  ) {
     evt.preventDefault();
   }
 }
-
-function isForbiddenInput(evt) {
-  const input = evt.target.value;
-  const selectionStart = evt.target.selectionStart;
-  const selectionEnd = evt.target.selectionEnd;
-
-  for (let i = selectionStart; i < selectionEnd; i++) {
-    if (forbiddenChars.includes(input.charAt(i))) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-
 
 function maxLengthCheck(object) {
   const requiredLength = 9;
@@ -309,23 +297,23 @@ function maxLengthCheck(object) {
     object.value = object.value.slice(0, requiredLength);
   }
 
-  const formGroup = object.parentElement; 
-  const formLabel = formGroup.querySelector('.wizard-form-text-label'); 
+  const formGroup = object.parentElement;
+  const formLabel = formGroup.querySelector('.wizard-form-text-label');
   const errorElement = formGroup.querySelector('.wizard-form-error-msg');
 
   if (object.value.length !== requiredLength) {
-    object.classList.add('error'); 
-    formLabel.style.display = 'none'; 
+    object.classList.add('error');
+    formLabel.style.display = 'none';
     errorElement.innerText = `Student Number must be exactly ${requiredLength} characters long.`;
   } else {
-    object.classList.remove('error'); 
-    formLabel.style.display = object.value ? 'none' : 'block'; 
+    object.classList.remove('error');
+    formLabel.style.display = object.value ? 'none' : 'block';
     errorElement.innerText = '';
   }
 
   if (!object.value) {
-    object.classList.remove('error'); 
-    formLabel.style.display = 'block'; 
+    object.classList.remove('error');
+    formLabel.style.display = 'block';
     errorElement.innerText = '';
   }
 }
@@ -350,4 +338,3 @@ function validateEmailInput() {
     emailErrorElement.innerText = 'Email';
   }
 }
-
