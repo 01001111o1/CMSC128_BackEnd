@@ -820,7 +820,7 @@ td {
   background-color: #fafafa;
   margin: 100px auto 60px auto;
   overflow-y: scroll;
-  overflow-x: scroll;
+  /**overflow-x: scroll;**/
   min-height: 400px;
   max-width: 1400px;
   justify-content: center;
