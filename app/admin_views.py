@@ -125,10 +125,11 @@ def remove_entry(queue_number):
     query = Request.query.get_or_404(queue_number)  
     folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
     folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
-    payment_path = 
+    payment_path = app.config["PAYMENT_UPLOADS"] + "/" + queue_number
 
     try:
         shutil.rmtree(folder_path, ignore_errors = False)
+        shutil.rmtree(payment_path, ignore_errors = False)
 
         db.session.delete(query)
         db.session.commit()
