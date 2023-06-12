@@ -62,11 +62,14 @@ jQuery(document).ready(function () {
 
     if (!atLeastOneIsChecked && payment_section) {
       nextWizardStep = false;
-    } else {
+    }
+
+    if (payment_section) {
       for (const key of Object.keys(summaryDetails)) {
         jQuery('.summary-details').append(
           '<p>' + key + ':' + summaryDetails[key] + '</p>'
         );
+        console.log(summaryDetails[key]);
       }
     }
 

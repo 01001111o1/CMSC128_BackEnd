@@ -1,13 +1,25 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css" rel="stylesheet" />
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 {% extends "public/templates/public_template.html" %}
 {% block title %} UP2GO: FAQs {% endblock %}
 {% block main%}
 
 <section id="info-utile" class="bg-white py-5">
     <div class="container">
-        <h3 class="text-center text-uppercase mb-5 lead-h-text text-primary">FREQUENTLY ASKED QUESTIONS</h3>
-        <button type="button" class="btn btn-primary" onclick="return expandAll()">Expand All</button>
-        <button type="button" class="btn btn-primary" onclick="return collapseAll()">Collapse All</button>
+        <h3 class="faq-title">FREQUENTLY ASKED QUESTIONS</h3>
+        <div class="faq-line-container">
+            <div class="faq-line"></div>
+        </div>
+        <div class="buttons">
+            <button type="button" class="btn btn-primary" onclick="return expandAll()"><i class='bx bx-expand'
+                    style='color:#ffffff'></i>
+                <div class="btn-text">Expand All</div>
+            </button>
+            <button type="button" class="btn btn-primary" onclick="return collapseAll()"><i class='bx bx-collapse'
+                    style='color:#ffffff'></i>
+                <div class="btn-text">Collapse All</div>
+            </button>
+        </div>
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
