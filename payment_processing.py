@@ -36,15 +36,15 @@ def payment_received():
         except NoResultFound:
             request = None
             continue
-        
-        send_message(request.email, "AAAAAAAAAAAA PAYMENT SLIP RECEIVED", "TEST AAAAA")
 
         current_dt = datetime.now(pytz.timezone('Singapore')).replace(microsecond = 0)
 
         request.payment_date = current_dt
         db.session.commit()
 
-    
+        subject, content = email_template.email_template(request.first_name, order_number, "payment_received")        
+
+        send_message(request.email, subject, content)
 
 
 
