@@ -37,17 +37,17 @@
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link text-white mx-5" href="../request_forms">Forms</a>
+            <a class="nav-link text-white mx-5" href="../public/request_forms">Forms</a>
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link text-white mx-5" href="../about_us">About Us</a>
+            <a class="nav-link text-white mx-5" href="../../../about_us">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white mx-5" href="../contact_us">Contact Us</a>
+            <a class="nav-link text-white mx-5" href="../../../contact_us">Contact Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white mx-5" href="../faqs">FAQs</a>
+            <a class="nav-link text-white mx-5" href="../../../faqs">FAQs</a>
           </li>
         </ul>
         <ul class="navbar-nav me-3">
@@ -64,12 +64,9 @@
                 class="authicn d-inline-block align-text-top" />
             </a>
             <div class="dropdown-menu p-4">
-              <a href=""></a>
-              <h3>Admin Details</h3>
-              <div>Username</div>
-              <div>Details</div>
-              <br />
-              <a type="submit" href="/logout" class="btn btn-primary">Logout</a>
+              <img class="log-img" src="{{url_for('static', filename='imgs/logos/up2go-1.png')}}" alt="LoginIcn" width="auto" height="40"
+                class="authicn d-inline-block align-text-top" />
+              <a type="submit" href="/logout" class="btn btn-logout">Logout</a>
             </div>
             {% endif %}
           </li>

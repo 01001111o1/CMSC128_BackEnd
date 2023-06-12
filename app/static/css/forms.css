@@ -31,11 +31,12 @@ body {
 .wizard-content-left {
   background-blend-mode: darken;
   background-color: rgba(0, 0, 0, 0.25);
-  background-image: url('../imgs/bg/form-bg.png');
-  background-position: center center;
+  background-image: url('../imgs/bg/form-bg1.png');
+  background-position-y: 90%;
   background-size: cover;
   height: 100vh;
   padding: 30px;
+  transition: 1s ease;
 }
 .wizard-content-left h1 {
   color: #ffffff;

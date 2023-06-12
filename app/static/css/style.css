@@ -28,26 +28,23 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.back-btn {
+#back-btn-up {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   vertical-align: middle;
-  text-decoration: none;
+  margin-top: 30px;
   color: black;
 }
 
-.back-btn a {
+#back-btn-up a {
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
+  text-decoration: none;
 }
 
-.back-btn a:active,
-.back-btn a:focus,
-.back-btn a:hover {
+#back-btn-up a:active,
+#back-btn-up a:focus,
+#back-btn-up a:hover {
   color: #850038;
 }
 /*** start of navbar ***/
@@ -70,6 +67,29 @@ input[type='number'] {
 .authicn {
   cursor: pointer;
 }
+
+.p-4 {
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-4 .log-img {
+  height: 60px;
+  margin-bottom: 15px;
+}
+
+.p-4 a {
+  width: 100%;
+  height: 100%;
+  background-color: #850038;
+  color: #FFF;
+  font-weight: 600;
+  border-radius: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 /*** end of navbar ***/
 
 /*** start page ***/
@@ -82,7 +102,7 @@ input[type='number'] {
   height: 50px;
   padding: 10px 5%;
   overflow: hidden;
-  margin: 0 0 50px 0;
+  margin: 0 0 90px 0;
   background-color: #850038;
 }
 
@@ -96,15 +116,15 @@ input[type='number'] {
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 8px;
   text-align: center;
-  margin-left: 10%;
+  margin-left: 8%;
 }
 
 .start-page .intro-uplogo {
   width: 110px;
   float: right;
-  right: 10%;
+  right: 8%;
   z-index: 2;
   position: absolute;
 }
@@ -113,7 +133,7 @@ input[type='number'] {
   width: 70%;
   text-align: center;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   margin: 0;
   overflow: hidden !important;
   background-color: #fafafa;
@@ -260,6 +280,36 @@ input[type='number'] {
   height: auto;
 }
 
+#back-btn-log {
+  display: flex;
+  left: 30px;
+  top: 30px;
+  position: absolute;
+}
+
+#back-btn-log {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  vertical-align: middle;
+  text-decoration: none;
+  color: black;
+}
+
+#back-btn-log a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+#back-btn-log a:active,
+#back-btn-log a:focus,
+#back-btn-log a:hover {
+  color: #850038;
+}
+
 .login-uplogo .up2go-login {
   width: 220px;
   height: auto;
@@ -282,6 +332,10 @@ input[type='number'] {
   height: 100vh;
   background: #fff;
   padding: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-login {
@@ -358,43 +412,60 @@ button[type='submit']:hover {
   background: linear-gradient(
       60deg,
       rgba(254, 254, 254, 0.3),
-      rgba(133, 0, 56, 0.8)
+      rgba(133, 0, 56, 0.3)
     ),
-    url('../imgs/bg/bg-upb.webp');
+    url('../imgs/bg/login-bg1.jpeg');
   background-size: cover;
-  background-position: center;
+  background-position-y: 80%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: flex-end;
   align-content: center;
   flex-direction: row;
+  transition: 2s ease;
+}
+
+.background .login-line-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.background .login-line-container .login-line {
+  width: 600px;
+  height: 0px;
+  background-color: #fafafa;
+  border: 1px solid #fafafa;
+  bottom: 140px;
+  right: 40px;
+  position: absolute;
 }
 
 .background h1 {
-  max-width: 420px;
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  max-width: 600px;
+  font-size: 25px;
   color: #fff;
   text-align: right;
   padding: 0;
   margin: 0;
 }
 
-.background p {
-  max-width: 650px;
-  color: #1a1a1a;
-  font-size: 15px;
-  text-align: right;
-  padding: 0;
-  margin: 15px 0 0 0;
+.background span {
+  font-weight: 400;
 }
-
 /*** end of login ***/
 
 /*** start of about us ***/
 
 .oblePic {
   width: 100%;
-  height: 380px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -405,6 +476,7 @@ button[type='submit']:hover {
 }
 
 .abt-container {
+  margin: 45px 0 0 0;
   width: 100%;
   height: 100%;
   background-color: #fafafa;
@@ -478,6 +550,11 @@ button[type='submit']:hover {
 }
 
 .contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  margin: 70px 0 0 0;
   width: 40%;
   float: right;
   background-color: #fdfdfd;
@@ -741,9 +818,9 @@ td {
   border: 2px solid #850038;
   box-shadow: 0 0 5px #850038;
   background-color: #fafafa;
-  margin: 60px auto;
+  margin: 100px auto 60px auto;
   overflow-y: scroll;
-  overflow-x: scroll;
+  /**overflow-x: scroll;**/
   min-height: 400px;
   max-width: 1400px;
   justify-content: center;
@@ -802,6 +879,10 @@ td {
   background-color: #efefef;
   color: #0e6021;
   border: 2px solid #0e6021;
+}
+
+.dash-table tr .btn-danger i {
+  padding-right: 10px;
 }
 
 .dash-table tr i {
@@ -899,11 +980,28 @@ td {
   background-color: #fff;
 }
 
+.dash-table .page-nav .previous {
+  color: #000;
+}
+
+.dash-table .page-nav .next {
+  color: #000;
+}
+
 .dash-table .page-nav .page-item {
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
+  color: #fff;
+}
+
+.dash-table .page-nav .active a {
+  color: #fff;
+}
+
+.dash-table .page-nav .inactive a {
+  color: #850038;
 }
 
 .dash-table .page-nav .page-item.active .page-link {
@@ -937,5 +1035,44 @@ td {
 
 .dash-table .dropdown .dropdown-menu a span {
   font-weight: 700;
+  color: #850038;
+}
+
+.dropdown-menu li {
+  position: relative;
+}
+
+.dropdown-menu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -7px;
+}
+
+.dropdown-menu .dropdown-menu-left {
+  right: 100%;
+  left: auto;
+}
+
+.dropdown-menu > li:hover > .dropdown-submenu {
+  display: block;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-footer button {
+  width: 200px;
+  background-color: #850038;
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.modal-footer button:hover {
+  border: 2px solid #850038;
+  background-color: #fff;
   color: #850038;
 }
