@@ -125,7 +125,7 @@ def remove_entry(queue_number):
     query = Request.query.get_or_404(queue_number)  
     folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
     folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
-    payment_path = a
+    payment_path = 
 
     try:
         shutil.rmtree(folder_path, ignore_errors = False)
