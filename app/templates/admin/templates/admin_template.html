@@ -64,12 +64,13 @@
                 class="authicn d-inline-block align-text-top" />
             </a>
             <div class="dropdown-menu p-4">
-              <a href=""></a>
-              <h3>Admin Details</h3>
+              <!--<h3>Admin Details</h3>
               <div>Username</div>
               <div>Details</div>
-              <br />
-              <a type="submit" href="/logout" class="btn btn-primary">Logout</a>
+              <br /> -->
+              <img class="log-img" src="{{url_for('static', filename='imgs/logos/up2go-1.png')}}" alt="LoginIcn" width="auto" height="40"
+                class="authicn d-inline-block align-text-top" />
+              <a type="submit" href="/logout" class="btn btn-logout">Logout</a>
             </div>
             {% endif %}
           </li>

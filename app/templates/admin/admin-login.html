@@ -35,10 +35,40 @@
             <img src="{{ url_for('static', filename='imgs/logos/uplogo.png') }}" alt="UP Logo">
         </div>
     </div>
-    <div class="background">
-        <h1>ADMIN LOGIN TO ACCESS DASHBOARD</h1>
+    <div class="background" id="bg-slide">
+        <div class="login-line-container">
+            <div class="login-line"></div>
+        </div>
+        <h1><span>Unlock seamless convenience with</span> UP2GO | <span> Empowering your paperless transactions for a streamlined future.</span></h1>
     </div>
 </section>
 
+<script>
+    var i = 0;
+    var images = [];
+    var slideTime = 3000; // 3 seconds
+
+    const bgSlide = document.getElementById('bg-slide');
+
+    images[0] = '../static/imgs/bg/login-bg1.jpeg';
+    images[1] = '../static/imgs/bg/login-bg2.jpeg';
+    images[2] = '../static/imgs/bg/login-bg3.jpeg';
+    images[3] = '../static/imgs/bg/login-bg4.jpeg';
+    images[4] = '../static/imgs/bg/login-bg5.jpeg';
+
+function changePicture() {
+    bgSlide.style.backgroundImage = "url('" + images[i] + "')";
+
+    if (i < images.length - 1) {
+        i++;
+    } else {
+        i = 0;
+    }
+
+    setTimeout("changePicture()", slideTime);
+}
+
+window.onload = changePicture; 
+</script>
+
 {% endblock %}
-```
