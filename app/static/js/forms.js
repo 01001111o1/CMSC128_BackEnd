@@ -275,10 +275,33 @@ jQuery(document).ready(function () {
 });
 
 function onKeyDown(evt) {
+  const forbiddenChars = [".", "-", "+", "e", "E"];
+  const inputChar = evt.key;
+
+  if (forbiddenChars.includes(inputChar) || isForbiddenInput(evt)) {
+    evt.preventDefault();
+  }
+
   if (evt.target.value.length >= 9 && evt.key !== 'Backspace' && evt.key !== 'Delete') {
     evt.preventDefault();
   }
 }
+
+function isForbiddenInput(evt) {
+  const input = evt.target.value;
+  const selectionStart = evt.target.selectionStart;
+  const selectionEnd = evt.target.selectionEnd;
+
+  for (let i = selectionStart; i < selectionEnd; i++) {
+    if (forbiddenChars.includes(input.charAt(i))) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
 
 function maxLengthCheck(object) {
   const requiredLength = 9;
@@ -304,37 +327,8 @@ function maxLengthCheck(object) {
     object.classList.remove('error'); 
     formLabel.style.display = 'block'; 
     errorElement.innerText = '';
-  }x
-}
-
-function validateForm() {
-  const studentNumberElement = document.getElementById('snum');
-  const studentNumberErrorElement = studentNumberElement.nextElementSibling;
-
-  const studentNumberValue = studentNumberElement.value.trim();
-  if (studentNumberValue === '') {
-    studentNumberElement.classList.add('error');
-    studentNumberErrorElement.innerText = 'Student Number is required.';
-    return false;
-  } else if (studentNumberValue.length !== 9) {
-    studentNumberElement.classList.add('error');
-    studentNumberErrorElement.innerText = 'Student Number must be exactly 9 characters long.';
-    return false;
-  } else {
-    studentNumberElement.classList.remove('error');
-    studentNumberErrorElement.innerText = '';
   }
-
-  return true;
 }
-
-const studentNumberElement = document.getElementById('snum');
-studentNumberElement.addEventListener('keydown', onKeyDown);
-studentNumberElement.addEventListener('input', function() {
-  maxLengthCheck(this);
-});
-
-
 
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -357,20 +351,3 @@ function validateEmailInput() {
   }
 }
 
-function validateForm() {
-  const emailElement = document.getElementById('email');
-  const emailErrorElement = emailElement.nextElementSibling;
-
-  if (!validateEmail(emailElement.value.trim())) {
-    emailElement.classList.add('error');
-    emailErrorElement.innerText =
-      emailElement.value.trim() === ''
-        ? 'Email'
-        : 'Email should contain at least "@" and "."';
-    return false;
-  } else {
-    emailElement.classList.remove('error');
-    emailErrorElement.innerText = 'Email';
-  }
-  return true;
-}
