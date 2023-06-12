@@ -881,6 +881,10 @@ td {
   border: 2px solid #0e6021;
 }
 
+.dash-table tr .btn-danger i {
+  padding-right: 10px;
+}
+
 .dash-table tr i {
   font-size: 18px;
   padding-right: 5px;
