@@ -277,7 +277,6 @@ jQuery(document).ready(function () {
 function onKeyDown(evt) {
   const forbiddenChars = ['.', '-', '+', 'e', 'E'];
   const inputChar = evt.key;
-
   if (forbiddenChars.includes(inputChar)) {
     evt.preventDefault();
   }
@@ -306,7 +305,7 @@ function maxLengthCheck(object) {
   if (!object.value) {
     object.classList.remove('error');
     formLabel.style.display = 'block';
-    errorElement.innerText = 'Student Number Ex: 2020*****';
+    errorElement.innerText = '';
   }
 }
 
