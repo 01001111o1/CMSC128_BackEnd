@@ -1,0 +1,54 @@
+<div class="toast-container position-fixed end-0 p-3 pt-0 toast-container-extra" id="toast-stack-container" style="top: 80px;">
+{% for category, message in messages %}
+    {% if category == 'error' %}
+          <div class="toast mt-0 border-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-stack-toast-category="error">
+            <div class="toast-header">
+              <i class="fa-light fa-circle-exclamation text-danger" style="font-size: 1.0rem;"></i> &nbsp;&nbsp;
+              <strong class="me-auto text-black">Error</strong>
+              <small>Just Now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body toast-message">
+                {{ message }}
+            </div>
+          </div>
+    {% endif %}
+
+    {% if category == 'success' %}
+          <div class="toast mt-0 border-success" role="alert" aria-live="polite" aria-atomic="true" data-stack-toast-category="info">
+            <div class="toast-header">
+              <i class="fa-light fa-check text-success" style="font-size: 1.0rem;"></i> &nbsp;&nbsp;
+              <strong class="me-auto text-black">Success</strong>
+              <small>Just Now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body toast-message">
+            {{ message }}
+            </div>
+          </div>
+    {% endif %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var toastElements = document.querySelectorAll('.toast');
+    
+        toastElements.forEach(function(toastEl) {
+          var toast = new bootstrap.Toast(toastEl);
+          toast.show();
+    
+          var closeButton = toastEl.querySelector('.btn-close');
+          closeButton.addEventListener('click', function() {
+            toast.hide();
+          });
+    
+          var autohideAttr = toastEl.getAttribute('data-bs-autohide');
+          if (autohideAttr === 'true') {
+            var autohideDelay = parseInt(toastEl.getAttribute('data-bs-delay')) || 5000;
+            setTimeout(function() {
+              toast.hide();
+            }, autohideDelay);
+          }
+        });
+      });
+    </script>
+{% endfor %}
+</div>

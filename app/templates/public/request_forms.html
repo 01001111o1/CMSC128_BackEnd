@@ -1,0 +1,243 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}" />
+<script src="{{ url_for('static', filename='js/forms.js') }}"></script>
+{% extends "public/templates/public_template.html" %} {% block title %} UP2GO: Choose Forms {% endblock %} {% block main
+%}
+<style>
+  body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  @media screen and (max-width: 1396px) {
+    body {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+</style>
+<section class="wizard-section">
+  <div class="row no-gutters">
+    <div class="col-lg-6 col-md-6">
+      <div class="wizard-content-left d-flex justify-content-center align-items-center"></div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+      <div class="form-wizard">
+        <form action="/request_forms" method="POST" enctype="multipart/form-data" role="form"
+          onsubmit="return validateForm()">
+          <div class="form-wizard-header">
+            <p>Please fill all form fields to go to next step.</p>
+            <ul class="list-unstyled form-wizard-steps clearfix">
+              <li class="active"><span>1</span></li>
+              <li><span>2</span></li>
+              <li><span>3</span></li>
+              <li><span>4</span></li>
+            </ul>
+          </div>
+          <fieldset class="wizard-fieldset show">
+            <h3 class="quiz_title">Personal Information</h3>
+            <div class="row">
+              <div class="form-group col">
+                <input type="text" class="form-control wizard-required" id="fname" name="name" autocomplete="off" />
+                <label for="fname" class="wizard-form-text-label">First Name</label>
+                <div class="wizard-form-error"></div>
+              </div>
+              <div class="form-group col">
+                <input type="text" class="form-control" id="mname" name="name" autocomplete="off" />
+                <label for="mname" class="wizard-form-text-label">Middle Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col">
+                <input type="text" class="form-control wizard-required" id="lname" name="name" autocomplete="off" />
+                <label for="lname" class="wizard-form-text-label">Last Name</label>
+                <div class="wizard-form-error"></div>
+              </div>
+              <div class="form-group col">
+                <input type="number" class="form-control wizard-required" id="snum" name="student_number"
+                  inputmode="numeric" pattern="[0-9]*" onkeydown="onKeyDown(event)" oninput="maxLengthCheck(this)"
+                  maxlength="9" minlength="" autocomplete="off" />
+                <label for="snum" class="wizard-form-text-label">Student Number Ex: 2020*****</label>
+                <div class="wizard-form-error"></div>
+                <div class="wizard-form-error-msg"></div> <!-- Add this error message element -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col">
+                <input type="email" class="form-control wizard-required" id="email" name="email" autocomplete="off"
+                  onblur="validateEmailInput()" />
+                <label for="email" class="wizard-form-text-label">Email</label>
+                <div class="wizard-form-error"></div>
+              </div>
+              <div class="col">
+                Year Level
+                <div class="form-group col ylopt">
+                  <select class="form-control wizard-required" name="YearLevel" id="YearLevel"
+                    onchange="updatePrice_Yearlevel()" required>
+                    <option disabled selected value="">Current Year Level</option>
+                    <option value="1">First Year</option>
+                    <option value="2">Second Year</option>
+                    <option value="3">Third Year</option>
+                    <option value="4">Fourth Year</option>
+                    <option value="Graduate Student">Graduate Student</option>
+                    <option value="Alumni">Alumni</option>
+                  </select>
+                  <div class="wizard-form-error"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4 schlopt">
+                <div>
+                  <div class="wizard-form-checkbox">
+                    <input class="scholarship-checkbox" name="scholarship" id="scholarship_toggle" type="checkbox"
+                      onchange="updatePrice_scholarship()" />
+                    <input id="hidden" type="hidden" name="map" value="">
+                  </div>
+                  For Scholarship
+                </div>
+                <div id="scholarship_toggle_label"></div>
+              </div>
+              <div class="form-group col-md-8">
+                <input type="text" class="form-control wizard-required" id="purpose" name="purpose"
+                  autocomplete="off" />
+                <label for="purpose" class="wizard-form-text-label">Purpose</label>
+                <div class="wizard-form-error"></div>
+              </div>
+            </div>
+            <div class="form-group clearfix form-btn">
+              <a href="javascript:;" class="form-wizard-next-btn float-right">Next</a>
+            </div>
+          </fieldset>
+          <fieldset class="wizard-fieldset">
+            <section class="quiz_section" id="quizeSection">
+              <div class="quiz_container">
+                <div class="quiz_row">
+                  <div class="col-sm-12">
+                    <div class="quiz_content_area">
+                      <h3 class="quiz_title">Choose Forms</h3>
+                      <h6 class="price_detail">Price: Php <textarea id="total_price" name="total_price"
+                          readonly> 0 </textarea>
+                      </h6>
+                      <div class="row">
+                        {% for i in range (list1 |length) %}
+                        <div class="col-sm-3">
+                          <div class="quiz_card_area">
+                            {% if list1[i] in scholarship_documents %}
+                            <input class="quiz_checkbox scholarship" type="checkbox" id="{{i}}: {{list1[i]}}"
+                              value="{{ list1[i] }}" name="check" data-price="{{ base_prices[list1[i]] }}"
+                              onclick="updatePrice()" />
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list1[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span class="scholarship_label">{{ base_prices[list1[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% else %}
+                            <input class="quiz_checkbox" type="checkbox" id="{{i}}: {{list1[i]}}" value="{{ list1[i] }}"
+                              name="check" data-price="{{ base_prices[list1[i]] }}" onclick="updatePrice()" />
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list1[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span data-value="{{ list1[i] }}">{{ base_prices[list1[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% endif %}
+                          </div><!-- end of quiz_card_area -->
+                        </div><!-- end of col3  -->
+                        {% endfor %}
+                        {% for i in range (list2 |length) %}
+                        <div class="col-sm-3">
+                          <div class="quiz_card_area">
+                            {% if list2[i] in scholarship_documents %}
+                            <input class="form-control quiz_checkbox scholarship" type="checkbox"
+                              id="{{i}}: {{list2[i]}}" value="{{ list2[i] }}" name="check"
+                              data-price="{{ base_prices[list2[i]] }}" onclick="updatePrice()" />
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list2[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span class="scholarship_label">{{ base_prices[list2[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% else %}
+                            <input class="form-control quiz_checkbox" type="checkbox" id="{{i}}: {{list2[i]}}"
+                              value="{{ list2[i] }}" name="check" data-price="{{ base_prices[list2[i]] }}"
+                              onclick="updatePrice()" />
+
+                            <div class="single_quiz_card">
+                              <div class="quiz_card_content">
+                                <div class="quiz_card_title">{{ list2[i] }}
+                                </div>
+                                <!-- end of quiz_card_title -->
+                                <div class="quiz_card_price">
+                                  <h3>PHP <span data-value="{{ list2[i] }}">{{ base_prices[list2[i]] }}</span>.00</h3>
+                                </div><!-- end of quiz_card_price -->
+                              </div><!-- end of quiz_card_content -->
+                            </div><!-- end of single_quiz_card -->
+                            {% endif %}
+                          </div><!-- end of quiz_card_area -->
+                        </div><!-- end of col3  -->
+                        {% endfor %}
+
+                      </div><!-- end of quiz_card_area -->
+                    </div><!-- end of quiz_content_area -->
+                  </div><!-- end of row -->
+                </div><!-- end of container -->
+            </section><!-- end of quiz_section -->
+            <div class="form-group clearfix form-btn">
+              <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
+              <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
+            </div>
+          </fieldset>
+          <fieldset class="wizard-fieldset">
+            <h3 class="quiz_title">Mode of Payment</h3>
+            <div class="form-group">
+              <div class="wizard-form-radio">
+                <input class="payment-radio" name="payment_method" id="online_paymode" type="radio" value="Online" />
+                <label for="online_paymode">Online Payment</label>
+              </div>
+              <div class="wizard-form-radio">
+                <input class="payment-radio" name="payment_method" id="cash_paymode" type="radio" value="Cash" />
+                <label for="cash_paymode">Cash Payment</label>
+              </div>
+            </div>
+
+            <h6 class="price_detail">Amount Payable: PHP <span id="total_price">0.00</span></h6>
+            <div class="image_container"><img id="img_source" src="" hidden></div>
+            <div class=" form-group clearfix form-btn">
+              <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
+              <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
+            </div>
+          </fieldset>
+          <fieldset class="wizard-fieldset">
+            <h3 class="quiz_title req_title">Request Summary</h3>
+            <div class="summary-container" style="
+    height: 25%;
+    overflow: auto;
+">
+              <div class="summary-details">
+              </div>
+            </div>
+            <div class="form-group clearfix form-btn">
+              <a href="javascript:;" class="form-wizard-previous-btn float-left">Previous</a>
+              <button type="submit" class="form-wizard-submit">Submit</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

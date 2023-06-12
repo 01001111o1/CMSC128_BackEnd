@@ -1,0 +1,193 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.css" rel="stylesheet" />
+{% extends "public/templates/public_template.html" %}
+{% block title %} UP2GO: FAQs {% endblock %}
+{% block main%}
+
+<section id="info-utile" class="bg-white py-5">
+    <div class="container">
+        <h3 class="text-center text-uppercase mb-5 lead-h-text text-primary">FREQUENTLY ASKED QUESTIONS</h3>
+        <button type="button" class="btn btn-primary" onclick="return expandAll()">Expand All</button>
+        <button type="button" class="btn btn-primary" onclick="return collapseAll()">Collapse All</button>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Requirements for the release of <span>Honorable Dismissal</span>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        >> Letter from parents (not guardian) stating the reason for HD addressed to: <br>THE UNIVERSITY
+                        REGISTRAR <br> Office of the University Registrar <br> University of the
+                        Philippines Baguio <br> Baguio City, 2600 <br><br>>> Latest University Clearance <br><br>>> Exit
+                        counseling from the Office of Counseling and Guidance <br><br>>> Official Transcript of Records
+                        (if applicable)<br><br>>> Proof of payments for:
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Instructions/Requirements for <span>Transfer to other UP Units</span>
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Request the documents listed below. Each document costs ₱50.00/copy. <br><br>>> True Copy of
+                        Grades: <br><br>>> Certificate of No Disciplinary Case <br><br>>> Certificate of No Contract
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Instructions for requesting <span> Certified True Text of Diploma</span>
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Note that UP Baguio does not issue a second copy of the diploma, and only at most one copy of
+                        the Certified True Text of Diploma. <br><br>>> Secure/Apply for an Affidavit of Loss <br><br>>>
+                        Pay for Certified True Text of Diploma (₱200.00) and/or Certified Copy of Certified True
+                        Text of Diploma (₱20.00/copy)<br><br>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Instructions for Requesting <span>Diploma Translation</span>
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Send/Upload a scanned copy of your diploma. <br><br>>> Please pay for the Diploma Translation -
+                        ₱50.00 per copy <br><br>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Instructions for Requesting <span>Certified True Copy of Diploma</span>
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Send/Upload a scanned copy of your diploma <br><br>Please pay for the Certified True Copy (CTC)
+                        of Diploma - ₱20.00 per copy <br><br>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSix">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        Instructions for Requesting <span>Course Description</span>
+                    </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Please pay for the corresponding fee depending on your year level <br><br><br>>> 1st year -
+                        ₱20.00 <br><br>>> 2nd year - ₱40.00 <br><br>>> 3rd year - ₱60.00 <br><br>>> 4th year - ₱80.00
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSeven">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        Instructions for Requesting <span>True Copy of Grade (TCG)</span>
+                    </button>
+                </h2>
+                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Please pay ₱50.00 per copy <br><br>>> Indicate your preferred format (e-copy or hard copy),
+                        choose one only. <br> <br><b> NOTE: Processing time for TCG is a minimum of 4 working days </b>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingEight">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        Instructions for Requesting <span>Certificate of Enrollment</span>
+                    </button>
+                </h2>
+                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Send/Upload your duly signed Form 5 <i>(sign under pledge and assent and indicate the date of
+                            signing) </i> <br><br>>> Please pay ₱50.00/copy
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingNine">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                        Instructions for Requesting <span>Various Certifications</span>
+                    </button>
+                </h2>
+                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        Please pay <b>(₱ 50.00)</b> each of the documents: <br> <br><span> >>
+                            Certificate of Graduation </span> <br><br><span> >> Certificate
+                            of Disciplinary Action </span> <br><br> <span> >> Certificate of
+                            No Contract </span> <br><br> <span "> >> Certificate of Units
+                            Earned </span> <br><br><span > >> Certificate of Medium of
+                            Instruction </span> <br><br> <span > >> Certificate of Grade
+                            Equivalence </span> <br><br><span > >> Certificate of Non-Issuance
+                            of Honorable Dismissal for
+                            Graduates </span> <br><br> <span > >> Certificate of Non-Issuance
+                            of S.O. Number — </span>
+                    </div>
+                </div>
+            </div>
+            <div class=" accordion-item">
+                            <h2 class="accordion-header" id="headingTen">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                    List of the Certifications that does not require payment <span>(Purpose:
+                                        For Scholarship )</span>
+                                </button>
+                            </h2>
+                            <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    Here is the list of certifications that do not require payment: <br><br>
+                                    <ul>
+                                        <li><span> >> <b> Certificate of Enrollment </b> </span> <br> </li><span
+                                            style="margin-left: 40px;"> >> Send/Upload your duly signed Form 5 <i>(sign
+                                                under pledge and assent and indicate the date of signing) </i> </span>
+                                        <br><br><span> >> <b> Certificate of No Disciplinary Action </b> </span>
+                                        <br><br><span> >> <b> True Copy of Grades </b> </span> <br><span
+                                            style="margin-left: 40px;"> >> Indicate your preferred format (e-copy or
+                                            hard copy), choose one only. </span> <br><span style="margin-left: 40px;">
+                                            >> <b>NOTE: Processing time for TCG is a minimum of 4 working days.</b>
+                                        </span> <br><br><span> >> <b> Certificate of Non-Issuance of ID </b> </span>
+                                        <br><span style="margin-left: 40px;"> >> Send/Upload your duly signed Form 5
+                                            <i>(sign under pledge and assent and indicate the date of signing) </i>
+                                        </span>
+                                    </ul>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+</section>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.1/mdb.min.js"></script>
+{% endblock %}

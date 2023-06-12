@@ -1,0 +1,219 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+{% extends "public/templates/public_template.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block main %}
+
+<section class="dash-table">
+  <div class="dropdown-sort">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Sort Requests By</button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/admin/dashboard/desc">Request Date: Descending</a></li>
+      <li><a class="dropdown-item" href="/admin/dashboard/asc">Request Date: Ascending</a></li>
+      <li><a class="dropdown-item" href="/admin/dashboard/payment_desc">Payment Date: Descending</a></li>
+      <li><a class="dropdown-item" href="/admin/dashboard/payment_asc">Payment Date: Ascending</a></li>
+      <li><a class="dropdown-item read_only" href="#">By Document &raquo;</a>
+        <ul class="dropdown-menu dropdown-submenu">
+          <div class="scroll">
+            {% for i in range(documents|length) %}
+            <li><a class="dropdown-item" href="/admin/dashboard/{{ documents[i] }}">{{ documents[i] }}</a></li>
+            {% endfor %}
+          </div>
+  </div>
+
+  </ul>
+  </li>
+  </ul>
+  </div>
+
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>ID</th>
+
+        <th>Student Number</th>
+        <th>Requested Documents</th>
+        <th>Remarks</th>
+        <th>Total Price</th>
+        <th>Date of Request</th>
+        <th>Payment Date</th>
+        <th>Request Approved</th>
+        <th>Requirements Verified</th>
+        <th>Request Paid</th>
+        <th>Available for Claiming</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tbody>
+        {% for request in pages.items %}
+        {% set requested_list = request.requested_documents.split('@') %}
+        {% set remark_list = request.remarks.split('@') %}
+        <tr>
+          <td>{{ request.queue_number }}</td>
+
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                {{ request.student_number }}
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item view_only" href="#"><span>LAST NAME:</span> {{ request.last_name }}</a></li>
+                <li><a class="dropdown-item view_only" href="#"><span>FIRST NAME:</span> {{ request.first_name }}</a>
+                </li>
+                <li><a class="dropdown-item view_only" href="#"><span>MIDDLE NAME:</span> {{ request.middle_name }}</a>
+                </li>
+                <li><a class="dropdown-item view_only" href="#"><span>YEAR LEVEL:</span> {{ request.year_level }}</a>
+                </li>
+                <li><a class="dropdown-item view_only" href="#"><span>EMAIL:</span> {{ request.email }}</a></li>
+              </ul>
+            </div>
+          </td>
+
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                DOCUMENTS
+              </button>
+              <ul class="dropdown-menu">
+                {% for document in requested_list %}
+                <li><a class="dropdown-item view_only" href="#">{{ document }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                PURPOSE
+              </button>
+              <ul class="dropdown-menu">
+                {% for remark in remark_list %}
+                <li><a class="dropdown-item view_only" href="#">{{ remark }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </td>
+          <td>{{ request.total_price }}</td>
+          <td>{{ request.date_of_request }} </td>
+
+          {% if request.payment_date == None %}
+          <td>N/A</td>
+          {% else %}                    
+          <td>{{ request.date_of_request }} </td>
+          {% endif %}
+
+          {% if request.request_approved == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i
+                class='bx bx-badge-check'></i> APPROVED</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_approved"><i
+                class='bx bx-loader bx-tada'></i> PENDING</a></td>
+          {% endif %}
+
+          {% if request.documents_approved == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/documents_approved"><i
+                class='bx bx-badge-check'></i> VERIFIED</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/documents_approved"><i
+                class='bx bx-loader bx-tada'></i> PENDING</a></td>
+          {% endif %}
+          {% if request.request_paid == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_paid"><i
+                class='bx bx-badge-check'></i> PAID</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_paid"><i
+                class='bx bx-loader bx-tada'></i> PENDING</a></td>
+          {% endif %}
+          {% if request.request_available == True %}
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_available"><i
+                class='bx bx-badge-check'></i> READY</a></td>
+          {% else %}
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_available"><i
+                class='bx bx-loader bx-tada'></i> PENDING</a></td>
+          {% endif %}
+
+          <td><a class="btn btn-done" href="/delete/{{ request.queue_number }}"><i
+                class='bx bxs-check-circle'></i>FINISH</a></td>
+
+          <td>
+            <a class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#modal"
+              data-orderid="{{ request.queue_number }}"
+              data-name="{{ request.first_name }} {{ request.middle_name }} {{ request.last_name }}"
+              data-studentnumber="{{ request.student_number }}"><i class='bx bxs-trash'></i></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal fade" id="modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form action="/admin/dashboard/{{ parameter }}/" method="POST">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Delete Entry</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <table>
+              <tr>
+                <td>Order ID: <span id="modal-orderid"></span></td>
+              </tr>
+              <tr>
+                <td>Name: <span id="modal-name"></span></td>
+              </tr>
+              <tr>
+                <td>Student Number: <span id="modal-studentnumber"></span></td>
+              </tr>
+            </table>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text">Reason For Rejecting</span>
+              <input type="text" class="form-control" name="reason_reject" placeholder="Ex: Invalid requested documents"
+                required>
+              <input class="id_to_remove" type="hidden" name="id_to_remove" value="{{ request.queue_number }}">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Delete</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <nav class="page-nav">
+    <ul class="pagination justify-content-center">
+      <li class="page-item {% if not pages.has_prev %} disabled {% endif %}">
+        <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.prev_num }}" tabindex="-1"
+          aria-disabled="true">Previous</a>
+      </li>
+      {% for page in pages.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+      {% if page %}
+      {% if page == pages.page %}
+      <li class="page-item active">
+        <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}">{{ page }}</a>
+      </li>
+      {% else %}
+      <li class="page-item">
+        <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ page }}">{{ page }}</a>
+      </li>
+      {% endif %}
+      {% else %}
+      <div class="hdots"> ... </div>
+      {% endif %}
+      {% endfor %}
+      <li class="page-item {% if not pages.has_next %} disabled {% endif %}">
+        <a class="page-link" href="/admin/dashboard/{{ parameter }}/?page={{ pages.next_num }}">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+</section>
+{% endblock %}

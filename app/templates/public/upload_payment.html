@@ -1,0 +1,28 @@
+{% extends "public/templates/public_template.html" %}
+{% block title %} Upload Image {% endblock %}
+{% block main %}
+
+<h1> Enter the following details to act as credentials(?) </h1>
+<form action = "/upload_payment" method = "POST">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Last Name</span>
+      <input type="text" class="form-control" name = "last_name_payment" required>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Student Number</span>
+      <input type="text" class="form-control" name = "student_number_payment" placeholder = "Ex: 202005837" required>
+    </div>
+    <button type = "submit" class = "btn btn-primary">Retrieve Request</button>
+</form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

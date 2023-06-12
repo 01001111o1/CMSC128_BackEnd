@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+{% block main %}
+<section class="login-page">
+    <div class="login">
+        <div class="login-uplogo">
+            <img class="up2go-login" src="{{ url_for('static', filename='imgs/logos/up2go-1.png') }}" alt="UP2GO">
+        </div>
+        <h2 class="login-title">ADMIN LOGIN</h2>
+        <p class="notice">Please login to access the system</p>
+        <form class="form-login" action="/login" method="POST">
+            <label for="email">Email</label>
+            <div class="input-email">
+                <i class='bx bxs-envelope icon'></i>
+                <input class="admin_email" type="email" name="email_login" placeholder="Enter your email"
+                    autocomplete="off" required>
+            </div>
+            <label for="password">Password</label>
+            <div class="input-password">
+                <i class='bx bxs-lock icon'></i>
+                <input class="admin_password" type="password" name="password" placeholder="Enter your password"
+                    autocomplete="off" required>
+            </div>
+            <div class="checkbox">
+            </div>
+            <button type="submit"><i class="fas fa-door-open"></i> LOGIN</button>
+        </form>
+        <div class="login-uplogo">
+            <img src="{{ url_for('static', filename='imgs/logos/uplogo.png') }}" alt="UP Logo">
+        </div>
+    </div>
+    <div class="background">
+        <h1>ADMIN LOGIN TO ACCESS DASHBOARD</h1>
+    </div>
+</section>
+
+{% endblock %}
+```
