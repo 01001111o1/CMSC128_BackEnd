@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint, jsonify
 from flask_login import login_required, current_user
 from . import db
-from app import app, executor
+from app import app, executor, scheduler
 from .models import Request
 from .email_template import email_template
 import shutil
@@ -15,7 +15,7 @@ from send_email import send_message
 
 from .Lists import Documents
 
-#import pythoncom
+import pythoncom
 
 from .send_generated_files import background_runner
 
@@ -24,6 +24,10 @@ from flask_paginate import Pagination
 from werkzeug.test import create_environ
 from werkzeug.urls import iri_to_uri
 from werkzeug.wsgi import get_current_url
+
+from sqlalchemy.orm.exc import NoResultFound
+
+from payment_processing import payment_received
 
 admin_views = Blueprint('admin_views', __name__)
 
@@ -37,6 +41,8 @@ def admin_dashboard(parameter):
 
     page = int(request.args.get('page', 1))
 
+    background_runner.payment_received_asynch()
+
     env = create_environ(f"?page={page}", f"http://127.0.0.1:5000/admin/dashboard/{parameter}")
     session["url"] = iri_to_uri(get_current_url(env))
 
@@ -46,6 +52,10 @@ def admin_dashboard(parameter):
         requests = Request.query.order_by(Request.date_of_request.desc())
     elif parameter == "asc":
         requests = Request.query.order_by(Request.date_of_request)
+    elif parameter == "payment_desc":
+        requests = Request.query.order_by(Request.payment_date.desc())
+    elif parameter == "payment_asc":
+        requests = Request.query.order_by(Request.payment_date)
     else:
         requests = Request.query.filter(Request.requested_documents.contains(parameter))
 

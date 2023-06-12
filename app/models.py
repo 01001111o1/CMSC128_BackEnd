@@ -21,6 +21,7 @@ class Request(db.Model):
 	price_map = db.Column(db.String(800), nullable = False)
 	total_price = db.Column(db.Integer)
 	date_of_request = db.Column(db.DateTime(timezone = True), default = datetime.now(pytz.timezone('Singapore')).replace(microsecond = 0))
+	payment_date = db.Column(db.DateTime(timezone = True), default = None)
 	request_paid = db.Column(db.Boolean(), default = False)
 	request_approved = db.Column(db.Boolean(), default = False)
 	documents_approved = db.Column(db.Boolean(), default = False)

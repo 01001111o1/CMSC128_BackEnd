@@ -117,6 +117,26 @@ def contact_us():
 def faqs():
     return render_template("public/faqs.html", user = current_user)
 
+@views.route("/upload_payment", methods = ["GET", "POST"])
+def upload_payment():
+
+    if request.method == "POST":
+        last_name = request.form.get("last_name_payment").upper()
+        student_number = request.form.get("student_number_payment")
+
+        if isInvalid(last_name):
+            flash("Please enter valid characters in input form", "error")
+            return redirect(request.url)
+
+        if len(student_number) != 9 or not student_number.isdigit() or student_number[0:2] != "20":
+            flash("Please enter a valid student number", "error")
+            return redirect(request.url)   
+
+
+        student_number = student_number[:4] + '-' + student_number[4:]
+
+    return render_template("public/upload_payment.html", user = current_user)
+
 def new_request():
 
     check_fname = Request.query.filter_by(first_name = session["name"][0]).first()
@@ -194,6 +214,7 @@ def upload_image():
                     return redirect(request.url)
 
             new_directory = new_request()
+
             for file in files:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(new_directory, filename))
