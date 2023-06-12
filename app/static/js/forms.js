@@ -275,23 +275,57 @@ jQuery(document).ready(function () {
 });
 
 function onKeyDown(evt) {
-  if (['e', 'E', '+', '-', '.', '='].includes(evt.key)) {
+  const forbiddenChars = [".", "-", "+", "e", "E"];
+  const inputChar = evt.key;
+
+  if (forbiddenChars.includes(inputChar) || isForbiddenInput(evt)) {
+    evt.preventDefault();
+  }
+
+  if (evt.target.value.length >= 9 && evt.key !== 'Backspace' && evt.key !== 'Delete') {
     evt.preventDefault();
   }
 }
+
+function isForbiddenInput(evt) {
+  const input = evt.target.value;
+  const selectionStart = evt.target.selectionStart;
+  const selectionEnd = evt.target.selectionEnd;
+
+  for (let i = selectionStart; i < selectionEnd; i++) {
+    if (forbiddenChars.includes(input.charAt(i))) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+
 function maxLengthCheck(object) {
   const requiredLength = 9;
   if (object.value.length > requiredLength) {
     object.value = object.value.slice(0, requiredLength);
   }
 
+  const formGroup = object.parentElement; 
+  const formLabel = formGroup.querySelector('.wizard-form-text-label'); 
+  const errorElement = formGroup.querySelector('.wizard-form-error-msg');
+
   if (object.value.length !== requiredLength) {
-    object.classList.add('error'); // Add a CSS class to highlight the input
-    const errorElement = document.querySelector('.wizard-form-error-msg');
-    errorElement.innerText = `Input must be exactly ${requiredLength} characters long.`;
+    object.classList.add('error'); 
+    formLabel.style.display = 'none'; 
+    errorElement.innerText = `Student Number must be exactly ${requiredLength} characters long.`;
   } else {
-    object.classList.remove('error'); // Remove the CSS class
-    const errorElement = document.querySelector('.wizard-form-error-msg');
+    object.classList.remove('error'); 
+    formLabel.style.display = object.value ? 'none' : 'block'; 
+    errorElement.innerText = '';
+  }
+
+  if (!object.value) {
+    object.classList.remove('error'); 
+    formLabel.style.display = 'block'; 
     errorElement.innerText = '';
   }
 }
@@ -317,20 +351,3 @@ function validateEmailInput() {
   }
 }
 
-function validateForm() {
-  const emailElement = document.getElementById('email');
-  const emailErrorElement = emailElement.nextElementSibling;
-
-  if (!validateEmail(emailElement.value.trim())) {
-    emailElement.classList.add('error');
-    emailErrorElement.innerText =
-      emailElement.value.trim() === ''
-        ? 'Email'
-        : 'Email should contain at least "@" and "."';
-    return false;
-  } else {
-    emailElement.classList.remove('error');
-    emailErrorElement.innerText = 'Email';
-  }
-  return true;
-}

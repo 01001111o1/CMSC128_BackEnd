@@ -1076,6 +1076,20 @@ td {
   background-color: #fff;
   color: #850038;
 }
+.error {
+  border: 2px solid red;
+}
+
+.wizard-form-group {
+  position: relative;
+}
+
+.wizard-form-error-msg {
+  position: absolute;
+  top: -1.5em; 
+  color: red;
+}
+
 
 /*** upload requirements ***/
 .up-container {
