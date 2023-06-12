@@ -14,6 +14,8 @@
     <ul class="dropdown-menu">
       <li><a class="dropdown-item" href="/admin/dashboard/desc">Request Date: Descending</a></li>
       <li><a class="dropdown-item" href="/admin/dashboard/asc">Request Date: Ascending</a></li>
+      <li><a class="dropdown-item" href="/admin/dashboard/payment_desc">Payment Date: Descending</a></li>
+      <li><a class="dropdown-item" href="/admin/dashboard/payment_asc">Payment Date: Ascending</a></li>
       <li><a class="dropdown-item read_only" href="#">By Document &raquo;</a>
         <ul class="dropdown-menu dropdown-submenu">
           <div class="scroll">
@@ -38,7 +40,7 @@
         <th>Date of Payment</th>
         <th>Request Approved</th>
         <th>Requirements Verified</th>
-        <th>Request <br/> Paid</th>
+        <th>Request <br /> Paid</th>
         <th>Available for Claiming</th>
         <th></th>
         <th></th>
@@ -92,7 +94,12 @@
           </td>
           <td>{{ request.total_price }}</td>
           <td>{{ request.date_of_request }} </td>
-          <td> june 11 2023 </td>
+
+          {% if request.payment_date == None %}
+          <td>N/A</td>
+          {% else %}
+          <td>{{ request.date_of_request }} </td>
+          {% endif %}
 
           {% if request.request_approved == True %}
           <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_approved"><i
@@ -117,10 +124,10 @@
                 class='bx bx-loader bx-tada'></i> PENDING</a></td>
           {% endif %}
           {% if request.request_available == True %}
-          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/claiming_available"><i
+          <td><a class="btn btn-success read_only" href="/update/{{ request.queue_number }}/request_available"><i
                 class='bx bx-badge-check'></i> READY</a></td>
           {% else %}
-          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/claiming_available"><i
+          <td><a class="btn btn-danger" href="/update/{{ request.queue_number }}/request_available"><i
                 class='bx bx-loader bx-tada'></i> PENDING</a></td>
           {% endif %}
 

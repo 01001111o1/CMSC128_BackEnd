@@ -16,9 +16,7 @@ def login():
 	if request.method == 'POST':
 
 		email = request.form.get("email_login")
-		print(email)
 		password = request.form.get("password")
-		print(password)
 		admin = Admin.query.filter_by(email = email).first()
 
 		if isInvalid(email) or isInvalid(password):
