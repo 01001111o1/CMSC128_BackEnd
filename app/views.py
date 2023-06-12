@@ -130,7 +130,7 @@ def new_request():
 
     if check_fname and check_mname and check_lname:
         flash("You currently have a request in progress")
-        return redirect(url_for("views.request_formsx"))
+        return redirect(url_for("views.request_forms"))
 
     if check_email:
         flash("Email already exists", "error")
@@ -194,7 +194,6 @@ def upload_image():
                     return redirect(request.url)
 
             new_directory = new_request()
-
             for file in files:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(new_directory, filename))

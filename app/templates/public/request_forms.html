@@ -194,6 +194,7 @@
                     </div><!-- end of quiz_content_area -->
                   </div><!-- end of row -->
                 </div><!-- end of container -->
+                <div class="wizard-form-error-msg"></div>
             </section><!-- end of quiz_section -->
             <div class="form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
@@ -213,17 +214,63 @@
               </div>
             </div>
 
-            <h6 class="price_detail">Amount Payable: PHP <span id="total_price">0.00</span></h6>
+            <h6 class="price_detail">Amount Payable: PHP <span id="total_price">0</span>.00</h6>
             <div class="image_container"><img id="img_source" src="" hidden></div>
+            <div class="wizard-form-error-msg"></div>
             <div class=" form-group clearfix form-btn">
               <a href="javascript:;" class="form-wizard-previous-btn float-start">Previous</a>
               <a href="javascript:;" class="form-wizard-next-btn float-end">Next</a>
             </div>
           </fieldset>
           <fieldset class="wizard-fieldset">
-            <h3 class="quiz_title req_title">Request Summary</h3>
             <div class="summary-container">
-              <div class="summary-details">
+              <h3>Request Summary</h3>
+              <table class="table">
+                <thead>
+                </thead>
+                <tbody class="order-details">
+                </tbody>
+              </table>
+              <table class="table table-total-price">
+                <tbody>
+                  <th class="total-price-header" scope="row">Total</th>
+                  <th class="align-right" scope="row">Php<span id="total_price">0</span>.00</th>
+                </tbody>
+              </table>
+              <h3>Payment</h3>
+              <div class="payment-details"></div>
+              <h3>Request Details</h3>
+              <div class="request-details">
+                <table class="table">
+                  <thead>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <th class="username-detail align-right" scope="row"></th>
+                    </tr>
+                    <tr>
+                      <td>Student Number</td>
+                      <th class="snum-detail align-right" scope="row"></th>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <th class="email-detail align-right" scope="row"></th>
+                    </tr>
+                    <tr>
+                      <td>Year Level</td>
+                      <th class="ylevel-detail align-right" scope="row"></th>
+                    </tr>
+                    <tr>
+                      <td>For Scholarship</td>
+                      <th class="scholarship-detail align-right" scope="row"></th>
+                    </tr>
+                    <tr>
+                      <td>Purpose</td>
+                      <th class="purpose-detail align-right" scope="row"></th>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <div class="form-group clearfix form-btn">

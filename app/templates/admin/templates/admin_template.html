@@ -78,7 +78,7 @@
     </div>
   </nav>
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% with s = get_flashed_messages(with_categories=true) %}
   {% if messages %}
   {% include 'public/templates/toasts.html' %}
   {% endif %}
