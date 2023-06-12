@@ -275,26 +275,66 @@ jQuery(document).ready(function () {
 });
 
 function onKeyDown(evt) {
-  if (['e', 'E', '+', '-', '.', '='].includes(evt.key)) {
+  if (evt.target.value.length >= 9 && evt.key !== 'Backspace' && evt.key !== 'Delete') {
     evt.preventDefault();
   }
 }
+
 function maxLengthCheck(object) {
   const requiredLength = 9;
   if (object.value.length > requiredLength) {
     object.value = object.value.slice(0, requiredLength);
   }
 
+  const formGroup = object.parentElement; 
+  const formLabel = formGroup.querySelector('.wizard-form-text-label'); 
+  const errorElement = formGroup.querySelector('.wizard-form-error-msg');
+
   if (object.value.length !== requiredLength) {
-    object.classList.add('error'); // Add a CSS class to highlight the input
-    const errorElement = document.querySelector('.wizard-form-error-msg');
-    errorElement.innerText = `Input must be exactly ${requiredLength} characters long.`;
+    object.classList.add('error'); 
+    formLabel.style.display = 'none'; 
+    errorElement.innerText = `Student Number must be exactly ${requiredLength} characters long.`;
   } else {
-    object.classList.remove('error'); // Remove the CSS class
-    const errorElement = document.querySelector('.wizard-form-error-msg');
+    object.classList.remove('error'); 
+    formLabel.style.display = object.value ? 'none' : 'block'; 
     errorElement.innerText = '';
   }
+
+  if (!object.value) {
+    object.classList.remove('error'); 
+    formLabel.style.display = 'block'; 
+    errorElement.innerText = '';
+  }x
 }
+
+function validateForm() {
+  const studentNumberElement = document.getElementById('snum');
+  const studentNumberErrorElement = studentNumberElement.nextElementSibling;
+
+  const studentNumberValue = studentNumberElement.value.trim();
+  if (studentNumberValue === '') {
+    studentNumberElement.classList.add('error');
+    studentNumberErrorElement.innerText = 'Student Number is required.';
+    return false;
+  } else if (studentNumberValue.length !== 9) {
+    studentNumberElement.classList.add('error');
+    studentNumberErrorElement.innerText = 'Student Number must be exactly 9 characters long.';
+    return false;
+  } else {
+    studentNumberElement.classList.remove('error');
+    studentNumberErrorElement.innerText = '';
+  }
+
+  return true;
+}
+
+const studentNumberElement = document.getElementById('snum');
+studentNumberElement.addEventListener('keydown', onKeyDown);
+studentNumberElement.addEventListener('input', function() {
+  maxLengthCheck(this);
+});
+
+
 
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
