@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 app.config['SECRET_KEY'] = '8DMC9QP_ppb_7-spe_tppDB07zSaABvDIRHjbvUvgtkAj_JQqSy3UsC2l00o4VWMGsiJPujsxYn06ZJS9HnQuQ'
 app.config["FILE_UPLOADS"] = "C:/Users/Sean/Desktop/CMSC128Project/Requirements"
+app.config["PAYMENT_UPLOADS"] = "C:/Users/Sean/Desktop/CMSC128Project/Payments"
 app.config["ALLOWED_FILE_EXTENSIONS"] = ["PDF"]
 app.config["MAX_FILE_FILESIZE"] = 32 * 1000 * 1000
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'

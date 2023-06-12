@@ -29,6 +29,9 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from payment_processing import payment_received
 
+from datetime import datetime
+import pytz
+
 admin_views = Blueprint('admin_views', __name__)
 
 @admin_views.route("/admin/login")
@@ -85,6 +88,9 @@ def update(queue_number, classification):
 
         exec(f'query.{classification} = True')
 
+        if classification == "request_paid":
+            query.payment_date = datetime.now(pytz.timezone('Singapore')).replace(microsecond = 0)
+
         db.session.commit()
         flash("Successfully sent update email", "success")
         return redirect(session["url"])
@@ -119,9 +125,11 @@ def remove_entry(queue_number):
     query = Request.query.get_or_404(queue_number)  
     folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
     folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
+    payment_path = app.config["PAYMENT_UPLOADS"] + "/" + queue_number
 
     try:
         shutil.rmtree(folder_path, ignore_errors = False)
+        shutil.rmtree(payment_path, ignore_errors = False)
 
         db.session.delete(query)
         db.session.commit()

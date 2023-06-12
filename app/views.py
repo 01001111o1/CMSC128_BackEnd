@@ -98,6 +98,8 @@ def request_forms():
 
         if count == 0:
             _ = new_request()
+            session.clear()
+            flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
 
         return redirect(url_for("views.upload_image"))
@@ -184,8 +186,6 @@ def new_request():
     db.session.add(new_request)
     db.session.commit()
 
-    session.clear()
-
     latest_request = Request.query.order_by(Request.queue_number.desc()).first()
     background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number, "invoice")
 
@@ -215,9 +215,15 @@ def upload_image():
 
             new_directory = new_request()
 
+            index = 0
             for file in files:
                 filename = secure_filename(file.filename)
+
+                if type(filename) != str:
+                    file.filename = session["name"][2] + "(" + index + 1 + ")"
+                    
                 file.save(os.path.join(new_directory, filename))
+                index += 1
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))

@@ -1,4 +1,4 @@
-from flask import request, session
+from flask import request, session, redirect
 from app import db
 from app import app, executor
 from app import models
@@ -43,6 +43,8 @@ def payment_received():
 
         request.payment_date = current_dt
         db.session.commit()
+
+    
 
 
 
