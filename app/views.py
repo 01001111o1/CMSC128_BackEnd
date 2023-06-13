@@ -195,7 +195,8 @@ def upload_image():
 
             for file in files:
                 filename = secure_filename(file.filename)
-                #file.save(os.path.join(session["path"], filename))
+                file.save(os.path.join(session["path"], filename))
+
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
