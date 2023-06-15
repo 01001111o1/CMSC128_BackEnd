@@ -463,6 +463,16 @@ button[type='submit']:hover {
 
 /*** start of about us ***/
 
+.abt-container {
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  position: relative;
+}
+
 .oblePic {
   width: 100%;
   height: 450px;
@@ -473,17 +483,6 @@ button[type='submit']:hover {
   background-size: cover;
   background-position-y: 40%;
   background-repeat: no-repeat;
-}
-
-.abt-container {
-  margin: 45px 0 0 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fafafa;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  position: relative;
 }
 
 .abt-container .abt-title {
@@ -499,7 +498,7 @@ button[type='submit']:hover {
   font-weight: 700;
   line-height: 35px;
   color: #000;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .abt-container .abt-line-container {
