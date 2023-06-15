@@ -475,7 +475,7 @@ button[type='submit']:hover {
 
 .oblePic {
   width: 100%;
-  height: 450px;
+  height: 420px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -498,7 +498,7 @@ button[type='submit']:hover {
   font-weight: 700;
   line-height: 35px;
   color: #000;
-  margin-top: 25px;
+  margin-top: 40px;
 }
 
 .abt-container .abt-line-container {
