@@ -32,6 +32,8 @@ from payment_processing import payment_received
 from datetime import datetime
 import pytz
 
+import os.path
+
 admin_views = Blueprint('admin_views', __name__)
 
 @admin_views.route("/admin/login")
@@ -82,13 +84,12 @@ def admin_dashboard(parameter):
 @login_required
 def update(queue_number, classification):
     query = Request.query.get_or_404(queue_number)  
+    subject, content = email_template(query.first_name, queue_number, classification)
+
     try:
         if classification == "documents_approved":
-            image_path = "C:/Users/Sean/Desktop/CMSC128Project/app/qr_code.jpg"
-            subject, content = email_template(query.first_name, queue_number, classification)
-            background_runner.send_message_asynch(query.email, subject, content, None, [image_path])
+            background_runner.send_message_asynch(query.email, subject, content, None, [app.config["QR_CODE_PATH"]])
         else:
-            subject, content = email_template(query.first_name, queue_number, classification)
             background_runner.send_message_asynch(query.email, subject, content)
 
         exec(f'query.{classification} = True')
@@ -107,18 +108,10 @@ def update(queue_number, classification):
 @login_required
 def delete_entry(queue_number):
     try:
-        query = Request.query.get_or_404(queue_number)  
-        folder_name =" ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
-        folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
-        payment_path = app.config["PAYMENT_UPLOADS"] + "/" + str(queue_number)
 
         background_runner.send_invoice_or_receipt_asynch(queue_number, "receipt")
 
-        db.session.delete(query)
-        db.session.commit()
-        
-        shutil.rmtree(payment_path, ignore_errors = False)
-        shutil.rmtree(folder_path, ignore_errors = False)
+        remove_entry(queue_number)
 
         flash("Transaction successfully deleted", "success")
         return redirect(session["url"])
@@ -132,12 +125,15 @@ def remove_entry(queue_number):
     query = Request.query.get_or_404(queue_number)  
     folder_name = " ".join([query.first_name.upper(), query.middle_name.upper(), query.last_name.upper()])
     folder_path = app.config["FILE_UPLOADS"] + "/" + folder_name
-    payment_path = app.config["PAYMENT_UPLOADS"] + "/" + queue_number
+    payment_path = app.config["PAYMENT_UPLOADS"] + "/" + str(queue_number)
 
+    if os.path.isdir(payment_path):
+        shutil.rmtree(payment_path)
+
+    if os.path.isdir(folder_path):
+        shutil.rmtree(folder_path)
+        
     try:
-        shutil.rmtree(folder_path, ignore_errors = False)
-        shutil.rmtree(payment_path, ignore_errors = False)
-
         db.session.delete(query)
         db.session.commit()
         flash("Entry successfully deleted", "success")

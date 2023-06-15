@@ -15,8 +15,6 @@ from flask_login import current_user
 
 from .functions import allowed_file, allowed_file_size, isInvalid
 
-from werkzeug.security import generate_password_hash, check_password_hash
-
 from .send_generated_files import background_runner
 
 views = Blueprint('views', __name__)
@@ -69,7 +67,7 @@ def request_forms():
 
         try:
 
-          emailinfo = validate_email(email, check_deliverability=True)
+          emailinfo = validate_email(email, check_deliverability = True)
           email = emailinfo.normalized
 
         except:
@@ -130,20 +128,9 @@ def new_request():
     if "True Copy of Grades" in session["documents"]:
         session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
 
-    if check_fname and check_mname and check_lname:
-        flash("You currently have a request in progress")
+    if (check_fname and check_mname and check_lname) or check_email or check_student_number:
+        flash("You currently have a request in progress") #Maybe handle duplicate entries
         return redirect(url_for("views.request_forms"))
-
-    if check_email:
-        flash("Email already exists", "error")
-        return redirect(url_for("views.request_forms"))
-
-    if check_student_number:
-        flash("Student number already exists", "error")
-        return redirect(url_for("views.request_forms"))
-
-    if "True Copy of Grades" in session["documents"]:
-        session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
 
     folder_name = " ".join([name.upper() for name in session["name"]])
 
@@ -196,7 +183,6 @@ def upload_image():
             for file in files:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(session["path"], filename))
-
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))

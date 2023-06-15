@@ -1,5 +1,4 @@
 from __future__ import print_function
-import pickle
 import os
 import os.path
 import io
@@ -26,22 +25,22 @@ def retrieve_drive_data():
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
+            creds = flow.run_local_server(port = 0)
 
         with open('token_drive.json', 'w') as token:
             token.write(creds.to_json())
 
-    service = build('drive', 'v3', credentials=creds)
+    service = build('drive', 'v3', credentials = creds)
     
     folderId = "1ot13ep8FeYMq3v10a27uIpuOFgg-8JJN"  
-    destinationFolder = "C:/Users/Sean/Desktop/CMSC128Project/Payments"
+    FolderPath = "C:/Users/Sean/Desktop/CMSC128Project/Payments"
 
-    downloadFolder(service, folderId, destinationFolder)
-    delete_folder_contents(service, folderId)
+    downloadFolder(service, folderId, FolderPath)
+    #delete_folder_contents(service, folderId) #Commented out to preserve the 25 per month gform -> gdrive limit using Form Director plugin 
 
 def delete_folder_contents(service, fileId):
     
-    results = service.files().list( q = "parents in '{0}'".format(fileId), fields="files(id, name, mimeType)" ).execute()
+    results = service.files().list( q = f"parents in '{fileId}'", fields="files(id, name, mimeType)" ).execute()
     items = results.get('files', [])
     
     for item in items:
@@ -51,12 +50,12 @@ def delete_folder_contents(service, fileId):
         if itemType == 'application/vnd.google-apps.folder':
             service.files().delete(fileId = itemId).execute()     
 
-def downloadFolder(service, fileId, destinationFolder):
+def downloadFolder(service, fileId, FolderPath):
     
-    if not os.path.isdir(destinationFolder):
-        os.mkdir(path = destinationFolder)
+    if not os.path.isdir(FolderPath):
+        os.mkdir(FolderPath)
 
-    results = service.files().list( q = "parents in '{0}'".format(fileId), fields="files(id, name, mimeType)" ).execute()
+    results = service.files().list( q = f"parents in '{fileId}'", fields="files(id, name, mimeType)" ).execute()
 
     items = results.get('files', [])
     
@@ -66,7 +65,7 @@ def downloadFolder(service, fileId, destinationFolder):
             itemName = item['name']
             itemId = item['id']
             itemType = item['mimeType']
-            filePath = destinationFolder + "/" + itemName
+            filePath = FolderPath + "/" + itemName
 
             if os.path.isdir(filePath):
                 continue
@@ -80,8 +79,8 @@ def downloadFolder(service, fileId, destinationFolder):
  
 def downloadFile(service, fileId, filePath):
 
-    request = service.files().get_media(fileId=fileId)
-    fh = io.FileIO(filePath, mode='wb')
+    request = service.files().get_media(fileId = fileId)
+    fh = io.FileIO(filePath, mode = 'wb')
     
     try:
         downloader = MediaIoBaseDownload(fh, request, chunksize = 1048576 * 1048576)

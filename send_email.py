@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import base64
-from email.message import EmailMessage
 
 import google.auth
 from googleapiclient.discovery import build
@@ -35,7 +34,7 @@ def send_message(receiver, subject, content, pdfs : list = None, images : list =
             for image in images:
                 with open(image, 'rb') as content_image:
                     img = MIMEImage(content_image.read())
-                    img.add_header('Content-Disposition', 'attachment', filename = "invoice.jpg")
+                    img.add_header('Content-Disposition', 'attachment', filename = "qr.jpg")
                     message.attach(img)
 
         if pdfs: 
@@ -50,9 +49,11 @@ def send_message(receiver, subject, content, pdfs : list = None, images : list =
         }
 
         send_message = service.users().messages().send(userId="me", body = create_message).execute()
+
     except HttpError as error:
-        print(F'An error occurred: {error}')
+    
         send_message = None
+    
     return send_message
 
 
