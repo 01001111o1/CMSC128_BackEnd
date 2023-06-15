@@ -467,10 +467,10 @@ button[type='submit']:hover {
   width: 100%;
   height: 100%;
   background-color: #fafafa;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .oblePic {
