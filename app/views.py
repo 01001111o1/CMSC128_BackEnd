@@ -166,7 +166,7 @@ def new_request():
 
     db.session.add(new_request)
     db.session.commit()
-
+    
     latest_request = Request.query.order_by(Request.queue_number.desc()).first()
     background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number, "invoice")
 

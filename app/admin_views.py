@@ -84,7 +84,7 @@ def update(queue_number, classification):
     query = Request.query.get_or_404(queue_number)  
     try:
         if classification == "documents_approved":
-            image_path = "C:/Users/Sean/Desktop/CMSC128Project/app/qr_code.jpg"
+            image_path = "static/imgs/icons/qr-code-payment-form.png"
             subject, content = email_template(query.first_name, queue_number, classification)
             background_runner.send_message_asynch(query.email, subject, content, None, [image_path])
         else:

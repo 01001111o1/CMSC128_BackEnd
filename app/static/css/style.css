@@ -83,7 +83,7 @@ input[type='number'] {
   width: 100%;
   height: 100%;
   background-color: #850038;
-  color: #FFF;
+  color: #fff;
   font-weight: 600;
   border-radius: 30px;
   text-align: center;
@@ -409,12 +409,7 @@ button[type='submit']:hover {
   width: 70%;
   padding: 40px;
   height: 100vh;
-  background: linear-gradient(
-      60deg,
-      rgba(254, 254, 254, 0.3),
-      rgba(133, 0, 56, 0.3)
-    ),
-    url('../imgs/bg/login-bg1.jpeg');
+  background-image: url('../imgs/bg/login-bg1.jpeg');
   background-size: cover;
   background-position-y: 80%;
   display: flex;
@@ -1086,10 +1081,9 @@ td {
 
 .wizard-form-error-msg {
   position: absolute;
-  top: -1.5em; 
+  top: -1.5em;
   color: red;
 }
-
 
 /*** upload requirements ***/
 .up-container {
@@ -1126,7 +1120,17 @@ td {
   color: #fff;
 }
 
-.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, .input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n + 3),
+.input-group:not(.has-validation)
+  > .form-floating:not(:last-child)
+  > .form-control,
+.input-group:not(.has-validation)
+  > .form-floating:not(:last-child)
+  > .form-select,
+.input-group:not(.has-validation)
+  > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(
+    .form-floating
+  ) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   width: 700px;
@@ -1153,4 +1157,3 @@ td {
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
 }
-

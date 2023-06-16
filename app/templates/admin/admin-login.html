@@ -1,74 +1,84 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-{% block main %}
-<section class="login-page">
-    <div class="login">
-        <div class="back-btn" id="back-btn-log">
-            <a><i class='bx bx-chevron-left'></i><span>Back</span></a>
-        </div>
-        <div class="login-uplogo">
-            <img class="up2go-login" src="{{ url_for('static', filename='imgs/logos/up2go-1.png') }}" alt="UP2GO">
-        </div>
-        <h2 class="login-title">ADMIN LOGIN</h2>
-        <p class="notice">Please login to access the system</p>
-        <form class="form-login" action="/login" method="POST">
-            <label for="email">Email</label>
-            <div class="input-email">
-                <i class='bx bxs-envelope icon'></i>
-                <input class="admin_email" type="email" name="email_login" placeholder="Enter your email"
-                    autocomplete="off" required>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<title>UP2GO: Admin Login</title>
+
+<body>
+
+    <section class="login-page">
+        <div class="login">
+            <div class="back-btn" id="back-btn-log">
+                <a><i class='bx bx-chevron-left'></i><span>Back</span></a>
             </div>
-            <label for="password">Password</label>
-            <div class="input-password">
-                <i class='bx bxs-lock icon'></i>
-                <input class="admin_password" type="password" name="password" placeholder="Enter your password"
-                    autocomplete="off" required>
+            <div class="login-uplogo">
+                <img class="up2go-login" src="{{ url_for('static', filename='imgs/logos/up2go-1.png') }}" alt="UP2GO">
             </div>
-            <div class="checkbox">
+            <h2 class="login-title">ADMIN LOGIN</h2>
+            <p class="notice">Please login to access the system</p>
+            <form class="form-login" action="/login" method="POST">
+                <label for="email">Email</label>
+                <div class="input-email">
+                    <i class='bx bxs-envelope icon'></i>
+                    <input class="admin_email" type="email" name="email_login" placeholder="Enter your email"
+                        autocomplete="off" required>
+                </div>
+                <label for="password">Password</label>
+                <div class="input-password">
+                    <i class='bx bxs-lock icon'></i>
+                    <input class="admin_password" type="password" name="password" placeholder="Enter your password"
+                        autocomplete="off" required>
+                </div>
+                <div class="checkbox">
+                </div>
+                <button type="submit"><i class="fas fa-door-open"></i> LOGIN</button>
+            </form>
+            <div class="login-uplogo">
+                <img src="{{ url_for('static', filename='imgs/logos/uplogo.png') }}" alt="UP Logo">
             </div>
-            <button type="submit"><i class="fas fa-door-open"></i> LOGIN</button>
-        </form>
-        <div class="login-uplogo">
-            <img src="{{ url_for('static', filename='imgs/logos/uplogo.png') }}" alt="UP Logo">
         </div>
-    </div>
-    <div class="background" id="bg-slide">
-        <div class="login-line-container">
-            <div class="login-line"></div>
+        <div class="background" id="bg-slide">
+            <div class="login-line-container">
+                <div class="login-line"></div>
+            </div>
+            <h1><span>Unlock seamless convenience with</span> UP2GO | <span> Empowering your paperless transactions for
+                    a
+                    streamlined future.</span></h1>
         </div>
-        <h1><span>Unlock seamless convenience with</span> UP2GO | <span> Empowering your paperless transactions for a streamlined future.</span></h1>
-    </div>
-</section>
+    </section>
+    <script>
+        var i = 0;
+        var images = [];
+        var slideTime = 3000; // 3 seconds
 
-<script>
-    var i = 0;
-    var images = [];
-    var slideTime = 3000; // 3 seconds
+        const bgSlide = document.getElementById('bg-slide');
 
-    const bgSlide = document.getElementById('bg-slide');
+        images[0] = '../static/imgs/bg/login-bg1.jpeg';
+        images[1] = '../static/imgs/bg/login-bg2.jpeg';
+        images[2] = '../static/imgs/bg/login-bg3.jpeg';
+        images[3] = '../static/imgs/bg/login-bg4.jpeg';
+        images[4] = '../static/imgs/bg/login-bg5.jpeg';
 
-    images[0] = '../static/imgs/bg/login-bg1.jpeg';
-    images[1] = '../static/imgs/bg/login-bg2.jpeg';
-    images[2] = '../static/imgs/bg/login-bg3.jpeg';
-    images[3] = '../static/imgs/bg/login-bg4.jpeg';
-    images[4] = '../static/imgs/bg/login-bg5.jpeg';
+        function changePicture() {
+            bgSlide.style.backgroundImage = "url('" + images[i] + "')";
 
-function changePicture() {
-    bgSlide.style.backgroundImage = "url('" + images[i] + "')";
+            if (i < images.length - 1) {
+                i++;
+            } else {
+                i = 0;
+            }
 
-    if (i < images.length - 1) {
-        i++;
-    } else {
-        i = 0;
-    }
+            setTimeout("changePicture()", slideTime);
+        }
 
-    setTimeout("changePicture()", slideTime);
-}
+        window.onload = changePicture; 
+    </script>
+</body>
 
-window.onload = changePicture; 
-</script>
 
-{% endblock %}
+</html>
