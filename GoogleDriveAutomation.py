@@ -21,21 +21,7 @@ Deleting folders is commented out since the extension to map google forms google
 """
 def retrieve_drive_data():
 
-    creds = None
-
-    if os.path.exists('token_drive.json'):
-        creds = Credentials.from_authorized_user_file('token_drive.json', SCOPES)
-
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port = 0)
-
-        with open('token_drive.json', 'w') as token:
-            token.write(creds.to_json())
+    creds = Credentials.from_authorized_user_file('token_drive.json', SCOPES)
 
     service = build('drive', 'v3', credentials = creds)
     

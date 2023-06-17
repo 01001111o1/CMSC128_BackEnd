@@ -106,11 +106,11 @@ def request_forms():
         session["year_level"] = year_level
         session["documents"] = "@".join(documents)
         session["price_map"] = price_map
+        session["count"] = count
         session.modified = True
 
         if count == 0:
             new_request()
-            session.clear()
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
 
@@ -188,6 +188,7 @@ def new_request():
 
     latest_request = Request.query.order_by(Request.queue_number.desc()).first()
     background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number, "invoice")
+    session.clear()
 
 """
 Route to display the page for uploading requirements.
@@ -208,6 +209,11 @@ in the server with a folder name corresponding to the name of the requester.
 def upload_image():
 
     if request.method == "POST":
+
+        if "True Copy of Grades" in session["documents"] and session["count"] == 1:
+            new_request()
+            return redirect(url_for("views.index"))
+
         if request.files:
 
             files = request.files.getlist("file")
@@ -233,8 +239,6 @@ def upload_image():
 
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
-
-        session.clear()
 
     return render_template("public/upload_image.html", user = current_user)
 
