@@ -161,3 +161,4 @@ cython_debug/
 
 table.html
 .vscode/settings.json
+instance/testing.db
