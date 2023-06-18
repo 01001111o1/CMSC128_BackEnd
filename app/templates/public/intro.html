@@ -15,7 +15,11 @@
     crossorigin="anonymous"></script>
 </head>
 <title>UP2GO: Home</title>
-
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% include 'public/templates/toasts.html' %}
+  {% endif %}
+  {% endwith %}
 <body>
   <div class="content">
     <nav class="start-page">
@@ -43,11 +47,6 @@
       <a href="/faqs" title="FAQs"><i class='bx bxs-message-alt-detail'></i></a>
       <a href="/admin/login" title="Login"><i class='bx bxs-user-circle'></i></i></a>
     </section>
-    {# {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %} #}
-    {% include "public/templates/toasts.html" %}
-    {# {% endif %}
-    {% endwith %} #}
   </div>
   <script>
     $(document).ready(function () {
@@ -55,7 +54,4 @@
     });
   </script>
 </body>
-
-
-
 </html>
