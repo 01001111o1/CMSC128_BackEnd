@@ -102,7 +102,7 @@ input[type='number'] {
   height: 50px;
   padding: 10px 5%;
   overflow: hidden;
-  margin: 0 0 90px 0;
+  margin: 0 0 70px 0;
   background-color: #850038;
 }
 
@@ -180,18 +180,13 @@ input[type='number'] {
 
 .arrow {
   text-align: center;
-  margin: 2% 0 1% 0;
-}
-
-.arrow .fa {
-  color: #0e6021;
-  font-weight: 200;
-  text-decoration: none;
+  margin: 1.5% 0 1% 0;
 }
 
 .arrow .bx {
-  color: #850038;
-  font-weight: 200;
+  color: #0e6021;
+  font-weight: 800;
+  font-size: 40px;
   text-decoration: none;
 }
 
