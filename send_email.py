@@ -1,13 +1,9 @@
 from __future__ import print_function
-
 import base64
-from email.message import EmailMessage
-
 import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials
-
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
@@ -15,9 +11,22 @@ from email.mime.application import MIMEApplication
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
-#NOTE: SENDER EMAIL IS THE ONE YOU USED TO CREATE THE PROJECT IN GOOGLE CLOUSPACE!!!!!
+"""
+send_message: function
 
-def send_message(receiver, subject, content, pdfs : list = None, images : list = None,  cc = None):
+parameters:
+
+    receiver: email address of the recipient
+    subject: email subject
+    content: email body
+    pdfs: list of pdfs that are sent to the receiver, the input should be the path of the pdf/s enclosed in brackets 
+    images: list of images that are sent to the receiver, the input should be the path of the image/s enclosed in brackets
+
+returns: the message
+
+"""
+
+def send_message(receiver, subject, content, pdfs : list = None, images : list = None, cc = None):
 
     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     try:
@@ -35,7 +44,7 @@ def send_message(receiver, subject, content, pdfs : list = None, images : list =
             for image in images:
                 with open(image, 'rb') as content_image:
                     img = MIMEImage(content_image.read())
-                    img.add_header('Content-Disposition', 'attachment', filename = "invoice.jpg")
+                    img.add_header('Content-Disposition', 'attachment', filename = "qr.png")
                     message.attach(img)
 
         if pdfs: 
@@ -49,10 +58,11 @@ def send_message(receiver, subject, content, pdfs : list = None, images : list =
             'raw': base64.urlsafe_b64encode(bytes(message.as_string(), "utf-8")).decode("utf-8")
         }
 
-        send_message = service.users().messages().send(userId="me", body = create_message).execute()
-    except HttpError as error:
-        print(F'An error occurred: {error}')
-        send_message = None
-    return send_message
+        send_message = service.users().messages().send(userId = "me", body = create_message).execute()
 
+    except HttpError as error:
+    
+        send_message = None
+    
+    return send_message
 
