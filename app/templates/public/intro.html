@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-  <link rel="icon" type="image/x-icon" href="/static/up_logo_favicon.png">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='imgs/icons/up_logo_favicon.png') }}" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
@@ -15,11 +14,12 @@
     crossorigin="anonymous"></script>
 </head>
 <title>UP2GO: Home</title>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-  {% include 'public/templates/toasts.html' %}
-  {% endif %}
-  {% endwith %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% include 'public/templates/toasts.html' %}
+{% endif %}
+{% endwith %}
+
 <body>
   <div class="content">
     <nav class="start-page">
@@ -45,7 +45,11 @@
       <a href="/about_us" title="About Us"><i class='bx bxs-info-circle'></i></i></a>
       <a href="/contact_us" title="Contact Us"><i class='bx bxs-phone'></i></a>
       <a href="/faqs" title="FAQs"><i class='bx bxs-message-alt-detail'></i></a>
+      {% if user.is_authenticated %}
+      <a href="/admin/dashboard/default" title="Login"><i class='bx bxs-user-circle'></i></i></a>
+      {% else %}
       <a href="/admin/login" title="Login"><i class='bx bxs-user-circle'></i></i></a>
+      {% endif %}
     </section>
   </div>
   <script>
@@ -54,4 +58,5 @@
     });
   </script>
 </body>
+
 </html>

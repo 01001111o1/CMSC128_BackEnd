@@ -109,8 +109,20 @@ def request_forms():
         session["count"] = count
         session.modified = True
 
+        folder_name = " ".join([name.upper() for name in session["name"]])
+        new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
+        session["path"] = new_directory
+
+        check_email = Request.query.filter_by(email = session["email"]).first()
+        check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
+
+        if check_email or check_student_number:
+            flash("You currently have a request in progress", "error")
+            return redirect(url_for("views.index"))
+
         if count == 0:
             new_request()
+            session.clear()
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
 
@@ -152,23 +164,11 @@ To follow: implementation for duplicate requests where we may opt to merge the r
 
 def new_request():
 
-    check_email = Request.query.filter_by(email = session["email"]).first()
-    check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
-
     if "True Copy of Grades" in session["documents"]:
         session["remarks"].append("Preferred TCG Format: " + request.form.get("preferred_format"))
 
-    if check_email or check_student_number:
-        flash("You currently have a request in progress") #Maybe handle duplicate entries
-        return redirect(url_for("views.request_forms"))
-
-    folder_name = " ".join([name.upper() for name in session["name"]])
-
-    new_directory = app.config["FILE_UPLOADS"] + "/" + folder_name
-    session["path"] = str(new_directory)
-
-    if not os.path.isdir(new_directory):
-        os.mkdir(new_directory)
+    if not os.path.isdir(session["path"]):
+        os.mkdir(session["path"])
 
     new_request = Request(
             last_name = session["name"][2],
@@ -188,7 +188,6 @@ def new_request():
 
     latest_request = Request.query.order_by(Request.queue_number.desc()).first()
     background_runner.send_invoice_or_receipt_asynch(latest_request.queue_number, "invoice")
-    session.clear()
 
 """
 Route to display the page for uploading requirements.
@@ -212,6 +211,7 @@ def upload_image():
 
         if "True Copy of Grades" in session["documents"] and session["count"] == 1:
             new_request()
+            flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
 
         if request.files:
@@ -237,6 +237,7 @@ def upload_image():
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(session["path"], filename))
 
+            session.clear()
             flash("Successfully posted a request", "success")
             return redirect(url_for("views.index"))
 

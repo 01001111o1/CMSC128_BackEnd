@@ -10,7 +10,6 @@ from app import background_runner
 from sqlalchemy.orm.exc import NoResultFound
 from datetime import datetime
 import pytz
-from app import email_template
 from GoogleDriveAutomation import retrieve_drive_data
 """
 

@@ -104,7 +104,7 @@ def update(queue_number, classification):
 
     try:
         if classification == "documents_approved":
-            background_runner.send_message_asynch(query.email, subject, content, None, [app.config["QR_CODE_PATH"]])
+            background_runner.send_message_asynch(query.email, "Requirements Verified: QR Code for Proof of Payment", content, None, [app.config["QR_CODE_PATH"]])
         else:
             background_runner.send_message_asynch(query.email, subject, content)
 
