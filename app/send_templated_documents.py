@@ -5,7 +5,7 @@ from docxtpl import DocxTemplate
 from docx2pdf import convert
 import ast 
 from send_email import send_message
-import pythoncom
+# import pythoncom
 import shutil
 import os
 import os.path
@@ -57,12 +57,12 @@ def send_invoice_or_receipt(queue_number, classification):
     docxpath = folder_path + "/" + query.last_name + ".docx"
     pdfpath = folder_path + "/" + query.last_name + ".pdf"
     doc.save(docxpath)
-    pythoncom.CoInitialize()
+    # pythoncom.CoInitialize()
     convert(docxpath, pdfpath)
 
     send_message(query.email, 
                 f'{classification} for order number {query.queue_number}', 
-                f"Good Day, Here is your {classification} for order number {query.queue_number}", 
+                f"Good Day, Here is your {classification} for request number {query.queue_number}", 
                 [pdfpath])
 
     shutil.rmtree(folder_path, ignore_errors = False)
