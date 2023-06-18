@@ -116,6 +116,7 @@ input[type='number'] {
   color: #fff;
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
+  font-size: x-large;
   letter-spacing: 8px;
   text-align: center;
   margin-left: 8%;
@@ -248,6 +249,7 @@ input[type='number'] {
   align-items: center;
   border: 0;
   font-weight: 800;
+  text-decoration: none;
   font-size: 20px;
   text-align: center;
   border: 1px solid #0e6021;
