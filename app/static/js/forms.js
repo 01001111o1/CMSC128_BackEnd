@@ -58,8 +58,6 @@ jQuery(document).ready(function () {
 
     if (forms_section) {
       if (orderDetails.size === 0) {
-        console.log(orderDetails.size);
-        console.log('error');
         parentFieldset
           .find('.quiz-form-error-msg')
           .text('Please select at least 1 form.');
