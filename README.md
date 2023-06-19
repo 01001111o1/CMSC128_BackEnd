@@ -8,25 +8,25 @@ hline
 
 Clone the project
 
-```bash
+```shell
   git clone https://github.com/01001111o1/CMSC128_BackEnd.git
 ```
 
 Go to the project directory
 
-```bash
+```shell
   cd CMSC128_BackEnd
 ```
 
 Install dependencies
 
-```bash
+```shell
   pip install -r requirements.txt
 ```
 
 Start the server
 
-```bash
+```shell
   python run.py
 ```
 
