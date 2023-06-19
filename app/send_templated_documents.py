@@ -63,7 +63,7 @@ def send_invoice_or_receipt(queue_number, classification):
     send_message(query.email, 
                 f'{classification} for request number {query.queue_number}', 
                 f"Good Day, Here is your {classification} for request number {query.queue_number}", 
-                [pdfpath])
+                [pdfpath], classification = classification)
 
     shutil.rmtree(folder_path, ignore_errors = False)
 

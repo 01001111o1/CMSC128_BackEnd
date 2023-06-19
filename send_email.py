@@ -26,7 +26,7 @@ returns: the message
 
 """
 
-def send_message(receiver, subject, content, pdfs : list = None, images : list = None, cc = None):
+def send_message(receiver, subject, content, pdfs : list = None, images : list = None, cc = None, classification = None):
 
     creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     try:
@@ -51,7 +51,7 @@ def send_message(receiver, subject, content, pdfs : list = None, images : list =
             for pdf in pdfs: 
                 with open(pdf, 'rb') as content_file:
                     file = MIMEApplication(content_file.read())
-                    file.add_header('Content-Disposition', 'attachment', filename = "invoice.pdf")
+                    file.add_header('Content-Disposition', 'attachment', filename = "receipt.pdf" if (classification == "receipt") else "invoice.pdf")
                     message.attach(file)
 
         create_message = {
