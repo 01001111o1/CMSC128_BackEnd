@@ -135,9 +135,8 @@ def delete_entry(queue_number):
         background_runner.send_invoice_or_receipt_asynch(queue_number, "receipt")
 
         remove_entry(queue_number)
+        return redirect(session["url"]) 
 
-        flash("Transaction successfully deleted", "success")
-        return redirect(session["url"])
     except:
         flash("Error deleting transaction", "error")
         return redirect(session["url"])
@@ -164,3 +163,4 @@ def remove_entry(queue_number):
         
     db.session.delete(query)
     db.session.commit()
+    flash("Transaction successfully deleted", "success")   

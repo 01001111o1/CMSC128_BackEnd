@@ -89,7 +89,7 @@ def request_forms():
           return redirect(request.url)
 
         if len(documents) == 0:
-            flash("Select at least one requirement", "error")
+            flash("Please select at least 1 form", "error")
             return redirect(request.url)
 
         session["remarks"] = [purpose]
@@ -117,9 +117,9 @@ def request_forms():
         check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
 
         if check_email or check_student_number:
-            flash("You currently have a request in progress", "error")
+            flash("You currently have a request in progress. Either student number or email address already exists.", "error")
             return redirect(url_for("views.index"))
-
+        
         if count == 0:
             new_request()
             session.clear()

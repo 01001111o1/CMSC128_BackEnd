@@ -245,6 +245,74 @@ jQuery(document).ready(function () {
         jQuery(this).parent().addClass('focus-input');
         jQuery(this).siblings('.wizard-form-error').slideUp('3000');
       }
+    })
+    .on('keydown', function (objEvent) {
+      if (objEvent.keyCode == 13) {
+        objEvent.preventDefault();
+        var parentFieldset = jQuery(this).parents('.wizard-fieldset');
+        var currentActiveStep = jQuery(this)
+          .parents('.form-wizard')
+          .find('.form-wizard-steps .active');
+        var next = jQuery(this);
+        var nextWizardStep = true;
+        parentFieldset.find('.wizard-required').each(function () {
+          var thisValue = jQuery(this).val();
+          var idName = jQuery(this).attr('id');
+          if (idName == 'snum') {
+            jQuery('#' + idName).val().length !== 9
+              ? (nextWizardStep = false)
+              : '';
+          } else if (idName == 'email') {
+            !validateEmail(
+              jQuery('#' + idName)
+                .val()
+                .trim()
+            )
+              ? (nextWizardStep = false)
+              : '';
+          }
+          if (thisValue == '' || thisValue == null) {
+            jQuery(this).siblings('.wizard-form-error').slideDown('300');
+            nextWizardStep = false;
+          } else {
+            jQuery(this).siblings('.wizard-form-error').slideUp('300');
+          }
+        });
+        if (nextWizardStep) {
+          next.parents('.wizard-fieldset').removeClass('show', '400');
+          currentActiveStep
+            .removeClass('active')
+            .addClass('activated')
+            .next()
+            .addClass('active', '400');
+          next
+            .parents('.wizard-fieldset')
+            .next('.wizard-fieldset')
+            .addClass('show', '400');
+          jQuery(document)
+            .find('.wizard-fieldset')
+            .each(function () {
+              if (jQuery(this).hasClass('show')) {
+                var formAtrr = jQuery(this).attr('data-tab-content');
+                jQuery(document)
+                  .find('.form-wizard-steps .form-wizard-step-item')
+                  .each(function () {
+                    if (jQuery(this).attr('data-attr') == formAtrr) {
+                      jQuery(this).addClass('active');
+                      var innerWidth = jQuery(this).innerWidth();
+                      var position = jQuery(this).position();
+                      jQuery(document)
+                        .find('.form-wizard-step-move')
+                        .css({ left: position.left, width: innerWidth });
+                    } else {
+                      jQuery(this).removeClass('active');
+                    }
+                  });
+              }
+            });
+        }
+        return false;
+      }
     });
   // checks if scholarship is on or off
   jQuery('.scholarship-checkbox').click(function () {
