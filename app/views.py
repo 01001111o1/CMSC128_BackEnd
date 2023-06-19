@@ -8,14 +8,13 @@ File contains the routes that are accessible from the user (non-admin side)
 
 from app import app
 from .Lists import Documents1, Documents2, Requirements, Base_Prices, scholarship_discounted_documents, YearLevel_Map
-from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint, escape
+from flask import render_template, request, redirect, url_for, session, flash, Blueprint
 import os
 import os.path
-import io 
 from werkzeug.utils import secure_filename
-from email_validator import validate_email, EmailNotValidError
+from email_validator import validate_email
 from . import db
-from .models import Request, Admin
+from .models import Request
 from flask_login import current_user
 from .functions import allowed_file, allowed_file_size, isInvalid
 from .background_runner import background_runner

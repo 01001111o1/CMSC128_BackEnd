@@ -236,6 +236,14 @@ body {
   color: #850038;
   font-size: 12px;
 }
+.form-wizard .quiz-form-error-msg {
+  color: #850038;
+  font-size: 12px;
+}
+.form-wizard .payment-form-error-msg {
+  color: #850038;
+  font-size: 12px;
+}
 .form-wizard .form-wizard-previous-btn {
   background-color: #850038;
 }
@@ -521,7 +529,7 @@ body {
 .summary-container {
   color: black;
   overflow-y: auto;
-  height: 40%;
+  height: 490px;
 }
 .summary-container table {
   font-size: smaller;

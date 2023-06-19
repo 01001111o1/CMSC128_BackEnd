@@ -7,22 +7,12 @@ Processes are explained in each of their synchronous counterparts.
 
 """
 
-from app import app, executor
-from .models import Request
-from datetime import date
-from docxtpl import DocxTemplate
-from docx2pdf import convert
-import ast 
+from app import executor
 from send_email import send_message
 from GoogleDriveAutomation import retrieve_drive_data
 from payment_processing import payment_received
 from .send_templated_documents import send_invoice_or_receipt
-import pythoncom
-from flask_executor import Executor
 import uuid
-import shutil
-import os
-from flask import session
 
 class BackgroundRunner: 
     def __init__(self, executor):

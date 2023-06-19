@@ -1,6 +1,5 @@
 from __future__ import print_function
 import base64
-import google.auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2.credentials import Credentials

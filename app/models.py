@@ -1,11 +1,7 @@
 from . import db
 from datetime import datetime
 import pytz
-
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
 from flask_login import UserMixin 
-
 from app import login
 
 class Request(db.Model):

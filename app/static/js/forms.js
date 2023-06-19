@@ -1,6 +1,4 @@
-let summaryDetails = { scholarship_toggle: false };
 let orderDetails = new Map();
-var summaryToggle = true;
 const YearLevel = {
   1: 'First Year',
   2: 'Second Year',
@@ -21,7 +19,7 @@ jQuery(document).ready(function () {
     } else if (selectedPayment === 'cash_paymode') {
       imageToShow = 'static/imgs/icons/payment2.png'; // Image for Cash Payment
     }
-    jQuery(this).find('.wizard-form-error-msg').text('');
+    jQuery(this).find('.payment-form-error-msg').text('');
     // Update the image container with the new image
     jQuery('#img_source').removeAttr('hidden');
     jQuery('#img_source').attr('src', imageToShow);
@@ -60,12 +58,14 @@ jQuery(document).ready(function () {
 
     if (forms_section) {
       if (orderDetails.size === 0) {
+        console.log(orderDetails.size);
+        console.log('error');
         parentFieldset
-          .find('.wizard-form-error-msg')
+          .find('.quiz-form-error-msg')
           .text('Please select at least 1 form.');
         nextWizardStep = false;
       } else {
-        parentFieldset.find('.wizard-form-error-msg').text('');
+        parentFieldset.find('.quiz-form-error-msg').text('');
       }
     }
 
@@ -78,63 +78,12 @@ jQuery(document).ready(function () {
     if (payment_section) {
       if (!atLeastOneIsChecked) {
         parentFieldset
-          .find('.wizard-form-error-msg')
+          .find('.payment-form-error-msg')
           .text('Please select your preferred payment method.');
         nextWizardStep = false;
       } else {
-        parentFieldset.find('.wizard-form-error-msg').text('');
+        parentFieldset.find('.payment-form-error-msg').text('');
       }
-    }
-
-    var summary_section =
-      next
-        .parents('.wizard-fieldset')
-        .next('.wizard-fieldset')
-        .find('.summary-container').length !== 0;
-
-    if (summary_section && summaryToggle) {
-      summaryToggle = false;
-      orderDetails.forEach((key, value) => {
-        jQuery('.order-details').append(
-          `<tr><td>1x ${value}</td><th class="align-right" scope="row">Php ${key}.00</th><tr/>`
-        );
-        console.log(key, ':', value);
-      });
-      Object.keys(summaryDetails).forEach(function (key) {
-        switch (key) {
-          case 'scholarship_toggle':
-            jQuery('.scholarship-detail').text(
-              summaryDetails[key] ? 'Yes' : 'No'
-            );
-            break;
-          case 'fname':
-            jQuery('.username-detail').text(summaryDetails[key].trim() + ' ');
-            break;
-          case 'mname':
-            jQuery('.username-detail').append(summaryDetails[key].trim() + ' ');
-            break;
-          case 'lname':
-            jQuery('.username-detail').append(summaryDetails[key].trim());
-            break;
-          case 'snum':
-            jQuery('.snum-detail').text(summaryDetails[key]);
-            break;
-          case 'email':
-            jQuery('.email-detail').text(summaryDetails[key].trim());
-            break;
-          case 'YearLevel':
-            jQuery('.ylevel-detail').text(YearLevel[summaryDetails[key]]);
-            break;
-          case 'purpose':
-            jQuery('.purpose-detail').text(summaryDetails[key].trim());
-            break;
-          case 'payment_method':
-            jQuery('.payment-details').text(summaryDetails[key]);
-            break;
-          default:
-            break;
-        }
-      });
     }
 
     if (nextWizardStep) {
@@ -237,13 +186,38 @@ jQuery(document).ready(function () {
     })
     .on('blur', function () {
       var tmpThis = jQuery(this).val();
-      summaryDetails[jQuery(this).attr('id')] = tmpThis;
+      var key = jQuery(this).attr('id');
       if (tmpThis == '' || tmpThis == null) {
         jQuery(this).parent().removeClass('focus-input');
         jQuery(this).siblings('.wizard-form-error').slideDown('3000');
       } else if (tmpThis != '') {
         jQuery(this).parent().addClass('focus-input');
         jQuery(this).siblings('.wizard-form-error').slideUp('3000');
+      }
+      switch (key) {
+        case 'fname':
+          jQuery('.username-detail-1').text(tmpThis.trim() + ' ');
+          break;
+        case 'mname':
+          jQuery('.username-detail-2').text(tmpThis.trim() + ' ');
+          break;
+        case 'lname':
+          jQuery('.username-detail-3').text(tmpThis.trim());
+          break;
+        case 'snum':
+          jQuery('.snum-detail').text(tmpThis);
+          break;
+        case 'email':
+          jQuery('.email-detail').text(tmpThis.trim());
+          break;
+        case 'YearLevel':
+          jQuery('.ylevel-detail').text(YearLevel[tmpThis]);
+          break;
+        case 'purpose':
+          jQuery('.purpose-detail').text(tmpThis.trim());
+          break;
+        default:
+          break;
       }
     })
     .on('keydown', function (objEvent) {
@@ -315,29 +289,34 @@ jQuery(document).ready(function () {
       }
     });
   // checks if scholarship is on or off
-  jQuery('.scholarship-checkbox').click(function () {
+  jQuery('.scholarship-detail').text('No');
+  jQuery('.scholarship-checkbox').on('click', function () {
     var tmpThis = jQuery('#scholarship_toggle').is(':checked');
-    summaryDetails[jQuery(this).attr('id')] = tmpThis;
+    jQuery('.scholarship-detail').text(tmpThis ? 'Yes' : 'No');
   });
   // checks the payment method
-  jQuery('.payment-radio').click(function () {
+  jQuery('.payment-radio').on('click', function () {
     var tmpThis = jQuery(this).val();
-    summaryDetails[jQuery(this).attr('name')] = tmpThis;
-    jQuery('.wizard-form-error-msg').text('');
+    jQuery('.payment-details').text(tmpThis);
+    jQuery('.payment-form-error-msg').text('');
   });
   // checks if there's at least 1 selected form
-  jQuery('.quiz_checkbox').click(function () {
+  jQuery('.quiz_checkbox').on('click', function () {
+    var val = jQuery(this).val();
+    var price = jQuery(this).attr('data-price');
     if (jQuery(this).prop('checked')) {
-      orderDetails.set(jQuery(this).val(), jQuery(this).attr('data-price'));
-      console.log(orderDetails);
+      orderDetails.set(val, price);
+      jQuery('.order-details').append(
+        `<tr id=summary-row-${val}><td>1x ${val}</td><th class="align-right" scope="row">Php ${price}.00</th><tr/>`
+      );
     } else {
       orderDetails.delete(jQuery(this).val());
-      console.log(orderDetails);
+      jQuery('#summary-row-' + val.split(' ')[0]).remove();
     }
     if (orderDetails.size == 0) {
-      jQuery('.wizard-form-error-msg').text('Please select at least 1 form.');
+      jQuery('.quiz-form-error-msg').text('Please select at least 1 form.');
     } else {
-      jQuery('.wizard-form-error-msg').text('');
+      jQuery('.quiz-form-error-msg').text('');
     }
   });
 });
@@ -368,12 +347,6 @@ function maxLengthCheck(object) {
     object.classList.remove('error');
     formLabel.style.display = object.value ? 'none' : 'block';
     errorElement.innerText = 'Student Number Ex: 2020*****';
-  }
-
-  if (!object.value) {
-    object.classList.remove('error');
-    formLabel.style.display = 'block';
-    errorElement.innerText = '';
   }
 }
 

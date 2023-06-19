@@ -6,26 +6,18 @@ File contains the routes that are accessible from the admin side (login required
 
 """
 
-from flask import render_template, request, redirect, jsonify, make_response, url_for, session, flash, Blueprint, jsonify
+from flask import render_template, request, redirect, session, flash, Blueprint
 from flask_login import login_required, current_user
 from . import db
-from app import app, executor, scheduler
+from app import app
 from .models import Request
 from .email_template import email_template
 import shutil
-import time
-from datetime import date
-import ast 
-from send_email import send_message
 from .Lists import Documents
-import pythoncom
 from .background_runner import background_runner
-from flask_paginate import Pagination
 from werkzeug.test import create_environ
 from werkzeug.urls import iri_to_uri
 from werkzeug.wsgi import get_current_url
-from sqlalchemy.orm.exc import NoResultFound
-from payment_processing import payment_received
 from datetime import datetime
 import pytz
 import os.path

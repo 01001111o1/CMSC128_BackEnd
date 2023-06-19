@@ -1,12 +1,8 @@
-from flask import request, session, redirect
+from flask import session, redirect
 from app import db
-from app import app, executor
 from app import models
 from app import email_template
-import time
-from datetime import date
 from send_email import send_message
-from app import background_runner
 from sqlalchemy.orm.exc import NoResultFound
 from datetime import datetime
 import pytz
