@@ -165,6 +165,3 @@ def remove_entry(queue_number):
     db.session.delete(query)
     db.session.commit()
     flash("Entry successfully deleted", "success")
-    return redirect(session["url"])
-
-
