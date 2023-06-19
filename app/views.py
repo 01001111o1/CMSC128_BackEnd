@@ -117,9 +117,9 @@ def request_forms():
         check_student_number = Request.query.filter_by(student_number = session["student_number"]).first()
 
         if check_email or check_student_number:
-            flash("You currently have a request in progress", "error")
+            flash("You currently have a request in progress. Either student number or email address already exists.", "error")
             return redirect(url_for("views.index"))
-
+        
         if count == 0:
             new_request()
             session.clear()
