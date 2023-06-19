@@ -521,7 +521,7 @@ body {
 .summary-container {
   color: black;
   overflow-y: auto;
-  height: 55%;
+  height: 40%;
 }
 .summary-container table {
   font-size: smaller;
