@@ -19,6 +19,29 @@ Go to the project directory
   cd CMSC128_BackEnd
 ```
 
+Create virtual environment
+
+```bash
+  python -m venv venv
+```
+
+Activate virtual environment
+
+> For Linux and MacOS 
+> ```bash
+>  source venv/bin/activate
+> ```
+
+> For Windows 
+> <sub><sup>In cmd.exe</sup></sub>
+> ```bash
+>  venv\Scripts\activate.bat
+> ```
+> <sub><sup>In PowerShell</sup></sub>
+> ```bash
+>  venv\Scripts\Activate.ps1
+> ```
+
 Install dependencies
 
 ```bash
