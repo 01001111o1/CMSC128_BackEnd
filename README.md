@@ -32,12 +32,13 @@ Activate virtual environment
 >  source venv/bin/activate
 > ```
 
-> For Windows 
-> <sub><sup>In cmd.exe</sup></sub>
+> For Windows
+> 
+> <sub>In cmd.exe</sub>
 > ```bash
 >  venv\Scripts\activate.bat
 > ```
-> <sub><sup>In PowerShell</sup></sub>
+> <sub>In PowerShell</sub>
 > ```bash
 >  venv\Scripts\Activate.ps1
 > ```
